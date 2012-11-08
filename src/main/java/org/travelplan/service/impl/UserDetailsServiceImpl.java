@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.travelplan.dao.UserDAO;
-import org.travelplan.entity.Users;
+import org.travelplan.entity.User;
 import org.travelplan.service.Assembler;
 
 @Service("userDetailsService") 
@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)
         throws UsernameNotFoundException, DataAccessException {
 
-    	Users user = userDAO.findByName(username);
+    	User user = userDAO.findByName(username);
       if (user == null)
         throw new UsernameNotFoundException("user not found");
 

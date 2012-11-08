@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.travelplan.entity.Users;
+import org.travelplan.entity.User;
 import org.travelplan.dao.UserDAO;
 import org.travelplan.service.UserService;
  
@@ -15,12 +15,12 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
  
     @Transactional
-    public void addUser(Users user) {
+    public void addUser(User user) {
         userDAO.addUser(user);
     }
  
     @Transactional
-    public List<Users> listUser() {
+    public List<User> listUser() {
  
         return userDAO.listUser();
     }

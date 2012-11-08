@@ -1,11 +1,11 @@
 package org.travelplan.service;
 
 import java.util.List;
-import org.travelplan.entity.Users;
+import org.travelplan.entity.User;
 
 public interface UserService {
-	public void addUser(Users user);
-    public List<Users> listUser();
+	public void addUser(User user);
+    public List<User> listUser();
     public void removeUser(Integer id);
 }
 

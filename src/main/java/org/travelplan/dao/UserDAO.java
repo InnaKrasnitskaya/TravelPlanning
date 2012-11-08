@@ -1,11 +1,11 @@
 package org.travelplan.dao;
 
 import java.util.List;
-import org.travelplan.entity.Users;
+import org.travelplan.entity.User;
 
 public interface UserDAO {
-	public void addUser(Users user);
-    public List<Users> listUser();
+	public void addUser(User user);
+    public List<User> listUser();
     public void removeUser(Integer id);
-    public Users findByName(String name);
+    public User findByName(String name);
 }

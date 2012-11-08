@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class Assembler {
 
   @Transactional(readOnly = true)
-  public User buildUserFromUserEntity(org.travelplan.entity.Users user) {
+  public User buildUserFromUserEntity(org.travelplan.entity.User user) {
 
     String name = user.getName();
     String password = user.getPassword();
