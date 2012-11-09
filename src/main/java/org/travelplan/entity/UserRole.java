@@ -24,11 +24,11 @@ public class UserRole {
     private Integer idRole;	   */ 
     
     @ManyToOne
-	@JoinColumn(name="IdUser")
+	@JoinColumn(name="\"IdUser\"")
 	private User user;    
     
     @ManyToOne
-	@JoinColumn(name="IdRole")
+	@JoinColumn(name="\"IdRole\"")
 	private Role role;     
     
     public UserRole() {}     

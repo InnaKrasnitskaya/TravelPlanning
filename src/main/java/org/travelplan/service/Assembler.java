@@ -2,30 +2,32 @@ package org.travelplan.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.travelplan.entity.UserRole;
 
 @Service("assembler")
 public class Assembler {
 
   @Transactional(readOnly = true)
-  public User buildUserFromUserEntity(org.travelplan.entity.User user) {
+  public User buildUserFromUserEntity(List<UserRole> userRoleList) {
 
-    String name = user.getName();
-    String password = user.getPassword();
+    String name = userRoleList.get(0).getUser().getName();
+    String password = userRoleList.get(0).getUser().getPassword();
     boolean enabled = true; //user.isActive()
     boolean accountNonExpired = true; //user.isActive()
     boolean credentialsNonExpired = true; //user.isActive()
     boolean accountNonLocked = true; //user.isActive()
 
     Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-//    for (SecurityRoleEntity role : user.getRoles()) {
-      //authorities.add(new GrantedAuthorityImpl(role.getRoleName()));
-    authorities.add(new GrantedAuthorityImpl("ROLE_USER"));
+    for (UserRole userRole : userRoleList)
+      authorities.add(new GrantedAuthorityImpl(userRole.getRole().getName()));
+    //authorities.add(new GrantedAuthorityImpl("ROLE_USER"));
     
 
     User userDetails = new User(name, password, enabled,

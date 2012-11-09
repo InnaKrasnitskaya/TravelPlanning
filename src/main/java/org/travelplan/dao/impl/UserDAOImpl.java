@@ -21,7 +21,6 @@ public class UserDAOImpl implements UserDAO {
 
     @SuppressWarnings("unchecked")
     public List<User> listUser() {
-
         return sessionFactory.getCurrentSession().createQuery("SELECT " +
           "u FROM User u").list();
     }
