@@ -30,7 +30,6 @@ public class UserDAOImpl implements UserDAO {
         if (null != user) {
           sessionFactory.getCurrentSession().delete(user);
         }
-
     }
     
     public User findByName(String name) {

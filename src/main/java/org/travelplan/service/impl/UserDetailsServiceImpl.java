@@ -9,11 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException; 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.travelplan.dao.RoleDAO;
-import org.travelplan.dao.UserDAO;
 import org.travelplan.dao.UserRoleDAO;
-import org.travelplan.entity.User;
-import org.travelplan.entity.Role;
 import org.travelplan.entity.UserRole;
 import org.travelplan.service.Assembler;
 

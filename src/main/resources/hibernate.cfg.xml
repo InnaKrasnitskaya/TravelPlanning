@@ -9,5 +9,6 @@
         <mapping class="org.travelplan.entity.User" />
         <mapping class="org.travelplan.entity.Role" />
         <mapping class="org.travelplan.entity.UserRole" />
+        <mapping class="org.travelplan.entity.Profile" />
     </session-factory>	    
 </hibernate-configuration>

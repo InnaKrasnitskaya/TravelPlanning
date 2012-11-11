@@ -19,16 +19,14 @@ public class Assembler {
 
     String name = userRoleList.get(0).getUser().getName();
     String password = userRoleList.get(0).getUser().getPassword();
-    boolean enabled = true; //user.isActive()
-    boolean accountNonExpired = true; //user.isActive()
-    boolean credentialsNonExpired = true; //user.isActive()
-    boolean accountNonLocked = true; //user.isActive()
+    boolean enabled = true;
+    boolean accountNonExpired = true;
+    boolean credentialsNonExpired = true;
+    boolean accountNonLocked = true;
 
     Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
     for (UserRole userRole : userRoleList)
       authorities.add(new GrantedAuthorityImpl(userRole.getRole().getName()));
-    //authorities.add(new GrantedAuthorityImpl("ROLE_USER"));
-    
 
     User userDetails = new User(name, password, enabled,
       accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);

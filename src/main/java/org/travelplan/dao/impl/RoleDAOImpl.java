@@ -21,5 +21,4 @@ public class RoleDAOImpl implements RoleDAO {
         return sessionFactory.getCurrentSession().createQuery("SELECT " +
                 "r FROM Role r").list();		
 	}
-
 }

@@ -20,8 +20,7 @@ public class UserServiceImpl implements UserService {
     }
  
     @Transactional
-    public List<User> listUser() {
- 
+    public List<User> listUser() { 
         return userDAO.listUser();
     }
  
