@@ -63,7 +63,20 @@
 	    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
-	 
+	 	
+	<!-- Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>		
+	</filter-mapping>	
+  	
 	<!-- Map these files with JSF -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -74,18 +87,7 @@
 	    <servlet-name>Faces Servlet</servlet-name>
 	    <url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>	
-	
-	<!-- Spring Security -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>	
-  	
+	  	
  <!--	<welcome-file-list>
         <welcome-file>LoginPage.jsp</welcome-file>
     </welcome-file-list> -->

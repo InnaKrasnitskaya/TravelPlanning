@@ -17,9 +17,9 @@ public class SecurityController {
 		return model;
 	}*/
 	
-	@RequestMapping(value = "/profile.xhtml", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ModelAndView printWelcome() {
-		ModelAndView model = new ModelAndView("profile.xhtml");
+		ModelAndView model = new ModelAndView("profile");
 		return model;
 	}
 	

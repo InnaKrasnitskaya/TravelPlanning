@@ -16,9 +16,9 @@
 	</http>	
  -->	
 	<http auto-config="true">
-	    <intercept-url pattern="/profile.xhtml*" access="ROLE_USER" />
-		<form-login login-page="/login" default-target-url="/profile.xhtml"
-     		authentication-failure-url="/loginFailed" />  
+	    <intercept-url pattern="/profile*" access="ROLE_USER"/>
+		<form-login login-page="/login" default-target-url="/profile"
+     		authentication-failure-url="/loginFailed"/>  
      	<logout logout-success-url="/logout" /> 
 	</http>		
 	

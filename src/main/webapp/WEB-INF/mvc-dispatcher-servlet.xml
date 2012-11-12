@@ -17,13 +17,14 @@
             http://www.springframework.org/schema/faces/spring-faces-2.0.xsd
             http://www.springframework.org/schema/webflow-config
             http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd">		
-       
+    
+    <!--   
 	<bean id="viewResolver"
     	class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
         <property name="prefix"> <value>/WEB-INF/pages/</value> </property>
         <property name="suffix"> <value>.jsp</value></property>
     </bean>   
-
+	-->  
     
 <!-- Maps logical view names to Facelet templates in /WEB-INF (e.g. 'search' to '/WEB-INF/search.xhtml' -->
 	<bean id="faceletsViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
