@@ -8,17 +8,23 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<http auto-config="true">
+<!-- <http auto-config="true">
 	    <intercept-url pattern="/loginPage*" access="ROLE_USER" />
 		<form-login login-page="/login" default-target-url="/loginPage"
      		authentication-failure-url="/loginFailed" />  
      	<logout logout-success-url="/logout" /> 
 	</http>	
+ -->	
+	<http auto-config="true">
+	    <intercept-url pattern="/profile.xhtml*" access="ROLE_USER" />
+		<form-login login-page="/login" default-target-url="/profile.xhtml"
+     		authentication-failure-url="/loginFailed" />  
+     	<logout logout-success-url="/logout" /> 
+	</http>		
 	
  	<beans:bean id="userDetailsService" 
  	  class="org.travelplan.service.impl.UserDetailsServiceImpl" /> 	
-	
-	
+		
 	<beans:bean id="daoAuthenticationProvider"
 	 class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 	  <beans:property name="userDetailsService" ref="userDetailsService"/>

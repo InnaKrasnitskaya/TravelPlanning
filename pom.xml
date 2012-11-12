@@ -158,7 +158,32 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     		<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
 			<version>2.2</version>
-    	</dependency>		
+    	</dependency>	
+    	
+    	<!-- JSF -->
+    	<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.1.13</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.1.13</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+		</dependency>	
+		
+		<dependency>
+        	<groupId>org.springframework.webflow</groupId>
+        	<artifactId>org.springframework.faces</artifactId>
+        	<version>2.0.0.RELEASE</version>
+      	</dependency>	
                                    
     </dependencies>
     

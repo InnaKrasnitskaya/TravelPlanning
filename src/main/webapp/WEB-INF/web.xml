@@ -34,25 +34,28 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/mvc-dispatcher-servlet.xml,
 					 /WEB-INF/spring-security.xml
-					 </param-value>
+		</param-value>
+	</context-param>	
+	
+	<context-param>	
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+     	<param-value>.xhtml</param-value>		
 	</context-param>
+	
+  	<context-param>
+        <param-name>facelets.DEVELOPMENT</param-name>
+   		<param-value>true</param-value>
+  	</context-param>
+ 
+  	<context-param>
+  		<param-name>facelets.REFRESH_PERIOD</param-name>
+  		<param-value>1</param-value>
+  	</context-param>	
 	
 	<!-- Loading configuration files on startup -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>  
-	
-	<!-- Spring Security -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>	
-	
 	
 	<!-- JSF mapping -->
 	<servlet>
@@ -70,7 +73,18 @@
 	<servlet-mapping>
 	    <servlet-name>Faces Servlet</servlet-name>
 	    <url-pattern>*.xhtml</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>	
+	
+	<!-- Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>	
   	
  <!--	<welcome-file-list>
         <welcome-file>LoginPage.jsp</welcome-file>
