@@ -41,7 +41,12 @@
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
      	<param-value>.xhtml</param-value>		
 	</context-param>  	
-
+	
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
 	<!-- Loading configuration files on startup -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -74,6 +79,6 @@
 	</servlet-mapping>	
 	  	
    <welcome-file-list>
-        <welcome-file>login.xhtml</welcome-file>
+        <welcome-file>/pages/login/login.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>
