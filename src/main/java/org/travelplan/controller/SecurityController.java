@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+//@Controller
 public class SecurityController {
 	
 /*	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
@@ -17,7 +17,7 @@ public class SecurityController {
 		return model;
 	}*/
 	
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ModelAndView printWelcome() {
 		ModelAndView model = new ModelAndView("profile");
 		return model;
@@ -37,5 +37,5 @@ public class SecurityController {
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logout(ModelMap model) {
 		return "login";
-	}	
+	}	*/
 }
