@@ -13,7 +13,16 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
 	</properties>
-	
+
+	<repositories>	
+		<repository>  
+	  		<id>prime-repo</id>  
+	  		<name>PrimeFaces Maven Repository</name>  
+	  		<url>http://repository.primefaces.org</url>  
+	  		<layout>default</layout>  
+		</repository> 
+	</repositories>	
+
     <dependencies>      
 	 
 	   <!-- Spring 3 dependencies -->
@@ -183,7 +192,25 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         	<groupId>org.springframework.webflow</groupId>
         	<artifactId>org.springframework.faces</artifactId>
         	<version>2.0.0.RELEASE</version>
-      	</dependency>	
+      	</dependency>
+      	
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>el-api</artifactId>
+			<version>6.0.35</version>
+		</dependency>    
+
+  		<dependency>
+			<groupId>commons-el</groupId>
+			<artifactId>commons-el</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>3.3</version>
+        </dependency>
                                    
     </dependencies>
     

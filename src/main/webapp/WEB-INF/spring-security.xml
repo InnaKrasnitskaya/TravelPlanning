@@ -18,20 +18,41 @@
  -->	
     <global-method-security secured-annotations="enabled"/>
     
-	<http use-expressions="true" access-denied-page="/pages/loginPage.jsp">
+	<http auto-config="true" use-expressions="true" 
+		  access-denied-page="/pages/loginPage2.jsp">
+	
+	<intercept-url 
+		pattern="/pages/login/**" 
+		filters="none" 
+		access="permitAll"/>
+		
+		
+		
+	<!--authentication-failure page  -->
+	<intercept-url 
+		pattern="/pages/loginPage.jsp*"  
+		filters="none" 
+		access="permitAll"/>				
+			
+	<intercept-url 
+		pattern="/resources/**" 
+		filters="none" />		
+				
+	<intercept-url 
+		pattern="/pages/**" 
+		access="hasRole ( 'ROLE_USER' )"/>	
 		
 	<intercept-url 
-		pattern="/pages/login/**" filters="none" />			
-					
-	<intercept-url 
-		pattern="/**" access="hasRole ( 'ROLE_USER' )"/>	
-	        
-		<form-login 
-			login-page="/pages/login/login.xhtml"
-			login-processing-url="/j_spring_security_check" 
-			default-target-url="/pages/profile.xhtml"
-     		authentication-failure-url="/pages/login/login.xhtml"/>  
-     	<logout logout-success-url="/pages/login/login.xhtml" /> 
+		pattern="/**" 
+		filters="none" 
+		access="permitAll"/>
+			        
+	<form-login 
+
+		login-page="/login.jsp"		
+		default-target-url="/pages/profile.xhtml"
+     	authentication-failure-url="/pages/loginPage.jsp"/>  
+    	<logout logout-success-url="/login.jsp" /> 
 	</http>		
 	
  	<beans:bean id="userDetailsService" 
@@ -54,7 +75,8 @@
 	<authentication-manager>	
     	<authentication-provider user-service-ref='userDetailsService'/>
     </authentication-manager>
-   
+
+    
  <!--   Spring Security settings 
    
 	<authentication-manager>

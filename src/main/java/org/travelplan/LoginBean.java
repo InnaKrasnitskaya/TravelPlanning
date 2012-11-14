@@ -17,17 +17,18 @@ import javax.servlet.ServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.web.WebAttributes;
+import org.springframework.stereotype.Component;
 
-@ManagedBean(name="loginBean")
-@RequestScoped
-public class LoginBean implements PhaseListener {
+/*@ManagedBean(name="loginBean")
+@RequestScoped*/
 
-     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@Component
+@Scope ( "request" )
+public class LoginBean  {
+	
 	protected final Log logger = LogFactory.getLog(getClass());
 
     
@@ -52,36 +53,5 @@ public class LoginBean implements PhaseListener {
         FacesContext.getCurrentInstance().responseComplete();
 
         return null;
-    }
-
-    public void afterPhase(PhaseEvent event) {
-    }
-
-    /* (non-Javadoc)
-     * @see javax.faces.event.PhaseListener#beforePhase(javax.faces.event.PhaseEvent)
-     * 
-     * Do something before rendering phase.
-     */
-    public void beforePhase(PhaseEvent event) {
-        Exception e = (Exception) FacesContext.getCurrentInstance().
-          getExternalContext().getSessionMap().get(WebAttributes.AUTHENTICATION_EXCEPTION);
- 
-        if (e instanceof BadCredentialsException) {
-            logger.debug("Found exception in session map: "+e);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(
-                    WebAttributes.AUTHENTICATION_EXCEPTION, null);
-            FacesContext.getCurrentInstance().addMessage(null, 
-              new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                "Username or password not valid.", "Username or password not valid"));
-        }
-    }
-
-    /* (non-Javadoc)
-     * @see javax.faces.event.PhaseListener#getPhaseId()
-     * 
-     * In which phase you want to interfere?
-     */
-    public PhaseId getPhaseId() {
-        return PhaseId.RENDER_RESPONSE;
     }
 }

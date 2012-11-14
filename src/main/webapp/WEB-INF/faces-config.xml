@@ -9,16 +9,16 @@
     		    org.springframework.web.jsf.el.SpringBeanFacesELResolver
 		</el-resolver>
   	</application>
-  	
-  <navigation-rule>
-		<from-view-id>/login.xhtml</from-view-id>
+  	<!--
+ <navigation-rule>
+		<from-view-id>login.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>profile</from-outcome>
-			<to-view-id>/pages/profile.xhtml?faces-redirect=true</to-view-id>
+			<from-outcome>welcome</from-outcome>
+			<to-view-id>/welcome.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>  	
- <!--
+
 <navigation-rule>
     <from-view-id>/login.xhtml</from-view-id>
     <navigation-case>
