@@ -3,8 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      >
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
     	<h:outputStylesheet library="css" name="table-style.css"  />
     </h:head>
@@ -14,8 +13,7 @@
  		<h:dataTable value="#{profileServiceImpl.getListProfile()}" var="profile"
     			styleClass="order-table"
     			headerClass="order-table-header"
-    			rowClasses="order-table-odd-row,order-table-even-row"
-    		>
+    			rowClasses="order-table-odd-row,order-table-even-row">
  
     		<h:column>
     			<f:facet name="header">
@@ -40,6 +38,6 @@
  
     	</h:dataTable>
     	
+    	<a href="#{request.contextPath}/j_spring_security_logout">Logout</a>
     </h:body>
- 
 </html>    	
