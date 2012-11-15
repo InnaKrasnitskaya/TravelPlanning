@@ -64,7 +64,8 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
-
+	
+	<!-- Every request will be processed with this filter  -->
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -79,6 +80,6 @@
 	</servlet-mapping>	
 	  	
    <welcome-file-list>
-        <welcome-file>/pages/login/login.xhtml</welcome-file>
+        <welcome-file>/login.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

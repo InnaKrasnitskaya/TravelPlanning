@@ -13,6 +13,9 @@
 </style>
 </head>
 <body onload='document.f.j_username.focus();'>
+
+    <a href="/TravelPlan/pages/register.xhtml">Register</a>
+    
 	<h3>Login with username and password</h3>
  
 	<c:if test="${not empty (param.error)}">
@@ -28,12 +31,12 @@
 		<table>
 			<tr>
 				<td>User:</td>
-				<td><input type='text' name='j_username' value=''>
+				<td><input type='text' name='j_username' value='' required="true" />
 				</td>
 			</tr>
 			<tr>
 				<td>Password:</td>
-				<td><input type='password' name='j_password' />
+				<td><input type='password' name='j_password' required="true" />
 				</td>
 			</tr>
 			<tr>
@@ -45,7 +48,6 @@
 				</td>
 			</tr>
 		</table>
- 
 	</form>
 </body>
 </html>

@@ -3,12 +3,17 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
     	<h:outputStylesheet library="css" name="table-style.css"  />
     </h:head>
  
     <h:body>
+      <h:form>
+      
+      	<a href="#{request.contextPath}/j_spring_security_logout">Logout</a>
+      	
     	<h1>Список профилей</h1> 
  		<h:dataTable value="#{profileServiceImpl.getListProfile()}" var="profile"
     			styleClass="order-table"
@@ -38,6 +43,8 @@
  
     	</h:dataTable>
     	
-    	<a href="#{request.contextPath}/j_spring_security_logout">Logout</a>
+    	<h:button outcome="addProfile.xhtml" value="button"/>
+		<p:commandButton id="addProfile" ajax="false" action="addProfile.xhtml?faces-redirect=true" value="cmdButton"/>    	
+      </h:form>
     </h:body>
 </html>    	

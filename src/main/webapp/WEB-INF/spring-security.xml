@@ -20,6 +20,10 @@
 		filters="none" />
 		
 	<intercept-url 
+		pattern="/pages/register.xhtml" 
+		filters="none" />		
+		
+	<intercept-url 
 		pattern="/**" 
 		access="hasRole ( 'ROLE_USER' )" />		
 			        
