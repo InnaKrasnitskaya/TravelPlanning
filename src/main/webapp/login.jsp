@@ -14,7 +14,7 @@
 </head>
 <body onload='document.f.j_username.focus();'>
 
-    <a href="/TravelPlan/pages/register.xhtml">Register</a>
+    <a href="/TravelPlan/pages/registration.xhtml">Register</a>
     
 	<h3>Login with username and password</h3>
  

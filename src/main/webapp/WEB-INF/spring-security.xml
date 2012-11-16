@@ -20,7 +20,7 @@
 		filters="none" />
 		
 	<intercept-url 
-		pattern="/pages/register.xhtml" 
+		pattern="/pages/registration.xhtml" 
 		filters="none" />		
 		
 	<intercept-url 
