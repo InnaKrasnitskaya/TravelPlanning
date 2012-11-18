@@ -30,10 +30,28 @@
       	  </h:inputText>
       	  
           <h:message for="password" style="color:red" />   
-                 
-		  <p:commandButton id="addUser" value="Ок" action="#{userManagedBean.addUser}"  ajax="false"/>
           
+      	  Подтвердите пароль
+      	  <h:inputText 
+      	  	id="repeatPassword" value="#{userManagedBean.secondPassword}" size="20" required="true" 
+      	  	requiredMessage="required" converterMessage="Пароли не совпадают" >  
+      	  </h:inputText>
+      	  
+          <h:message for="password" style="color:red" />     
+          
+          Email
+      	  <h:inputText 
+      	  	id="email" value="#{userManagedBean.email}" size="20" required="true" 
+      	  	requiredMessage="required" converterMessage="" >  
+      	  </h:inputText>
+      	  
+          <h:message for="password" style="color:red" />              
          </h:panelGrid>
+         
+		  <p:commandButton id="addUser" value="Ок" action="#{userManagedBean.addUser}"  
+		    ajax="false" style="width:100px"/>
+          <p:commandButton id="cancelAddUser" immediate="true" value="Cancel" 
+            action="login?faces-redirect=true" ajax="false" style="width:100px"/>         
 	
       </h:form>
     </h:body>

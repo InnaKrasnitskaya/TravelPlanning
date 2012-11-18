@@ -1,26 +1,26 @@
 package org.travelplan.managedBean;
 
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Component;
 import org.travelplan.entity.User;
 import org.travelplan.service.UserService;
 
-@Component
-@ManagedBean
-@SessionScoped
+@Named
+@Scope("session") //JSR-330 standart
 public class UserManagedBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String password;
+	private String email;
+	private String secondPassword;
 	
-	@Autowired
+	@Inject
     private UserService userService;
-	
 	
 	public String getName() {
 		return name;
@@ -43,14 +43,30 @@ public class UserManagedBean implements Serializable {
     		User user = new User();
     		user.setName(name);
     		user.setPassword(password);		
+    		user.setEmail(email);
     		userService.addUser(user);
     	}
     	catch (DataAccessException e) {
     		e.printStackTrace();    	
     	}
-    	return "addProfile";
+    	return "login?faces-redirect=true";
     }
-}
+    
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}    
+	
+	public String getSecondPassword() {
+		return secondPassword;
+	}
+
+	public void setSecondPassword(String secondPassword) {
+		this.secondPassword = secondPassword;
+	}	
+}
 
 //http://www.javacodegeeks.com/2012/04/jsf-2-primefaces-3-spring-3-hibernate-4.html

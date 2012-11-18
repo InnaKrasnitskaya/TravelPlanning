@@ -3,6 +3,7 @@ package org.travelplan.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,7 +13,7 @@ public class Profile {
 	
     @Id
     @Column(name = "\"IdProfile\"")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProfile;	
 
     @Column(name = "\"Name\"")
