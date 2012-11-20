@@ -2,6 +2,9 @@ package org.travelplan.managedBean;
 
 import java.io.Serializable;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
@@ -21,7 +24,26 @@ public class UserManagedBean implements Serializable {
 	
 	@Inject
     private UserService userService;
-	
+	   
+    public String addUser() {
+    	try {
+    		User user = new User();
+    		user.setName(name);
+    		user.setPassword(password);		
+    		user.setEmail(email);
+    		userService.addUser(user);
+    	}
+    	catch (DataAccessException e) {
+    		e.printStackTrace();    	
+    	}
+    	return "login?faces-redirect=true";
+    }
+    
+    public void checkPassword (FacesContext context, UIComponent component, Object value)  
+    		throws ValidatorException {
+    	
+    }
+    
 	public String getName() {
 		return name;
 	}
@@ -36,21 +58,7 @@ public class UserManagedBean implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-    
-    public String addUser() {
-    	try {
-    		User user = new User();
-    		user.setName(name);
-    		user.setPassword(password);		
-    		user.setEmail(email);
-    		userService.addUser(user);
-    	}
-    	catch (DataAccessException e) {
-    		e.printStackTrace();    	
-    	}
-    	return "login?faces-redirect=true";
-    }
+	}    
     
 	public String getEmail() {
 		return email;

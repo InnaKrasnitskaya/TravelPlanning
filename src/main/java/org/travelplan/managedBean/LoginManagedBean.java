@@ -1,7 +1,6 @@
 package org.travelplan.managedBean;
 
 import java.io.IOException;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -14,7 +13,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,34 +24,35 @@ public class LoginManagedBean implements PhaseListener {
 
 	private static final long serialVersionUID = 1L;
 	protected final Log logger = LogFactory.getLog(getClass());
+
  
     /**
      * @return
      * @throws ServletException
      * @throws IOException
      */
-    public String doLogin() throws ServletException, IOException {
-        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-
-        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-                .getRequestDispatcher("/j_spring_security_check");
-
-        dispatcher.forward((ServletRequest) context.getRequest(),
-                (ServletResponse) context.getResponse());
-
-        FacesContext.getCurrentInstance().responseComplete();
-
-        return null;
+    public String doLogin() throws ServletException, IOException {  
+    	try {
+	        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+	
+	        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
+	                .getRequestDispatcher("/j_spring_security_check");
+	        
+	        dispatcher.forward((ServletRequest) context.getRequest(),
+	                (ServletResponse) context.getResponse());
+	
+	        FacesContext.getCurrentInstance().responseComplete();
+	
+	        return null;
+    	 } 
+    	catch (Exception e) {
+    		return "/pages/login.xhtml?error=true";
+    	 } 
     }
 
     public void afterPhase(PhaseEvent event) {
     }
 
-    /* (non-Javadoc)
-     * @see javax.faces.event.PhaseListener#beforePhase(javax.faces.event.PhaseEvent)
-     * 
-     * Do something before rendering phase.
-     */
     public void beforePhase(PhaseEvent event) {
         Exception e = (Exception) FacesContext.getCurrentInstance().
           getExternalContext().getSessionMap().get(WebAttributes.AUTHENTICATION_EXCEPTION);
@@ -68,11 +67,6 @@ public class LoginManagedBean implements PhaseListener {
         }
     }
 
-    /* (non-Javadoc)
-     * @see javax.faces.event.PhaseListener#getPhaseId()
-     * 
-     * In which phase you want to interfere?
-     */
     public PhaseId getPhaseId() {
         return PhaseId.RENDER_RESPONSE;
     }

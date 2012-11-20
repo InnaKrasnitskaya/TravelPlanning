@@ -3,14 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-    	<h:outputStylesheet library="css" name="table-style.css"  />
-    </h:head>
- 
+      xmlns:f="http://java.sun.com/jsf/core">
+     <!--  xmlns:p="http://primefaces.org/ui" --> 
+    <h:head> </h:head>
+ <!--  http://viralpatel.net/blogs/javaserver-faces-jsf-validation-tutorial-error-handling-jsf-validator/  -->
     <h:body>
-      <h:form>
+     <h:form>
       
       	<h1>Регистрация</h1>
       
@@ -18,41 +16,49 @@
       	  Логин
       	  <h:inputText 
       	  	id="number" value="#{userManagedBean.name}" size="20" required="true"
-      	  	requiredMessage="required" converterMessage="Логин неуникален"> 
+      	  	requiredMessage="Value is required" 
+      	  	validator="#{}"
+      	  	validatorMessage="User with that password already exists in database"> 
+      	  	<f:validateLength minimum="5" maximum="20"/>
       	  </h:inputText>
       	  
           <h:message for="number" style="color:red" />
           
       	  Пароль
-      	  <h:inputText 
+      	  <h:inputSecret 
       	  	id="password" value="#{userManagedBean.password}" size="20" required="true" 
-      	  	requiredMessage="required" converterMessage="" >  
-      	  </h:inputText>
+      	  	requiredMessage="Value is required" validatorMessage="Length should be between 5 and 20" >
+      	  	<f:validateLength minimum="5" maximum="20"/> 
+      	  </h:inputSecret>
       	  
           <h:message for="password" style="color:red" />   
           
       	  Подтвердите пароль
-      	  <h:inputText 
-      	  	id="repeatPassword" value="#{userManagedBean.secondPassword}" size="20" required="true" 
-      	  	requiredMessage="required" converterMessage="Пароли не совпадают" >  
-      	  </h:inputText>
+      	  <h:inputSecret 
+      	  	id="secondPassword" value="#{userManagedBean.secondPassword}" size="20" required="true" 
+      	  	requiredMessage="Value is required"
+      	  	validator="#{userManagedBean.checkPassword}"
+      	  	validatorMessage="Passwords are not the same" >  
+      	  	<f:validateLength minimum="5" maximum="20"/>
+      	  </h:inputSecret>
       	  
-          <h:message for="password" style="color:red" />     
+          <h:message for="secondPassword" style="color:red"/>     
           
           Email
       	  <h:inputText 
       	  	id="email" value="#{userManagedBean.email}" size="20" required="true" 
-      	  	requiredMessage="required" converterMessage="" >  
+      	  	requiredMessage="Value is required" validatorMessage="Length should be between 5 and 50" >
+      	  	<f:validateLength minimum="5" maximum="50"/>  
       	  </h:inputText>
       	  
-          <h:message for="password" style="color:red" />              
+          <h:message for="email" style="color:red" />              
          </h:panelGrid>
          
-		  <p:commandButton id="addUser" value="Ок" action="#{userManagedBean.addUser}"  
-		    ajax="false" style="width:100px"/>
-          <p:commandButton id="cancelAddUser" immediate="true" value="Cancel" 
-            action="login?faces-redirect=true" ajax="false" style="width:100px"/>         
+		  <h:commandButton id="addUser" value="Ок" action="#{userManagedBean.addUser}"  
+		    style="width:100px" />
+          <h:commandButton id="cancelAddUser" immediate="true" value="Cancel" 
+            action="login?faces-redirect=true" style="width:100px"/>         
 	
-      </h:form>
+     </h:form>
     </h:body>
 </html>         

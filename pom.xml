@@ -13,8 +13,8 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
 	</properties>
-
-	<repositories>	
+<!-- 
+   <repositories>	
 		<repository>  
 	  		<id>prime-repo</id>  
 	  		<name>PrimeFaces Maven Repository</name>  
@@ -22,7 +22,8 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	  		<layout>default</layout>  
 		</repository> 
 	</repositories>	
-
+  -->
+ 
     <dependencies>      
 	 
 	   <!-- Spring 3 dependencies -->
@@ -199,13 +200,13 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<artifactId>commons-el</artifactId>
 			<version>1.0</version>
 		</dependency>
-
-		<dependency>
+		<!-- 
+	   <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>3.3</version>
+            <version>3.4.2</version>
         </dependency>
-        
+        -->
         <!-- JSR-330 -->
 		<dependency>
 			<groupId>javax.inject</groupId>
