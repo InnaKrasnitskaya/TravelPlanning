@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="cp1251"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
@@ -10,7 +10,7 @@
     <h:body>
      <h:form>
       
-      	<h1>Р РµРіРёСЃС‚СЂР°С†РёСЏ</h1>
+      	<h1>Регистрация</h1>
       
       	<h:panelGrid columns="3"> 	
       	  #{messagesSource.getLocaleValue("registration.login", null)}
@@ -23,7 +23,7 @@
       	  
           <h:message for="number" style="color:red" />
           
-      	  РџР°СЂРѕР»СЊ
+      	  Пароль
       	  <h:inputSecret 
       	  	id="password" value="#{userManagedBean.password}" size="20" required="true" 
       	  	requiredMessage="Please enter a password" 
@@ -34,7 +34,7 @@
       	  
           <h:message for="password" style="color:red" />   
           
-      	  РџРѕРґС‚РІРµСЂРґРёС‚Рµ РїР°СЂРѕР»СЊ
+      	  Подтвердите пароль
       	  <h:inputSecret 
       	  	id="secondPassword" value="#{userManagedBean.secondPassword}" size="20" required="true" 
       	  	requiredMessage="Please repeat password"
@@ -53,7 +53,7 @@
           <h:message for="email" style="color:red" />              
          </h:panelGrid>
          
-		  <h:commandButton id="addUser" value="РћРє" action="#{userManagedBean.addUser}"  
+		  <h:commandButton id="addUser" value="Ок" action="#{userManagedBean.addUser}"  
 		    style="width:100px" />
 		    
           <h:commandButton id="cancelAddUser" immediate="true" value="Cancel" 

@@ -12,7 +12,7 @@ public class MessagesSource implements MessageSourceAware{
 	private static Locale locale;
 	
 	public MessagesSource() {
-		locale = Locale.US;  // getDefault();
+		locale = Locale.getDefault();
 	}
 	
 	/*Spring will automatically inject the MessageSource into the 
