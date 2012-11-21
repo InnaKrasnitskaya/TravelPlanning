@@ -68,5 +68,13 @@
       class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    
+    <!-- Locale settings -->
+    <bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<value>locale\messages</value>
+		</property>
+	</bean>
  
 </beans>

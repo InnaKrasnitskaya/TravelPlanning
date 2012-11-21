@@ -13,11 +13,10 @@
       	<h1>Регистрация</h1>
       
       	<h:panelGrid columns="3"> 	
-      	  Логин
+      	  #{messagesSource.getLocaleValue("registration.login", null)}
       	  <h:inputText 
       	  	id="number" value="#{userManagedBean.name}" size="20" required="true"
-      	  	requiredMessage="Value is required" 
-      	  	validator="#{}"
+      	  	requiredMessage="Please enter a login" 
       	  	validatorMessage="User with that password already exists in database"> 
       	  	<f:validateLength minimum="5" maximum="20"/>
       	  </h:inputText>
@@ -27,7 +26,9 @@
       	  Пароль
       	  <h:inputSecret 
       	  	id="password" value="#{userManagedBean.password}" size="20" required="true" 
-      	  	requiredMessage="Value is required" validatorMessage="Length should be between 5 and 20" >
+      	  	requiredMessage="Please enter a password" 
+      	  	validator="#{userManagedBean.setPassword}" 
+      	  	validatorMessage="Length should be between 5 and 20" > <!-- Validator - to test repetitions -->
       	  	<f:validateLength minimum="5" maximum="20"/> 
       	  </h:inputSecret>
       	  
@@ -36,10 +37,8 @@
       	  Подтвердите пароль
       	  <h:inputSecret 
       	  	id="secondPassword" value="#{userManagedBean.secondPassword}" size="20" required="true" 
-      	  	requiredMessage="Value is required"
-      	  	validator="#{userManagedBean.checkPassword}"
-      	  	validatorMessage="Passwords are not the same" >  
-      	  	<f:validateLength minimum="5" maximum="20"/>
+      	  	requiredMessage="Please repeat password"
+      	  	validator="#{userManagedBean.checkPassword}" >  
       	  </h:inputSecret>
       	  
           <h:message for="secondPassword" style="color:red"/>     
@@ -47,8 +46,8 @@
           Email
       	  <h:inputText 
       	  	id="email" value="#{userManagedBean.email}" size="20" required="true" 
-      	  	requiredMessage="Value is required" validatorMessage="Length should be between 5 and 50" >
-      	  	<f:validateLength minimum="5" maximum="50"/>  
+      	  	requiredMessage="Please enter a email" >
+      	  	<f:validator validatorId="org.travelplan.validator.EmailValidator" />
       	  </h:inputText>
       	  
           <h:message for="email" style="color:red" />              
@@ -56,6 +55,7 @@
          
 		  <h:commandButton id="addUser" value="Ок" action="#{userManagedBean.addUser}"  
 		    style="width:100px" />
+		    
           <h:commandButton id="cancelAddUser" immediate="true" value="Cancel" 
             action="login?faces-redirect=true" style="width:100px"/>         
 	

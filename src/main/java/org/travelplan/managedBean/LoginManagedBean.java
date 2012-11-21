@@ -1,4 +1,4 @@
-package org.travelplan.managedBean;
+package org.travelplan.managedbean;
 
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
