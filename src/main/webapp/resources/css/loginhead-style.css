@@ -1,0 +1,16 @@
+.errorblock {
+	color: #ff0000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+	text-align:center;	
+}
+
+.top_column_left {
+	width: 80%;
+}
+
+.top_column_right { 
+	text-align:right;
+}	

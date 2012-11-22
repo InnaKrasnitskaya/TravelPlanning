@@ -1,4 +1,4 @@
-package org.travelplan.managedbean;
+package org.travelplan.bean;
 
 //http://www.javacodegeeks.com/2012/04/jsf-2-primefaces-3-spring-3-hibernate-4.html
 import java.io.Serializable;
@@ -16,7 +16,7 @@ import org.travelplan.service.UserService;
 
 @Named
 @Scope("session") //JSR-330 standart
-public class UserManagedBean implements Serializable {
+public class UserBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String name;
@@ -29,9 +29,6 @@ public class UserManagedBean implements Serializable {
 	
 	@Inject
 	private MessagesSource messagesSource;
-	
-/*	@Autowired
-	private ApplicationContext context;*/
 	
   public String addUser() {
     	try {

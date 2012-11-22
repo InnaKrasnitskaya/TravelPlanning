@@ -13,7 +13,6 @@ import org.travelplan.dao.ProfileDAO;
 import org.travelplan.entity.Profile;
 import org.travelplan.service.ProfileService;
 
-//@Service("profileService")
 @Component
 @ManagedBean
 @SessionScoped

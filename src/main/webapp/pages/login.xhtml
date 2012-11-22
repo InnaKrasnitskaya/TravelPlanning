@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="cp1251"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
@@ -6,41 +6,41 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
      <h:head>
-		<style>
-		.errorblock {
-			color: #ff0000;
-			background-color: #ffEEEE;
-			border: 3px solid #ff0000;
-			padding: 8px;
-			margin: 16px;
-			text-align:center;
-		}
-		</style>          
+		<h:outputStylesheet name="css/loginhead-style.css"  />  
      </h:head>
      
      <h:body>
      <h:form id="loginForm" prependId="false">
-     <h:link outcome="registration" value="Регистрация"/>
      
-     <h1 align="center"> Вход в систему </h1>    
+     <h:panelGrid columns="2" columnClasses="top_column_left, top_column_right"  style="width: 100%">
+     	<h:link outcome="registration" value="#{messagesSource.getLocaleValue(&quot;login.registration&quot;, null)}"/>
+     	
+     	<h:selectOneMenu value="#{languageBean.localeCode}" onchange="submit()" 
+			valueChangeListener="#{languageBean.countryLocaleCodeChanged}">
+   			<f:selectItems value="#{languageBean.countries}" /> 
+   		</h:selectOneMenu>   		
+     </h:panelGrid>
+     
+     <h1 align="center"> #{messagesSource.getLocaleValue("login.login", null)} </h1>    
      
 	 <h:panelGrid columns="1" style="margin-left:auto; margin-right:auto;">				
 				<h:panelGrid columns="2" style="margin-left:auto; margin-right:auto;">
-					<h:outputText value="Пользователь" />
+					<h:outputText value="#{messagesSource.getLocaleValue(&quot;login.user&quot;, null)}" />
 					<h:inputText id="j_username" />
 
-					<h:outputText value="Пароль" />
+					<h:outputText value="#{messagesSource.getLocaleValue(&quot;login.password&quot;, null)}" />
 					<h:inputSecret id="j_password" />
 				</h:panelGrid>
 
 				<h:panelGrid columns="1" style="margin-left:auto; margin-right:auto;">
-				<h:commandButton type="submit" value="Вход" action="#{loginBean.doLogin}"/>
+				<h:commandButton type="submit" value="#{messagesSource.getLocaleValue(&quot;login.enter&quot;, null)}" 
+				    action="#{loginBean.doLogin}"/>
 				</h:panelGrid>
 	</h:panelGrid>
 	
      <c:if test="${not empty (param.error)}">
 		<div class="errorblock">
-			Your login attempt was not successful, try again.<br /> 
+			#{messagesSource.getLocaleValue("login.failed", null)} <br /> 
 			Caused : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
 		</div>
 	 </c:if>

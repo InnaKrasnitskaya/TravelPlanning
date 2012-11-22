@@ -1,5 +1,6 @@
 package org.travelplan.validator;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -8,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import org.travelplan.messagesource.MessagesSource;
 
 @FacesValidator("org.travelplan.validator.EmailValidator")
 public class EmailValidator implements Validator {
@@ -17,9 +19,19 @@ public class EmailValidator implements Validator {
  
 	private Pattern pattern;
 	private Matcher matcher;
+	private String invalidEmail;
+	
+	//We can't make inject because of @FacesValidator
+	private MessagesSource messagesSource;	
  
 	public EmailValidator(){
 		pattern = Pattern.compile(EMAIL_PATTERN);
+		messagesSource =  new MessagesSource();
+		if (messagesSource.getLocale() == Locale.US)
+			invalidEmail = "Invalid email format";
+		else
+			invalidEmail = "Неверный формат email";
+				
 	}
  
 	public void validate(FacesContext context, UIComponent component,
@@ -27,8 +39,7 @@ public class EmailValidator implements Validator {
 		
 		matcher = pattern.matcher(value.toString());
 		if(!matcher.matches()){
-			FacesMessage msg = new FacesMessage("Email validation failed.", 
-				"Invalid email format.");
+			FacesMessage msg = new FacesMessage("Email validation failed.", invalidEmail);
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ValidatorException(msg);
 		}

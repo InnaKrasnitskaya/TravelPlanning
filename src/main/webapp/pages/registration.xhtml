@@ -10,50 +10,50 @@
     <h:body>
      <h:form>
       
-      	<h1>Регистрация</h1>
+      	<h1>#{messagesSource.getLocaleValue("registration.registration", null)}</h1>
       
       	<h:panelGrid columns="3"> 	
       	  #{messagesSource.getLocaleValue("registration.login", null)}
       	  <h:inputText 
-      	  	id="number" value="#{userManagedBean.name}" size="20" required="true"
-      	  	requiredMessage="Please enter a login" 
-      	  	validatorMessage="User with that password already exists in database"> 
+      	  	id="number" value="#{userBean.name}" size="20" required="true"
+      	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.login&quot;, null)}"
+      	  	validatorMessage="#{messagesSource.getLocaleValue(&quot;registration.lenght.login&quot;, null)}" > 
       	  	<f:validateLength minimum="5" maximum="20"/>
       	  </h:inputText>
       	  
           <h:message for="number" style="color:red" />
           
-      	  Пароль
+      	  #{messagesSource.getLocaleValue("registration.password", null)}
       	  <h:inputSecret 
-      	  	id="password" value="#{userManagedBean.password}" size="20" required="true" 
-      	  	requiredMessage="Please enter a password" 
-      	  	validator="#{userManagedBean.setPassword}" 
-      	  	validatorMessage="Length should be between 5 and 20" > <!-- Validator - to test repetitions -->
+      	  	id="password" value="#{userBean.password}" size="20" required="true" 
+      	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.password&quot;, null)}" 
+      	  	validator="#{userBean.setPassword}" 
+      	  	validatorMessage="#{messagesSource.getLocaleValue(&quot;registration.lenght.password&quot;, null)}" > 
       	  	<f:validateLength minimum="5" maximum="20"/> 
       	  </h:inputSecret>
       	  
           <h:message for="password" style="color:red" />   
           
-      	  Подтвердите пароль
+      	  #{messagesSource.getLocaleValue("registration.repeat.password", null)}
       	  <h:inputSecret 
-      	  	id="secondPassword" value="#{userManagedBean.secondPassword}" size="20" required="true" 
-      	  	requiredMessage="Please repeat password"
-      	  	validator="#{userManagedBean.checkPassword}" >  
+      	  	id="secondPassword" value="#{userBean.secondPassword}" size="20" required="true" 
+      	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.repeat.password&quot;, null)}"
+      	  	validator="#{userBean.checkPassword}" >  
       	  </h:inputSecret>
       	  
           <h:message for="secondPassword" style="color:red"/>     
           
           Email
       	  <h:inputText 
-      	  	id="email" value="#{userManagedBean.email}" size="20" required="true" 
-      	  	requiredMessage="Please enter a email" >
+      	  	id="email" value="#{userBean.email}" size="20" required="true" 
+      	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.email&quot;, null)}" >
       	  	<f:validator validatorId="org.travelplan.validator.EmailValidator" />
       	  </h:inputText>
       	  
           <h:message for="email" style="color:red" />              
          </h:panelGrid>
          
-		  <h:commandButton id="addUser" value="Ок" action="#{userManagedBean.addUser}"  
+		  <h:commandButton id="addUser" value="Ок" action="#{userBean.addUser}"  
 		    style="width:100px" />
 		    
           <h:commandButton id="cancelAddUser" immediate="true" value="Cancel" 
