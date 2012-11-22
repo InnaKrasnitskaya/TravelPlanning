@@ -24,7 +24,7 @@ public class MessagesSource implements MessageSourceAware{
 		return messageSource.getMessage(propValue, args, locale);
 	}	
 	
-	public Locale getLocale() {
+	public static Locale getLocale() {
 		return locale;
 	}
 	

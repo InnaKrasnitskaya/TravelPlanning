@@ -28,12 +28,13 @@ public class LanguageBean {
 		return countries;
 	}
 	
-	public String getLocaleCode() {
-		return localeCode;
+	public Locale getLocaleCode() {
+		return MessagesSource.getLocale();
 	}
 
-	public void setLocaleCode(String localeCode) {
-		this.localeCode = localeCode;
+	public void setLocaleCode(Locale localeCode) {		
+		//this.localeCode = localeCode;
+		MessagesSource.setLocale(localeCode);
 	}
 	
 	//value change event listener
@@ -44,7 +45,9 @@ public class LanguageBean {
         for (Map.Entry<String, Object> entry : countries.entrySet())
         	if (entry.getValue().toString().equals(newLocaleValue)) {
         		FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale)entry.getValue());
-        		MessagesSource.setLocale((Locale)entry.getValue());
+        	//	MessagesSource.setLocale((Locale)entry.getValue());
         	}
 	}				
 }
+
+//http://stackoverflow.com/questions/6487237/converter-implemented-but-still-having-error-conversion-error-setting-value
