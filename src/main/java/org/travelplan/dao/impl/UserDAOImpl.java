@@ -13,6 +13,7 @@ import org.travelplan.entity.User;
 public class UserDAOImpl implements UserDAO {
 	private static final String UserSelect = "SELECT u FROM User u";
 	private static final String UserNameCondition = " where name='%s'";
+	private static final String UserIdCondition = " where idUser=%d";
 	
     @Autowired
     private SessionFactory sessionFactory;
@@ -36,5 +37,10 @@ public class UserDAOImpl implements UserDAO {
     public User findByName(String name) {
       return (User) sessionFactory.getCurrentSession().
         createQuery(UserSelect + String.format(UserNameCondition, name)).uniqueResult();
+    }
+    
+    public User findById(Integer id) {
+        return (User) sessionFactory.getCurrentSession().
+                createQuery(UserSelect.concat(String.format(UserIdCondition, id))).uniqueResult();
     }
 }

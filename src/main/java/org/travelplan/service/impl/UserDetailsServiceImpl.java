@@ -30,6 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     	if (userRole == null)
     		throw new UsernameNotFoundException("User or user role not found");
     	else
+    		//Save current user id
     		Constant.setIdCurrentUser(userRole.get(0).getUser().getIdUser());
 
       return assembler.buildUserFromUserEntity(userRole);

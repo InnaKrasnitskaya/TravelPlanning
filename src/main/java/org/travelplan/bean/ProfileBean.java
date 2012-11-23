@@ -5,9 +5,10 @@ import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.travelplan.constant.Constant;
 import org.travelplan.entity.Profile;
 import org.travelplan.service.ProfileService;
+import org.travelplan.service.UserService;
 
 @Named
 @Scope("session")
@@ -17,6 +18,9 @@ public class ProfileBean {
 	
 	@Inject
 	private ProfileService profileService;
+	
+	@Inject
+	private UserService userService;
 
 	public String getName() {
 		return name;
@@ -30,7 +34,8 @@ public class ProfileBean {
     	try {
     		Profile profile = new Profile();
     		profile.setName(name);
-    		profile.setUser(user)
+    		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
+    		
     		profileService.addProfile(profile);
     	}
     	catch (DataAccessException e) {

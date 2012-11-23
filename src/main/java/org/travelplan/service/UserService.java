@@ -8,5 +8,6 @@ public interface UserService {
     public List<User> listUser();
     public void removeUser(Integer id);
     public User findByName(String name);   
+    public User findById(Integer id);
 }
 
