@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException; 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.travelplan.constant.Constant;
 import org.travelplan.dao.UserRoleDAO;
 import org.travelplan.entity.UserRole;
 import org.travelplan.service.Assembler;
@@ -22,14 +22,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired 
     private Assembler assembler;     
     
-    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username)
         throws UsernameNotFoundException, DataAccessException {
 
-    	List<UserRole> userRole =  userRoleDAO.getUserRoles(username);    	
+    	List<UserRole> userRole =  userRoleDAO.getUserRoles(username);   
+    	
     	if (userRole == null)
     		throw new UsernameNotFoundException("User or user role not found");
-      
+    	else
+    		Constant.setIdCurrentUser(userRole.get(0).getUser().getIdUser());
 
       return assembler.buildUserFromUserEntity(userRole);
     }       

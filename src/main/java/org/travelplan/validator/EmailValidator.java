@@ -19,19 +19,17 @@ public class EmailValidator implements Validator {
  
 	private Pattern pattern;
 	private Matcher matcher;
-	private String invalidEmail;
+	private static String invalidEmail;
 	
-	//We can't make inject because of @FacesValidator
-	private MessagesSource messagesSource;	
- 
-	public EmailValidator(){
-		pattern = Pattern.compile(EMAIL_PATTERN);
-		messagesSource =  new MessagesSource();
-		if (messagesSource.getLocale() == Locale.US)
-			invalidEmail = "Invalid email format";
+	static {
+		if (MessagesSource.getLocale() == Locale.US)
+			invalidEmail = "\u2022 Invalid email format";
 		else
-			invalidEmail = "Неверный формат email";
-				
+			invalidEmail = "\u2022 Неверный формат email";		
+	}
+	
+	public EmailValidator(){
+		pattern = Pattern.compile(EMAIL_PATTERN);			
 	}
  
 	public void validate(FacesContext context, UIComponent component,

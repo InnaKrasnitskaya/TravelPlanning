@@ -4,26 +4,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-     <!--  xmlns:p="http://primefaces.org/ui" --> 
+    <!--  xmlns:p="http://primefaces.org/ui" --> 
     <h:head> </h:head>
- <!--  http://viralpatel.net/blogs/javaserver-faces-jsf-validation-tutorial-error-handling-jsf-validator/  -->
+ 	<!--  http://viralpatel.net/blogs/javaserver-faces-jsf-validation-tutorial-error-handling-jsf-validator/  -->
     <h:body>
      <h:form>
       
       	<h1>#{messagesSource.getLocaleValue("registration.registration", null)}</h1>
       
       	<h:panelGrid columns="3"> 	
-      	  #{messagesSource.getLocaleValue("registration.login", null)}
+      	  <h:outputText value="#{messagesSource.getLocaleValue(&quot;registration.login&quot;, null)}" />
       	  <h:inputText 
-      	  	id="number" value="#{userBean.name}" size="20" required="true"
+      	  	id="login" value="#{userBean.name}" size="20" required="true"
       	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.login&quot;, null)}"
-      	  	validatorMessage="#{messagesSource.getLocaleValue(&quot;registration.lenght.login&quot;, null)}" > 
-      	  	<f:validateLength minimum="5" maximum="20"/>
+      	  	validator="#{userBean.checkLogin}" > 
       	  </h:inputText>
       	  
-          <h:message for="number" style="color:red" />
+          <h:message for="login" style="color:red" />
           
-      	  #{messagesSource.getLocaleValue("registration.password", null)}
+      	  <h:outputText value="#{messagesSource.getLocaleValue(&quot;registration.password&quot;, null)}" />
       	  <h:inputSecret 
       	  	id="password" value="#{userBean.password}" size="20" required="true" 
       	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.password&quot;, null)}" 
@@ -34,7 +33,7 @@
       	  
           <h:message for="password" style="color:red" />   
           
-      	  #{messagesSource.getLocaleValue("registration.repeat.password", null)}
+      	  <h:outputText value="#{messagesSource.getLocaleValue(&quot;registration.password.repeat&quot;, null)}" />
       	  <h:inputSecret 
       	  	id="secondPassword" value="#{userBean.secondPassword}" size="20" required="true" 
       	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.repeat.password&quot;, null)}"
@@ -43,7 +42,7 @@
       	  
           <h:message for="secondPassword" style="color:red"/>     
           
-          Email
+          <h:outputText value="Email" />
       	  <h:inputText 
       	  	id="email" value="#{userBean.email}" size="20" required="true" 
       	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.email&quot;, null)}" >

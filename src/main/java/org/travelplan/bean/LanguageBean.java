@@ -15,7 +15,7 @@ import org.travelplan.messagesource.MessagesSource;
 @Scope("session")
 public class LanguageBean {
 	
-	private String localeCode;
+	private String localeCode = MessagesSource.getLocale().toString();
 	
 	private static Map<String,Object> countries;
 	static{
@@ -28,13 +28,12 @@ public class LanguageBean {
 		return countries;
 	}
 	
-	public Locale getLocaleCode() {
-		return MessagesSource.getLocale();
+	public String getLocaleCode() {
+		return localeCode;
 	}
 
-	public void setLocaleCode(Locale localeCode) {		
-		//this.localeCode = localeCode;
-		MessagesSource.setLocale(localeCode);
+	public void setLocaleCode(String localeCode) {
+		this.localeCode = localeCode;
 	}
 	
 	//value change event listener
@@ -45,7 +44,7 @@ public class LanguageBean {
         for (Map.Entry<String, Object> entry : countries.entrySet())
         	if (entry.getValue().toString().equals(newLocaleValue)) {
         		FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale)entry.getValue());
-        	//	MessagesSource.setLocale((Locale)entry.getValue());
+        		MessagesSource.setLocale((Locale)entry.getValue());
         	}
 	}				
 }

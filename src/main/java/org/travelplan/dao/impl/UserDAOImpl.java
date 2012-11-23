@@ -11,6 +11,8 @@ import org.travelplan.entity.User;
 @Repository("userDAO")
 @Transactional
 public class UserDAOImpl implements UserDAO {
+	private static final String UserSelect = "SELECT u FROM User u";
+	private static final String UserNameCondition = " where name='%s'";
 	
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,8 +23,7 @@ public class UserDAOImpl implements UserDAO {
 
     @SuppressWarnings("unchecked")
     public List<User> listUser() {
-        return sessionFactory.getCurrentSession().createQuery("SELECT " +
-          "u FROM User u").list();
+        return sessionFactory.getCurrentSession().createQuery(UserSelect).list();
     }
 
     public void removeUser(Integer id) {
@@ -34,6 +35,6 @@ public class UserDAOImpl implements UserDAO {
     
     public User findByName(String name) {
       return (User) sessionFactory.getCurrentSession().
-        createQuery("SELECT u FROM User u where name='" + name + "'").uniqueResult();
+        createQuery(UserSelect + String.format(UserNameCondition, name)).uniqueResult();
     }
 }

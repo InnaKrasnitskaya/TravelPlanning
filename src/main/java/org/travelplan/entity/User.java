@@ -23,10 +23,10 @@ public class User {
     private String password;
     
     @Column(name = "\"Email\"")
-    private String email;    
+    private String email;
     
 	public User() {}     
-    
+     
     public String getEmail() {
 		return email;
 	}

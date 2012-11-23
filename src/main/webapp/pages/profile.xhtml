@@ -16,6 +16,12 @@
       	</a>
       	
      	<h1>#{messagesSource.getLocaleValue("profile.profilelist", null)}</h1> 
+     	
+     	<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.add.label&quot;, null)}"/>
+     	<h:inputText id="addProfileLabel" size="20" value="#{profileBean.name}"/>
+     	<h:commandButton id="addProfile" action="#{profileBean.addProfile}" 
+		  value="#{messagesSource.getLocaleValue(&quot;profile.add&quot;, null)}" />       	
+     	<h1> </h1>
  		<h:dataTable value="#{profileServiceImpl.getListProfile()}" var="profile"
     			styleClass="order-table"
     			headerClass="order-table-header"
@@ -23,29 +29,34 @@
  
     		<h:column>
     			<f:facet name="header">
-    				ID
+    				#{messagesSource.getLocaleValue("profile.number", null)}
     			</f:facet>
     				#{profile.idProfile}
     		</h:column>
  
     		<h:column>
     			<f:facet name="header">
-    				Name
+    				#{messagesSource.getLocaleValue("profile.profile", null)}
 				</f:facet>
     				#{profile.name}
     		</h:column>
  
     		<h:column>
     			<f:facet name="header">
-    				Creation Date
+    				#{messagesSource.getLocaleValue("profile.date.creation", null)}
 				</f:facet>
     				#{profile.creationDate}
     		</h:column>
- 
+    		
+    		<h:column>
+    			<f:facet name="header">
+    				#{messagesSource.getLocaleValue("profile.parameters", null)}
+				</f:facet>
+    				    		
+    		</h:column>
+
     	</h:dataTable>
-    	    
-		<h:commandButton id="addProfile" action="addProfile.xhtml?faces-redirect=true" 
-		  value="#{messagesSource.getLocaleValue(&quot;profile.add&quot;, null)}" />    	
+    	     	
     </h:form>
     </h:body>
 </html>    	

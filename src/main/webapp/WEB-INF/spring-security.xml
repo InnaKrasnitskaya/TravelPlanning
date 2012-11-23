@@ -21,7 +21,7 @@
 		
 	<intercept-url 
 		pattern="/pages/registration.xhtml" 
-		filters="none" />	
+		filters="none" />			
 		
 	<intercept-url 
 		pattern="/javax.faces.resource/css/*" 

@@ -10,8 +10,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
+import org.travelplan.constant.Constant;
 import org.travelplan.entity.User;
+import org.travelplan.entity.UserRole;
 import org.travelplan.messagesource.MessagesSource;
+import org.travelplan.service.RoleService;
+import org.travelplan.service.UserRoleService;
 import org.travelplan.service.UserService;
 
 @Named
@@ -28,21 +32,36 @@ public class UserBean implements Serializable {
     private UserService userService;
 	
 	@Inject
+	private RoleService roleService;
+	
+	@Inject
+	private UserRoleService userRoleService;	
+	
+	@Inject
 	private MessagesSource messagesSource;
 	
-  public String addUser() {
+
+	public String addUser() {
     	try {
     		User user = new User();
     		user.setName(name);
     		user.setPassword(password);		
     		user.setEmail(email);
     		userService.addUser(user);
+    		addUserRole(user, Constant.UserRoles.USER);
     	}
     	catch (DataAccessException e) {
     		e.printStackTrace();    	
     	}
     	return "login?faces-redirect=true";
-    }
+	}
+	
+	private void addUserRole(User user, Constant.UserRoles userRoles) {
+		UserRole userRole = new UserRole();
+		userRole.setUser(user);
+		userRole.setRole(roleService.getRole(userRoles));
+		userRoleService.addUserRole(userRole);		
+	}	
     
     public void setPassword (FacesContext context, UIComponent component, Object value)  
     		throws ValidatorException {
@@ -58,6 +77,17 @@ public class UserBean implements Serializable {
             context.addMessage(component.getClientId(), message);
             throw new ValidatorException(message);
     	}    		
+    }
+    
+    public void checkLogin(FacesContext context, UIComponent component, Object value)
+    		throws ValidatorException {
+    	if (userService.findByName(value.toString()) != null) {
+       		FacesMessage message = new FacesMessage();
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);           
+            message.setDetail(messagesSource.getLocaleValue("registration.exist.user", null));
+            context.addMessage(component.getClientId(), message);    	
+        	throw new ValidatorException(message);
+    	}
     }
     
 	public String getName() {

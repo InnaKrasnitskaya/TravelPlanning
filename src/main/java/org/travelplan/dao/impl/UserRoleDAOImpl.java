@@ -14,18 +14,25 @@ import org.travelplan.entity.UserRole;
 @Transactional
 public class UserRoleDAOImpl implements UserRoleDAO {
 	
+	private static final String UserRoleSelect = "SELECT ur FROM UserRole ur";
+	private static final String UserRoleSelByUserName = "SELECT " +
+            "ur FROM UserRole ur JOIN ur.user u WHERE u.name='%s'";
+	
     @Autowired
     private SessionFactory sessionFactory;		
 	
 	@SuppressWarnings("unchecked")
 	public List<UserRole> listUserRole() {
-        return sessionFactory.getCurrentSession().createQuery("SELECT " +
-                "ur FROM UserRole ur").list();		
+        return sessionFactory.getCurrentSession().createQuery(UserRoleSelect).list();		
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<UserRole> getUserRoles(String userName) {
-        return sessionFactory.getCurrentSession().createQuery("SELECT " +
-                "ur FROM UserRole ur JOIN ur.user u WHERE u.name='" + userName + "'").list();			
+        return sessionFactory.getCurrentSession().createQuery(String.
+        		format(UserRoleSelByUserName, userName)).list();			
+	}
+	
+	public void addUserRole(UserRole userRole) {
+		sessionFactory.getCurrentSession().save(userRole);
 	}
 }
