@@ -13,7 +13,8 @@
      <h:form id="loginForm" prependId="false">
      
      <h:panelGrid columns="2" columnClasses="top_column_left, top_column_right"  style="width: 100%">
-     	<h:link outcome="registration" value="#{messagesSource.getLocaleValue(&quot;login.registration&quot;, null)}"/>
+     	<h:link outcome="registration" value="#{messagesSource.
+     		getLocaleValue(&quot;login.registration&quot;, null)}"/>
      	
      	<h:selectOneMenu value="#{languageBean.localeCode}" onchange="submit()" 
 			valueChangeListener="#{languageBean.countryLocaleCodeChanged}">
@@ -25,16 +26,18 @@
      
 	 <h:panelGrid columns="1" style="margin-left:auto; margin-right:auto;">				
 				<h:panelGrid columns="2" style="margin-left:auto; margin-right:auto;">
-					<h:outputText value="#{messagesSource.getLocaleValue(&quot;login.user&quot;, null)}" />
+					<h:outputText value="#{messagesSource.
+						getLocaleValue(&quot;login.user&quot;, null)}" />
 					<h:inputText id="j_username" />
 
-					<h:outputText value="#{messagesSource.getLocaleValue(&quot;login.password&quot;, null)}" />
+					<h:outputText value="#{messagesSource.
+						getLocaleValue(&quot;login.password&quot;, null)}" />
 					<h:inputSecret id="j_password" />
 				</h:panelGrid>
 
 				<h:panelGrid columns="1" style="margin-left:auto; margin-right:auto;">
-				<h:commandButton type="submit" value="#{messagesSource.getLocaleValue(&quot;login.enter&quot;, null)}" 
-				    action="#{loginBean.doLogin}"/>
+				<h:commandButton type="submit" value="#{messagesSource.
+					getLocaleValue(&quot;login.enter&quot;, null)}" action="#{loginBean.doLogin}"/>
 				</h:panelGrid>
 	</h:panelGrid>
 	

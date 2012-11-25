@@ -6,9 +6,16 @@
  
 	<application>
 		<el-resolver>
-    		    org.springframework.web.jsf.el.SpringBeanFacesELResolver
+    		org.springframework.web.jsf.el.SpringBeanFacesELResolver
 		</el-resolver>
   	</application>
+  	
+  	<!-- Richfaces config -->
+	<application>     
+		<view-handler>
+			org.ajax4jsf.application.AjaxViewHandler
+		</view-handler>
+	</application>  	
   	<!--
  <navigation-rule>
 		<from-view-id>login.xhtml</from-view-id>

@@ -1,5 +1,7 @@
 package org.travelplan.entity;
 
+import java.text.ParseException;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,11 +24,33 @@ public class Profile {
     private String name;
 
 	@Column(name = "\"CreationDate\"")
-    private String creationDate;    
+    private Date creationDate;    
+	
+	@Column(name = "\"StartDate\"")
+    private Date startDate;    
+	
+	@Column(name = "\"EndDate\"")
+    private Date endDate; 
 	
     @ManyToOne
 	@JoinColumn(name="\"IdUser\"")
     private User user;  	
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}	
     
     public User getUser() {
 		return user;
@@ -54,11 +78,11 @@ public class Profile {
 		this.name = name;
 	}
 
-	public String getCreationDate() {
+	public Date getCreationDate() throws ParseException {
 		return creationDate;
 	}
 
-	public void setCreationDate(String creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}       
 }

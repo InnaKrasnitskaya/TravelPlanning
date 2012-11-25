@@ -1,5 +1,8 @@
 package org.travelplan.bean;
 
+import java.util.Date;
+
+import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,6 +18,8 @@ import org.travelplan.service.UserService;
 public class ProfileBean {
 	
 	private String name;
+	private HtmlDataTable dataTable;
+	private Date startDate;
 	
 	@Inject
 	private ProfileService profileService;
@@ -35,7 +40,7 @@ public class ProfileBean {
     		Profile profile = new Profile();
     		profile.setName(name);
     		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
-    		
+    		profile.setCreationDate(new Date());
     		profileService.addProfile(profile);
     	}
     	catch (DataAccessException e) {
@@ -43,4 +48,21 @@ public class ProfileBean {
     	}
     	return "profile?faces-redirect=true";
 	}
+	
+	public HtmlDataTable getDataTable() {  
+		 return dataTable;  
+	}  
+		  
+	public void setDataTable(HtmlDataTable dataTable){  
+		this.dataTable = dataTable;  
+	} 
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+		   
 }

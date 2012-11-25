@@ -13,14 +13,16 @@ import org.travelplan.entity.Profile;
 @Transactional
 public class ProfileDAOImpl implements ProfileDAO {
 	
-	private static final String ProfileSelect = "SELECT p FROM Profile p"; 
+	private static final String ProfileSelect = "SELECT p FROM Profile p " +
+			"ORDER BY creationDate DESC"; 
 	
     @Autowired
     private SessionFactory sessionFactory;	
 	
     @SuppressWarnings("unchecked")
 	public List<Profile> listProfile() {
-        return sessionFactory.getCurrentSession().createQuery(ProfileSelect).list();		
+        return sessionFactory.getCurrentSession().
+        		createQuery(ProfileSelect).list();		
 	}
     
     public void addProfile(Profile profile) {

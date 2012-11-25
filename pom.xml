@@ -13,16 +13,30 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
 	</properties>
-<!-- 
+	
+
    <repositories>	
+ <!--   
 		<repository>  
 	  		<id>prime-repo</id>  
 	  		<name>PrimeFaces Maven Repository</name>  
 	  		<url>http://repository.primefaces.org</url>  
 	  		<layout>default</layout>  
-		</repository> 
-	</repositories>	
-  -->
+		</repository>  		
+			-->
+		<repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+	</repositories>
  
     <dependencies>      
 	 
@@ -175,12 +189,14 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
 			<version>2.1.13</version>
+			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
 			<version>2.1.13</version>
+			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
@@ -212,8 +228,25 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
-		</dependency>
-                                   
+		</dependency>	
+		
+	    
+		<dependency>
+	      <groupId>org.richfaces.framework</groupId>
+	      <artifactId>richfaces-impl-jsf2</artifactId>
+	      <version>3.3.3.Final</version>
+	      <scope>compile</scope>
+	    </dependency>
+	<!-- RichFaces libraries     
+	   <dependency>
+        <groupId>org.richfaces.ui</groupId>
+        <artifactId>richfaces-components-ui</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.richfaces.core</groupId>
+        <artifactId>richfaces-core-impl</artifactId>
+    </dependency>-->
+	                                    
     </dependencies>
     
   	<build>

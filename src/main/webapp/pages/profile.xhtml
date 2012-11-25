@@ -3,7 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich" >
+      
     <h:head>   
    		  	<h:outputStylesheet name="css/table-style.css"  />
     </h:head>
@@ -17,21 +20,29 @@
       	
      	<h1>#{messagesSource.getLocaleValue("profile.profilelist", null)}</h1> 
      	
-     	<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.add.label&quot;, null)}"/>
-     	<h:inputText id="addProfileLabel" size="20" value="#{profileBean.name}"/>
-     	<h:commandButton id="addProfile" action="#{profileBean.addProfile}" 
-		  value="#{messagesSource.getLocaleValue(&quot;profile.add&quot;, null)}" />       	
+     	<h:panelGrid columns="3">	
+     		<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.add.label&quot;, null)}"/>
+     		<h:inputText id="addProfileLabel" size="20" value="#{profileBean.name}"/>
+     		<h:commandButton id="addProfile" action="#{profileBean.addProfile}" 
+		  		value="#{messagesSource.getLocaleValue(&quot;profile.add&quot;, null)}" /> 
+		  	 <rich:calendar value="#{profileBean.startDate}" />	
+		</h:panelGrid>  
+		 		      	
      	<h1> </h1>
- 		<h:dataTable value="#{profileServiceImpl.getListProfile()}" var="profile"
+ 		<h:dataTable 
+ 				value="#{profileServiceImpl.getListProfile()}" 
+ 				var="profile"
     			styleClass="order-table"
     			headerClass="order-table-header"
-    			rowClasses="order-table-odd-row,order-table-even-row">
+    			rowClasses="order-table-odd-row,order-table-even-row"
+    			columnClasses="none,column-left,none,none"
+    			binding="#{profileServiceImpl.dataTable}">
  
     		<h:column>
     			<f:facet name="header">
     				#{messagesSource.getLocaleValue("profile.number", null)}
     			</f:facet>
-    				#{profile.idProfile}
+    				<h:outputText value="#{profileServiceImpl.dataTable.rowIndex + 1}"/>
     		</h:column>
  
     		<h:column>
@@ -45,14 +56,17 @@
     			<f:facet name="header">
     				#{messagesSource.getLocaleValue("profile.date.creation", null)}
 				</f:facet>
-    				#{profile.creationDate}
+				<h:outputText value="#{profile.creationDate}">  
+            		<f:convertDateTime pattern="dd MMMM yyyy"/>  
+        		</h:outputText> 
     		</h:column>
     		
     		<h:column>
     			<f:facet name="header">
     				#{messagesSource.getLocaleValue("profile.parameters", null)}
 				</f:facet>
-    				    		
+    			<h:link outcome="travel?id=#{profile.idProfile}" 
+    				value="#{messagesSource.getLocaleValue(&quot;profile.change&quot;, null)}" />    		
     		</h:column>
 
     	</h:dataTable>

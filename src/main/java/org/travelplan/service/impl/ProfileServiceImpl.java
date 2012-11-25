@@ -2,21 +2,31 @@ package org.travelplan.service.impl;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.component.html.HtmlDataTable;
+import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
 import org.travelplan.dao.ProfileDAO;
 import org.travelplan.entity.Profile;
 import org.travelplan.service.ProfileService;
 
-@Component
-@ManagedBean
-@SessionScoped
+@Named
+@Scope("session")
 public class ProfileServiceImpl implements ProfileService{
+	
+	//dataTable for getting row number in JSF
+	private HtmlDataTable dataTable;
 
-    @Autowired
+    public HtmlDataTable getDataTable() {
+		return dataTable;
+	}
+
+	public void setDataTable(HtmlDataTable dataTable) {
+		this.dataTable = dataTable;
+	}
+
+	@Autowired
     private ProfileDAO profileDAO;
     
     public List<Profile> getListProfile() {

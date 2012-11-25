@@ -20,3 +20,11 @@
 	background:none repeat scroll 0 0 #F9F9F9;
 	border-top:1px solid #BBBBBB;
 }
+
+.column-right {
+	text-align:right;
+}
+
+.column-left {
+	text-align:left;
+}

@@ -5,12 +5,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-    <!-- 	<h:outputStylesheet library="css" name="table-style.css"  /> -->
+    	<h1 align="center"> #{messagesSource.getLocaleValue("travel.caption", null)} </h1>
     </h:head>
  
     <h:body>
     <h:form> 
-      Add profile page
+    	<h:commandButton value="#{messagesSource.getLocaleValue(&quot;travel.route&quot;, null)}" 
+			action="travelroute" style="width:200px" />
+			
+      id=<h:outputText value="#{request.getParameter('id')}" />
+      <!-- <f:viewParam name="id" value="#{blog.entryId}"/> -->
     </h:form>
     </h:body>
 </html>         
