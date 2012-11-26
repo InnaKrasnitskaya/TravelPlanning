@@ -53,12 +53,12 @@
 		<param-value>Development</param-value>
 	</context-param>
 	
-	<!-- Richfaces config -->
+	<!-- Richfaces config 
 	<context-param>
        <param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
        <param-value>com.sun.facelets.FaceletViewHandler</param-value>
   	</context-param>	 
-	
+	-->
 	<!-- Loading configuration files on startup -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

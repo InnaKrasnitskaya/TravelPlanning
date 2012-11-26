@@ -10,12 +10,13 @@
 		</el-resolver>
   	</application>
   	
-  	<!-- Richfaces config -->
+  	<!-- Richfaces config 
 	<application>     
 		<view-handler>
 			org.ajax4jsf.application.AjaxViewHandler
 		</view-handler>
-	</application>  	
+	</application> 
+	-->	
   	<!--
  <navigation-rule>
 		<from-view-id>login.xhtml</from-view-id>

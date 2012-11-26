@@ -20,6 +20,7 @@ public class ProfileBean {
 	private String name;
 	private HtmlDataTable dataTable;
 	private Date startDate;
+	private Date endDate;
 	
 	@Inject
 	private ProfileService profileService;
@@ -35,12 +36,22 @@ public class ProfileBean {
 		this.name = name;
 	}
 	
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}	
+	
 	public String addProfile() {
     	try {
     		Profile profile = new Profile();
     		profile.setName(name);
     		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
     		profile.setCreationDate(new Date());
+    		profile.setStartDate(startDate);
+    		profile.setEndDate(endDate);
     		profileService.addProfile(profile);
     	}
     	catch (DataAccessException e) {
