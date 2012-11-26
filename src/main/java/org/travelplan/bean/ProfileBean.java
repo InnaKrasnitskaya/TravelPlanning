@@ -1,11 +1,9 @@
 package org.travelplan.bean;
 
 import java.util.Date;
-
 import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.travelplan.constant.Constant;
@@ -21,12 +19,23 @@ public class ProfileBean {
 	private HtmlDataTable dataTable;
 	private Date startDate;
 	private Date endDate;
-	
+	private Integer idUpdatedProfile;
+	private Profile updatedProfile;
+
 	@Inject
 	private ProfileService profileService;
 	
 	@Inject
 	private UserService userService;
+	
+	public Integer getIdUpdatedProfile() {
+		return idUpdatedProfile;
+	}
+
+	public void setIdUpdatedProfile(Integer idUpdatedProfile) {
+		this.idUpdatedProfile = idUpdatedProfile;
+		updatedProfile = profileService.findById(idUpdatedProfile);
+	}	
 
 	public String getName() {
 		return name;
@@ -44,20 +53,36 @@ public class ProfileBean {
 		this.endDate = endDate;
 	}	
 	
-	public String addProfile() {
+	private void setData(Profile profile) {
+		profile.setName(name);
+		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
+		profile.setCreationDate(new Date());
+		profile.setStartDate(startDate);
+		profile.setEndDate(endDate);		
+	}
+	
+	public String add() {
     	try {
     		Profile profile = new Profile();
-    		profile.setName(name);
-    		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
-    		profile.setCreationDate(new Date());
-    		profile.setStartDate(startDate);
-    		profile.setEndDate(endDate);
-    		profileService.addProfile(profile);
+    		setData(profile);
+    		profileService.add(profile);
     	}
     	catch (DataAccessException e) {
     		e.printStackTrace();    	
     	}
     	return "profile?faces-redirect=true";
+	}
+	
+	public void update() {
+		setData(updatedProfile);
+		profileService.update(updatedProfile);		
+	}
+	
+	public String setUpdateData() {
+		name = updatedProfile.getName();
+		startDate = updatedProfile.getStartDate();
+		endDate = updatedProfile.getEndDate();
+		return "travel?faces-redirect=true?id=#{profile.idProfile}";
 	}
 	
 	public HtmlDataTable getDataTable() {  

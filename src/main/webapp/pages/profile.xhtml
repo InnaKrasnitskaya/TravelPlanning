@@ -37,7 +37,7 @@
 				datePattern="dd.MM.yyyy" style="width:200px;" popup="true">
 			</rich:calendar>	
 			
-     		<h:commandButton id="addProfile" action="#{profileBean.addProfile}" 
+     		<h:commandButton id="addProfile" action="#{profileBean.add}" 
 		  		value="#{messagesSource.getLocaleValue(&quot;profile.add&quot;, null)}" />					
 			
 		</h:panelGrid>  
@@ -45,7 +45,7 @@
 		
      	<h1> </h1>
  		<h:dataTable 
- 				value="#{profileServiceImpl.getListProfile()}" 
+ 				value="#{profileServiceImpl.getList()}" 
  				var="profile"
     			styleClass="order-table"
     			headerClass="order-table-header"
@@ -98,8 +98,14 @@
     			<f:facet name="header">
     				#{messagesSource.getLocaleValue("profile.parameters", null)}
 				</f:facet>
-    			<h:link outcome="travel?id=#{profile.idProfile}" 
-    				value="#{messagesSource.getLocaleValue(&quot;profile.change&quot;, null)}" />    		
+  
+    			<a4j:commandLink id="changeProfile" value="#{messagesSource.getLocaleValue
+    				(&quot;profile.change&quot;, null)}" action="#{profileBean.setUpdateData}" >
+    				  				
+                    <f:setPropertyActionListener value="#{profile.idProfile}" 
+                    	target="#{profileBean.idUpdatedRow}" />                    	
+                </a4j:commandLink>
+                
     		</h:column>
 
     	</h:dataTable>

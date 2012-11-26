@@ -13,27 +13,38 @@ import org.travelplan.entity.Profile;
 @Transactional
 public class ProfileDAOImpl implements ProfileDAO {
 	
-	private static final String ProfileSelect = "SELECT p FROM Profile p " +
-			"ORDER BY creationDate DESC"; 
+	private static final String ProfileSelect = "SELECT p FROM Profile p ";
+	private static final String ProfileOrder = "ORDER BY creationDate DESC";
+	private static final String ProfileIdCondition = " where idProfile=%d";
 	
     @Autowired
     private SessionFactory sessionFactory;	
 	
     @SuppressWarnings("unchecked")
-	public List<Profile> listProfile() {
+	public List<Profile> getList() {
         return sessionFactory.getCurrentSession().
-        		createQuery(ProfileSelect).list();		
+        		createQuery(ProfileSelect.concat(ProfileOrder)).list();		
 	}
     
-    public void addProfile(Profile profile) {
+    public void add(Profile profile) {
     	sessionFactory.getCurrentSession().save(profile);
     }
     
-    public void removeProfile(Integer id) {
+    public void update(Profile profile) {
+    	sessionFactory.getCurrentSession().update(profile);
+    }    
+    
+    public void remove(Integer id) {
         Profile profile = (Profile) sessionFactory.
         		getCurrentSession().load(Profile.class, id);
         if (null != profile) {
           sessionFactory.getCurrentSession().delete(profile);
         }    	
     }
+    
+    public Profile findById(Integer id) {
+        return (Profile) sessionFactory.getCurrentSession().createQuery(
+        		ProfileSelect.concat(String.format(ProfileIdCondition, id))).uniqueResult();    	
+    }
+    
 }

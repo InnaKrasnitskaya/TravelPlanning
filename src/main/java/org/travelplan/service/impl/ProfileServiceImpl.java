@@ -29,12 +29,24 @@ public class ProfileServiceImpl implements ProfileService{
 	@Autowired
     private ProfileDAO profileDAO;
     
-    public List<Profile> getListProfile() {
-        return profileDAO.listProfile();
+    public List<Profile> getList() {
+        return profileDAO.getList();
     }  
     
-    public void addProfile(Profile profile) {
-    	profileDAO.addProfile(profile);
+    public void add(Profile profile) {
+    	profileDAO.add(profile);
+    }
+    
+    public void remove(Integer id) {
+    	profileDAO.remove(id);
+    }
+    
+    public void update(Profile profile) {
+    	profileDAO.update(profile);
+    }
+    
+    public Profile findById(Integer id) {
+    	return profileDAO.findById(id);
     }
     
     //http://www.mkyong.com/jsf2/jsf-2-0-spring-hibernate-integration-example/
