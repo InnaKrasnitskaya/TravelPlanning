@@ -53,10 +53,11 @@ public class ProfileBean {
 		this.endDate = endDate;
 	}	
 	
-	private void setData(Profile profile) {
+	private void setData(Profile profile, Boolean isAdd) {
 		profile.setName(name);
 		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
-		profile.setCreationDate(new Date());
+		if (isAdd)
+			profile.setCreationDate(new Date());
 		profile.setStartDate(startDate);
 		profile.setEndDate(endDate);		
 	}
@@ -64,7 +65,7 @@ public class ProfileBean {
 	public String add() {
     	try {
     		Profile profile = new Profile();
-    		setData(profile);
+    		setData(profile, true);
     		profileService.add(profile);
     	}
     	catch (DataAccessException e) {
@@ -74,7 +75,7 @@ public class ProfileBean {
 	}
 	
 	public void update() {
-		setData(updatedProfile);
+		setData(updatedProfile, false);
 		profileService.update(updatedProfile);		
 	}
 	
@@ -82,7 +83,14 @@ public class ProfileBean {
 		name = updatedProfile.getName();
 		startDate = updatedProfile.getStartDate();
 		endDate = updatedProfile.getEndDate();
-		return "travel?faces-redirect=true?id=#{profile.idProfile}";
+		return "travel?faces-redirect=true&id=#{profile.idProfile}";
+	}
+	
+	public String clearData() {
+		name = "";
+		startDate = null;
+		endDate = null;		
+		return "profile?faces-redirect=true";
 	}
 	
 	public HtmlDataTable getDataTable() {  

@@ -47,7 +47,7 @@ public class UserBean implements Serializable {
     		user.setName(name);
     		user.setPassword(password);		
     		user.setEmail(email);
-    		userService.addUser(user);
+    		userService.add(user);
     		addUserRole(user, Constant.UserRoles.USER);
     	}
     	catch (DataAccessException e) {
@@ -60,7 +60,7 @@ public class UserBean implements Serializable {
 		UserRole userRole = new UserRole();
 		userRole.setUser(user);
 		userRole.setRole(roleService.getRole(userRoles));
-		userRoleService.addUserRole(userRole);		
+		userRoleService.add(userRole);		
 	}	
     
     public void setPassword (FacesContext context, UIComponent component, Object value)  

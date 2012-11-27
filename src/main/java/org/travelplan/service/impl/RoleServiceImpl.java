@@ -15,8 +15,8 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleDAO roleDAO;
 	
-	public List<Role> listRole() {
-		return roleDAO.listRole();
+	public List<Role> getList() {
+		return roleDAO.getList();
 	}
 	
 	public Role getRole(Constant.UserRoles userRoles) {

@@ -17,13 +17,7 @@ public class UserRole {
     @Column(name = "\"IdUserRole\"")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUserRole;	
-    
- /*   @Column(name = "\"IdUser\"")
-    private Integer idUser;	  
-    
-    @Column(name = "\"IdRole\"")
-    private Integer idRole;	   */ 
-    
+        
     @ManyToOne
 	@JoinColumn(name="\"IdUser\"")
 	private User user;    

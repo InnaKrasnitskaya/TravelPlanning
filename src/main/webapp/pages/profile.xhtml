@@ -15,12 +15,12 @@
      <h:form>
       
       	<a href="#{request.contextPath}/j_spring_security_logout">
-      		#{messagesSource.getLocaleValue("profile.logout", null)}
+      		#{messagesSource.getLocaleValue("navigation.logout", null)}
       	</a>
-      	
-     	<h1>#{messagesSource.getLocaleValue("profile.profilelist", null)}</h1> 
+      	     	
+     	<h1 align="center">#{messagesSource.getLocaleValue("profile.profilelist", null)}</h1> 
      	
-     	
+     	<!--  Add profile -->
      	<rich:panel header="#{messagesSource.getLocaleValue(&quot;profile.panel.header&quot;, null)}">
      	<h:panelGrid columns="7">	
 
@@ -103,7 +103,7 @@
     				(&quot;profile.change&quot;, null)}" action="#{profileBean.setUpdateData}" >
     				  				
                     <f:setPropertyActionListener value="#{profile.idProfile}" 
-                    	target="#{profileBean.idUpdatedRow}" />                    	
+                    	target="#{profileBean.idUpdatedProfile}" />                    	
                 </a4j:commandLink>
                 
     		</h:column>

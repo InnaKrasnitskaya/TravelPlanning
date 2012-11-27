@@ -22,7 +22,7 @@ public class UserRoleDAOImpl implements UserRoleDAO {
     private SessionFactory sessionFactory;		
 	
 	@SuppressWarnings("unchecked")
-	public List<UserRole> listUserRole() {
+	public List<UserRole> getList() {
         return sessionFactory.getCurrentSession().createQuery(UserRoleSelect).list();		
 	}
 	
@@ -32,7 +32,7 @@ public class UserRoleDAOImpl implements UserRoleDAO {
         		format(UserRoleSelByUserName, userName)).list();			
 	}
 	
-	public void addUserRole(UserRole userRole) {
+	public void add(UserRole userRole) {
 		sessionFactory.getCurrentSession().save(userRole);
 	}
 }

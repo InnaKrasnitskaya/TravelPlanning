@@ -3,9 +3,8 @@ package org.travelplan.service.impl;
 import java.util.List;
 
 import javax.faces.component.html.HtmlDataTable;
+import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.travelplan.dao.ProfileDAO;
 import org.travelplan.entity.Profile;
@@ -26,7 +25,7 @@ public class ProfileServiceImpl implements ProfileService{
 		this.dataTable = dataTable;
 	}
 
-	@Autowired
+	@Inject
     private ProfileDAO profileDAO;
     
     public List<Profile> getList() {

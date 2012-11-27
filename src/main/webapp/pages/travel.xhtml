@@ -4,16 +4,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:rich="http://richfaces.org/rich" >
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" >
     <h:head>
-    	<h1 align="center"> #{messagesSource.getLocaleValue("travel.caption", null)} </h1>
+    	
     </h:head>
  
     <h:body>
     <h:form> 
-    	<h:commandButton value="#{messagesSource.getLocaleValue(&quot;travel.route&quot;, null)}" 
-			action="travelroute" style="width:200px" />
-			
+      <!--   id=<h:outputText value="#{request.getParameter('id')}" /> 
+      Pass parameter to bean 
+      <f:viewParam name="id" value="#{travelRouteBeanf.idProfile}"/>-->
+          
+    	<h:panelGrid columns="1">
+	    	<a href="#{request.contextPath}/j_spring_security_logout">
+	      		#{messagesSource.getLocaleValue("navigation.logout", null)}
+	      	</a>
+	      	
+      		<h:commandLink action="#{profileBean.clearData}" value="#{messagesSource.getLocaleValue
+      			(&quot;navigation.back&quot;, null)}" />    
+		</h:panelGrid>
+		
+		<h1 align="center"> #{messagesSource.getLocaleValue("travel.caption", null)} </h1>
+		
+		<h:commandButton value="#{messagesSource.getLocaleValue(&quot;travel.route&quot;, null)}" 
+			action="travelroute" style="width:150px" />
+		<br /><br />		
+		
+		<!--  Edit profile -->
      	<rich:panel header="#{messagesSource.getLocaleValue(&quot;travel.panel.header&quot;, null)}">
      	<h:panelGrid columns="7">	
 
@@ -34,10 +52,34 @@
 		  		value="#{messagesSource.getLocaleValue(&quot;travel.save&quot;, null)}" />					
 			
 		</h:panelGrid>  
-		</rich:panel>			
-			
-      id=<h:outputText value="#{request.getParameter('id')}" />
-      <!-- <f:viewParam name="id" value="#{blog.entryId}"/> -->
+		</rich:panel>	
+		
+		<rich:tabPanel>
+			<c:forEach items="#{travelRouteBean.findByIdProfile(7)}" var="headCity">
+	        	<rich:tab header="#{headCity.city.name}">	            	
+					<rich:dataTable value="#{capitalsBean.capitals}" var="cap" rows="5">
+		        		<f:facet name="caption">
+		                	<h:outputText value="United States Capitals" />
+		        		</f:facet>
+		
+		        		<f:facet name="header">
+		                	<h:outputText value="Capitals and States Table" />
+		        		</f:facet>
+		
+		        		<rich:column>
+		                	<f:facet name="header">State Flag</f:facet>
+		        		</rich:column>
+		
+		       			<rich:column>
+		                	<f:facet name="header">State Name</f:facet>
+		                        <h:outputText value="12345"/>
+		                	<f:facet name="footer">State Name</f:facet>
+		        		</rich:column>
+			       	</rich:dataTable>	
+	       		</rich:tab>
+	        </c:forEach>
+	    </rich:tabPanel>				
+      
     </h:form>
     </h:body>
 </html>         

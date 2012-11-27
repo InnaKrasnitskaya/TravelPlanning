@@ -7,6 +7,6 @@ import org.travelplan.entity.Role;
 
 
 public interface RoleDAO {
-	public List<Role> listRole();
+	public List<Role> getList();
 	public Role getRole(Constant.UserRoles userRoles);
 }

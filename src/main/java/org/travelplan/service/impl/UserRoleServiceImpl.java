@@ -15,15 +15,15 @@ public class UserRoleServiceImpl implements UserRoleService {
 	@Inject
 	private UserRoleDAO userRoleDAO; 
 	
-	public List<UserRole> listUserRole() {
-		return userRoleDAO.listUserRole();
+	public List<UserRole> getList() {
+		return userRoleDAO.getList();
 	}
 	
 	public List<UserRole> getUserRoles(String userName) {
 		return userRoleDAO.getUserRoles(userName);
 	}
 	
-	public void addUserRole(UserRole userRole) {
-		userRoleDAO.addUserRole(userRole);
+	public void add(UserRole userRole) {
+		userRoleDAO.add(userRole);
 	}
 }

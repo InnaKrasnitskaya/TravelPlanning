@@ -19,7 +19,7 @@ public class RoleDAOImpl implements RoleDAO {
     private SessionFactory sessionFactory;	
 	
     @SuppressWarnings("unchecked")
-	public List<Role> listRole() {
+	public List<Role> getList() {
         return sessionFactory.getCurrentSession().createQuery(RoleSelect).list();		
 	}
     

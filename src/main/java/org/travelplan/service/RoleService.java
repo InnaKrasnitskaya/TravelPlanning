@@ -6,6 +6,6 @@ import org.travelplan.constant.Constant;
 import org.travelplan.entity.Role;
 
 public interface RoleService {
-	public List<Role> listRole();
+	public List<Role> getList();
 	public Role getRole(Constant.UserRoles userRoles);
 }
