@@ -9,14 +9,17 @@
       
     <h:head>   
    		  	<h:outputStylesheet name="css/table-style.css"  />
+   		  	<h:outputStylesheet name="css/loginhead-style.css"  />
     </h:head>
  
     <h:body>
      <h:form>
-      
+     
+      <h:panelGrid columns="1" columnClasses="top_column_right"  style="width: 100%">
       	<a href="#{request.contextPath}/j_spring_security_logout">
       		#{messagesSource.getLocaleValue("navigation.logout", null)}
       	</a>
+      </h:panelGrid>
       	     	
      	<h1 align="center">#{messagesSource.getLocaleValue("profile.profilelist", null)}</h1> 
      	
