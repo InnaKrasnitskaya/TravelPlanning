@@ -16,8 +16,6 @@ public class TravelRouteBean {
 	@Inject
 	private TravelRouteService travelRouteService;
 	
-	private int pageNumber = 1;
-	
 	/*private Integer idProfile;
 
 	public Integer getIdProfile() {
@@ -28,20 +26,9 @@ public class TravelRouteBean {
 		this.idProfile = idProfile;
 	}*/
 	
-	public int getPageNumber() {
-		return pageNumber;
-	}
-
-	public void setPageNumber(int pageNumber) {
-		this.pageNumber = pageNumber;
-	}
-	
 	public List<TravelRoute> findByIdProfile(Integer id) {
 		return travelRouteService.findByIdProfile(id);
 	}	
 	
-	public void click() {
-		pageNumber = 2;
-	}
 	
 }

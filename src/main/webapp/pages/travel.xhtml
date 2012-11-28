@@ -58,18 +58,36 @@
 			<c:forEach items="#{travelRouteBean.findByIdProfile(7)}" var="headCity">
 	        	<rich:tab header="#{headCity.city.name}">	  
 	        	          	
-	    	    	<rich:dataTable id="Id#{headCity.city.name}" value="#{travelRouteBean.findByIdProfile(7)}" var="costs" 
-						rows="3">
+	    	    	<rich:dataTable id="Id#{headCity.city.name}" 
+	    	    		value="#{costsServiceImpl.findByTravelRoute(1)}" var="costsTable" rows="10">
 		
 		        		<rich:column>
-		                	<f:facet name="header">1 column</f:facet>
-		                		<h:outputText value = "#{costs.city.name}" />		                	
+		                	<f:facet name="header">
+		                		#{messagesSource.getLocaleValue("travel.number", null)}
+		                	</f:facet>
+		                		<h:outputText value = "#{travelRouteServiceImpl.dataTable.rowIndex + 1}" />		                	
 		        		</rich:column>
 		
 		       			<rich:column>
-		                	<f:facet name="header">2 column</f:facet>
-		                        <h:outputText value="#{costs.city.name}"/>
+		                	<f:facet name="header">
+		                		#{messagesSource.getLocaleValue("travel.costs", null)}
+		                	</f:facet>
+		                        <h:outputText value="#{costsTable.costsList.name}"/>
 		        		</rich:column>
+		        		
+		       			<rich:column>
+		                	<f:facet name="header">
+		                		#{messagesSource.getLocaleValue("travel.price", null)}
+		                	</f:facet>
+		                        <h:outputText value="#{costsTable.price}"/>
+		        		</rich:column>		
+		        		
+		       			<rich:column>
+		                	<f:facet name="header">
+		                		#{messagesSource.getLocaleValue("travel.note", null)}
+		                	</f:facet>
+		                        <h:outputText value="#{costsTable.note}"/>
+		        		</rich:column>		        		        		
 		        		
 						<f:facet name="footer">
 		                	<rich:dataScroller ajaxSingle="false" align="left" for="Id#{headCity.city.name}" 
