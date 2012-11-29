@@ -2,7 +2,6 @@ package org.travelplan.service.impl;
 
 import java.util.List;
 
-import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
@@ -13,17 +12,6 @@ import org.travelplan.service.CostsService;
 @Named
 @Scope("session")
 public class CostsServiceImpl implements CostsService {
-	
-	//dataTable for getting row number in JSF
-	private HtmlDataTable dataTable;
-
-    public HtmlDataTable getDataTable() {
-		return dataTable;
-	}
-
-	public void setDataTable(HtmlDataTable dataTable) {
-		this.dataTable = dataTable;
-	}
 
 	@Inject
     private CostsDAO CostsDAO;
@@ -44,7 +32,9 @@ public class CostsServiceImpl implements CostsService {
     	CostsDAO.update(Costs);
     }
     
-    public List<Costs> findByTravelRoute(int idTravelRoute) {
-    	return CostsDAO.findByTravelRoute(idTravelRoute);
+    public List<Costs> findByTravelRoute(Integer idTravelRoute) {
+    	List<Costs> var = CostsDAO.findByTravelRoute(idTravelRoute);
+    	var.add(new Costs());
+    	return var;
     }
 }

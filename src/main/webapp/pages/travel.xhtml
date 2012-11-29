@@ -7,14 +7,15 @@
       xmlns:rich="http://richfaces.org/rich"
       xmlns:c="http://java.sun.com/jsp/jstl/core" >
     <h:head>
+    	<h:outputStylesheet name="css/table-style.css"  />
     	<h:outputStylesheet name="css/loginhead-style.css"  />
     </h:head>
  
     <h:body>
     <h:form> 
-      <!--   id=<h:outputText value="#{request.getParameter('id')}" /> 
-      Pass parameter to bean 
-      <f:viewParam name="id" value="#{travelRouteBeanf.idProfile}"/>-->
+      <!--   id=<h:outputText value="#{request.getParameter('id')}" /> -->
+      <!--  Pass parameter to bean
+      <f:viewParam name="id" value="#{travelRouteBean.idProfile}"/> -->
           
     	<h:panelGrid columns="2" columnClasses="top_column_left, top_column_right"  style="width: 100%">      	
       		<h:commandLink action="#{profileBean.clearData}" value="#{messagesSource.getLocaleValue
@@ -54,39 +55,46 @@
 		</h:panelGrid>  
 		</rich:panel>	
 		
-		<rich:tabPanel switchType="client">
-			<c:forEach items="#{travelRouteBean.findByIdProfile(7)}" var="headCity">
+		<rich:tabPanel switchType="client" rendered="#{not empty travelRouteBean.findByIdProfile()}">
+			<c:forEach items="#{travelRouteBean.findByIdProfile()}" var="headCity">
 	        	<rich:tab header="#{headCity.city.name}">	  
 	        	          	
-	    	    	<rich:dataTable id="Id#{headCity.city.name}" 
-	    	    		value="#{costsServiceImpl.findByTravelRoute(1)}" var="costsTable" rows="10">
+	    	    	<rich:dataTable 
+	    	    		id="Id#{headCity.city.name}" 
+	    	    		rendered="#{not empty costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}"
+	    	    		value="#{costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}" var="costsTable" 
+	    	    		rows="5" rowKeyVar="rowkey"
+	    	    		columnClasses="column-right,none,column-right,none">
 		
 		        		<rich:column>
 		                	<f:facet name="header">
 		                		#{messagesSource.getLocaleValue("travel.number", null)}
 		                	</f:facet>
-		                		<h:outputText value = "#{travelRouteServiceImpl.dataTable.rowIndex + 1}" />		                	
+		                		<h:outputText value = "#{rowkey + 1}" />		                	
 		        		</rich:column>
 		
 		       			<rich:column>
 		                	<f:facet name="header">
 		                		#{messagesSource.getLocaleValue("travel.costs", null)}
 		                	</f:facet>
-		                        <h:outputText value="#{costsTable.costsList.name}"/>
+		                        <h:outputText value="#{costsTable.costsList.name}" rendered="#{costsTable.idCosts != null}"/>
+		                        <h:inputText value="#{costsBean.name}" rendered="#{costsTable.idCosts == null}" />
 		        		</rich:column>
 		        		
 		       			<rich:column>
 		                	<f:facet name="header">
 		                		#{messagesSource.getLocaleValue("travel.price", null)}
 		                	</f:facet>
-		                        <h:outputText value="#{costsTable.price}"/>
+		                        <h:outputText value="#{costsTable.price}" rendered="#{costsTable.idCosts != null}" />
+		                        <h:inputText value="#{costsBean.price}" rendered="#{costsTable.idCosts == null}" />
 		        		</rich:column>		
 		        		
 		       			<rich:column>
 		                	<f:facet name="header">
 		                		#{messagesSource.getLocaleValue("travel.note", null)}
 		                	</f:facet>
-		                        <h:outputText value="#{costsTable.note}"/>
+		                        <h:outputText value="#{costsTable.note}" rendered="#{costsTable.idCosts != null}" />
+		                        <h:inputText value="#{costsBean.note}" rendered="#{costsTable.idCosts == null}" />
 		        		</rich:column>		        		        		
 		        		
 						<f:facet name="footer">
@@ -97,7 +105,7 @@
 
 	       		</rich:tab>
 	        </c:forEach>
-	    </rich:tabPanel>	
+	    </rich:tabPanel>		  
 
     </h:form>
     </h:body>

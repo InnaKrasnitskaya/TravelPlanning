@@ -13,8 +13,8 @@ import org.travelplan.entity.Costs;
 @Transactional
 public class CostsDAOImpl implements CostsDAO {
 
-	private static final String CostsSelect = "SELECT c FROM Costs c ";
-	private static final String CostsIdCondition = " where idTravelRoute=%d";
+	private static final String CostsSelect = "SELECT c FROM Costs c";
+	private static final String CostsIdCondition = " JOIN c.travelRoute tr WHERE tr.idTravelRoute=%d";
 	
     @Autowired
     private SessionFactory sessionFactory;	
@@ -32,7 +32,7 @@ public class CostsDAOImpl implements CostsDAO {
     	sessionFactory.getCurrentSession().update(Costs);
     }    
     
-    public void remove(int id) {
+    public void remove(Integer id) {
         Costs Costs = (Costs) sessionFactory.
         		getCurrentSession().load(Costs.class, id);
         if (Costs != null) {
@@ -41,7 +41,7 @@ public class CostsDAOImpl implements CostsDAO {
     }
     
     @SuppressWarnings("unchecked")
-    public List<Costs> findByTravelRoute(int idTravelRoute) {
+    public List<Costs> findByTravelRoute(Integer idTravelRoute) {
         return sessionFactory.getCurrentSession().createQuery(
         	CostsSelect.concat(String.format(CostsIdCondition, idTravelRoute))).list();      	
     }

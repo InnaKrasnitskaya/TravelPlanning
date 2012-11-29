@@ -16,7 +16,10 @@ public class TravelRouteBean {
 	@Inject
 	private TravelRouteService travelRouteService;
 	
-	/*private Integer idProfile;
+	@Inject
+	private ProfileBean profileBean;
+	
+	private Integer idProfile;
 
 	public Integer getIdProfile() {
 		return idProfile;
@@ -24,10 +27,10 @@ public class TravelRouteBean {
 
 	public void setIdProfile(Integer idProfile) {
 		this.idProfile = idProfile;
-	}*/
+	}
 	
-	public List<TravelRoute> findByIdProfile(Integer id) {
-		return travelRouteService.findByIdProfile(id);
+	public List<TravelRoute> findByIdProfile() {
+		return travelRouteService.findByIdProfile(profileBean.getIdProfile());
 	}	
 	
 	

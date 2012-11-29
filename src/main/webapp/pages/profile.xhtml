@@ -102,11 +102,8 @@
     				#{messagesSource.getLocaleValue("profile.parameters", null)}
 				</f:facet>
   
-    			<a4j:commandLink id="changeProfile" value="#{messagesSource.getLocaleValue
-    				(&quot;profile.change&quot;, null)}" action="#{profileBean.setUpdateData}" >
-    				  				
-                    <f:setPropertyActionListener value="#{profile.idProfile}" 
-                    	target="#{profileBean.idUpdatedProfile}" />                    	
+    			<a4j:commandLink id="changeProfile" value="#{messagesSource.getLocaleValue(&quot;profile.change&quot;, null)}" 
+    				action="#{profileBean.getTravelPage(profile.idProfile)}" >  	
                 </a4j:commandLink>
                 
     		</h:column>

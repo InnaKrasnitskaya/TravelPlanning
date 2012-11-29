@@ -19,7 +19,7 @@ public class ProfileBean {
 	private HtmlDataTable dataTable;
 	private Date startDate;
 	private Date endDate;
-	private Integer idUpdatedProfile;
+	private Integer idProfile;
 	private Profile updatedProfile;
 
 	@Inject
@@ -28,13 +28,12 @@ public class ProfileBean {
 	@Inject
 	private UserService userService;
 	
-	public Integer getIdUpdatedProfile() {
-		return idUpdatedProfile;
+	public Integer getIdProfile() {
+		return idProfile;
 	}
 
-	public void setIdUpdatedProfile(Integer idUpdatedProfile) {
-		this.idUpdatedProfile = idUpdatedProfile;
-		updatedProfile = profileService.findById(idUpdatedProfile);
+	public void setIdProfile(Integer idProfile) {
+		this.idProfile = idProfile;
 	}	
 
 	public String getName() {
@@ -79,17 +78,19 @@ public class ProfileBean {
 		profileService.update(updatedProfile);		
 	}
 	
-	public String setUpdateData() {
+	public String getTravelPage(Integer idProfile) {
+		this.idProfile = idProfile; 
+		updatedProfile = profileService.findById(idProfile);		
 		name = updatedProfile.getName();
 		startDate = updatedProfile.getStartDate();
 		endDate = updatedProfile.getEndDate();
-		return "travel?faces-redirect=true&id=#{profile.idProfile}";
+		return "travel?faces-redirect=true"; //&id=#{profile.idProfile}
 	}
 	
 	public String clearData() {
-		name = "";
+		/*name = "";
 		startDate = null;
-		endDate = null;		
+		endDate = null;	*/	
 		return "profile?faces-redirect=true";
 	}
 	

@@ -305,7 +305,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 						<cargo.remote.password>123</cargo.remote.password>
 					</properties>
 				</configuration>
-				<deployer>
+
 					<type>remote</type>
 					<deployables>
 						<deployable>
@@ -314,7 +314,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 							<type>war</type>
 						</deployable>
 					</deployables>
-				</deployer>
+
 		</configuration>
 	 </plugin>
     	

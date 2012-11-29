@@ -27,10 +27,10 @@ public class Costs {
     private CostsList costsList;    
     
     @Column(name = "\"Price\"")
-    private Integer price;
+    private float price;
     
     @Column(name = "\"Note\"")
-    private Integer note;
+    private String note;
 
 	public Integer getIdCosts() {
 		return idCosts;
@@ -56,19 +56,19 @@ public class Costs {
 		this.costsList = costsList;
 	}
 
-	public Integer getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 
-	public Integer getNote() {
+	public String getNote() {
 		return note;
 	}
 
-	public void setNote(Integer note) {
+	public void setNote(String note) {
 		this.note = note;
 	} 
 }

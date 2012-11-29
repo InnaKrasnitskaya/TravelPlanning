@@ -12,5 +12,7 @@
         <mapping class="org.travelplan.entity.Profile" />
         <mapping class="org.travelplan.entity.City" />
         <mapping class="org.travelplan.entity.TravelRoute" />
+        <mapping class="org.travelplan.entity.CostsList" />
+        <mapping class="org.travelplan.entity.Costs" />
     </session-factory>	    
 </hibernate-configuration>

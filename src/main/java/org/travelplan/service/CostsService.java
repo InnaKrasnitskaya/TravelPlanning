@@ -8,5 +8,5 @@ public interface CostsService {
     public List<Costs> getList();
     public void remove(Integer id);
     public void update(Costs costs);
-    public List<Costs> findByTravelRoute(int idTravelRoute);
+    public List<Costs> findByTravelRoute(Integer idTravelRoute);
 }
