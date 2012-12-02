@@ -13,6 +13,7 @@ import org.travelplan.entity.TravelRoute;
 public class TravelRouteDAOImpl implements TravelRouteDAO {
 	private static final String TravelRouteSelect = "SELECT tr FROM TravelRoute tr";
 	private static final String IdProfileOrder = " ORDER BY idProfile";
+	private static final String IdTravelRouteCondition = " WHERE idTravelRoute=%d";
 	private static final String IdProfileCondition = " JOIN tr.profile p WHERE p.idProfile=%d ORDER BY tr.routeOrder";
 	
     @Autowired
@@ -44,6 +45,11 @@ public class TravelRouteDAOImpl implements TravelRouteDAO {
     public List<TravelRoute> findByIdProfile(Integer id) {
         return sessionFactory.getCurrentSession().createQuery(
         		TravelRouteSelect.concat(String.format(IdProfileCondition, id))).list();   
+    }
+    
+    public TravelRoute findById(Integer id) {
+        return (TravelRoute)sessionFactory.getCurrentSession().createQuery(
+        		TravelRouteSelect.concat(String.format(IdTravelRouteCondition, id))).uniqueResult();       	
     }
     
 }

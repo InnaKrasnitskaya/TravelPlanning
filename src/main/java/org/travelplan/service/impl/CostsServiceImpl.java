@@ -33,8 +33,8 @@ public class CostsServiceImpl implements CostsService {
     }
     
     public List<Costs> findByTravelRoute(Integer idTravelRoute) {
-    	List<Costs> var = CostsDAO.findByTravelRoute(idTravelRoute);
-    	var.add(new Costs());
-    	return var;
+    	List<Costs> listCosts = CostsDAO.findByTravelRoute(idTravelRoute);
+    	listCosts.add(new Costs());
+    	return listCosts;
     }
 }

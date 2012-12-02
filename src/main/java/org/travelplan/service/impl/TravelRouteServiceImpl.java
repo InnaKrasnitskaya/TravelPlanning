@@ -35,4 +35,8 @@ public class TravelRouteServiceImpl implements TravelRouteService {
     public List<TravelRoute> findByIdProfile(Integer id) {
     	return travelRouteDAO.findByIdProfile(id);
     }
+    
+    public TravelRoute findById(Integer id) {
+    	return travelRouteDAO.findById(id);
+    }
 }

@@ -9,4 +9,5 @@ public interface TravelRouteDAO {
     public void remove(Integer id);
     public void update(TravelRoute travelRoute);
     public List<TravelRoute> findByIdProfile(Integer id);
+    public TravelRoute findById(Integer id);
 }
