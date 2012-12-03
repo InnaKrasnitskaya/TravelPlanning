@@ -9,4 +9,5 @@ public interface CostsDAO {
     public void remove(Integer id);
     public void update(Costs costs);
     public List<Costs> findByTravelRoute(Integer idTravelRoute);
+    public Costs findById(Integer id);
 }

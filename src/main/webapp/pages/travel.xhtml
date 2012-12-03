@@ -5,7 +5,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:c="http://java.sun.com/jsp/jstl/core" >
+      xmlns:c="http://java.sun.com/jsp/jstl/core" 
+      xmlns:a4j="http://richfaces.org/a4j">
     <h:head>
     	<h:outputStylesheet name="css/table-style.css"  />
     	<h:outputStylesheet name="css/loginhead-style.css"  />
@@ -55,7 +56,9 @@
 		</h:panelGrid>  
 		</rich:panel>	
 		
-		<rich:tabPanel switchType="client" rendered="#{not empty travelRouteBean.findByIdProfile()}">
+		<rich:tabPanel id="tabTravel" switchType="ajax" rendered="#{not empty travelRouteBean.findByIdProfile()}">
+			<a4j:ajax event="itemchange" listener="#{costsBean.setPrAdd(false)}" 
+			  render="tabTravel" />
 			<c:forEach items="#{travelRouteBean.findByIdProfile()}" var="headCity">
 	        	<rich:tab header="#{headCity.city.name}">	  
 	        	          	
@@ -64,14 +67,18 @@
 	    	    		rendered="#{not empty costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}"
 	    	    		value="#{costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}" 
 	    	    		var="costsTable" 
-	    	    		rows="5" rowKeyVar="rowkey"
+	    	    		rows="10" rowKeyVar="rowkey"
 	    	    		columnClasses="column-right,none,column-right,none">
-		
+	    	    		
+		                <a4j:ajax event="onclick" listener="#{costsBean.update(3)}" 
+  							render="tabTravel"/>	    	    		
+	
 		        		<rich:column>
 		                	<f:facet name="header">
 		                		#{messagesSource.getLocaleValue("travel.number", null)}
 		                	</f:facet>
-		                		<h:outputText value = "#{rowkey + 1}" />		                	
+		                		<h:outputText value = "#{rowkey + 1}" rendered="#{costsTable.idCosts != null 
+		                		  or costsBean.prAdd == true}" />		
 		        		</rich:column>
 		
 		       			<rich:column>
@@ -79,9 +86,9 @@
 		                		#{messagesSource.getLocaleValue("travel.costs", null)}
 		                	</f:facet>
 		                        <h:outputText value="#{costsTable.costsList.name}" 
-		                          rendered="#{costsTable.idCosts != null and costsBean.isAdd == false}"/>
+		                          rendered="#{costsTable.idCosts != null}"/>
 		                        <h:inputText value="#{costsBean.name}" 
-		                          rendered="#{costsTable.idCosts == null and costsBean.isAdd == true}" />
+		                          rendered="#{costsTable.idCosts == null and costsBean.prAdd == true}" />
 		        		</rich:column>
 		        		
 		       			<rich:column>
@@ -89,10 +96,14 @@
 		                		#{messagesSource.getLocaleValue("travel.price", null)}
 		                	</f:facet>
 		                        <h:outputText value="#{costsTable.price}" 
-		                          rendered="#{costsTable.idCosts != null and costsBean.isAdd == false}" />
+		                          rendered="#{costsTable.idCosts != null}" />
 		                        <h:inputText value="#{costsBean.price}" 
-		                          rendered="#{costsTable.idCosts == null and costsBean.isAdd == true}" 
+		                          rendered="#{costsTable.idCosts == null and costsBean.prAdd == true}" 
 		                          style="text-align:right"/>
+		                        <h:inputText value="#{costsBean.price}"
+		                          rendered="#{costsTable.idCosts != null and
+		                            costsTable.idCosts == costsBean.idUpdatedCosts}" 
+		                          style="text-align:right" />  
 		        		</rich:column>		
 		        		
 		       			<rich:column>
@@ -100,19 +111,20 @@
 		                		#{messagesSource.getLocaleValue("travel.note", null)}
 		                	</f:facet>
 		                        <h:outputText value="#{costsTable.note}" 
-		                          rendered="#{costsTable.idCosts != null and costsBean.isAdd == false}" />
+		                          rendered="#{costsTable.idCosts != null}" />
 		                        <h:inputText value="#{costsBean.note}" 
-		                          rendered="#{costsTable.idCosts == null and costsBean.isAdd == true}" />
+		                          rendered="#{costsTable.idCosts == null and costsBean.prAdd == true}" />
+		                        <h:inputText value="#{costsBean.note}"
+		                          rendered="#{costsTable.idCosts != null and 
+		                            costsTable.idCosts == costsBean.idUpdatedCosts}" />  		                          
 		        		</rich:column>		        		        		
 		        		
 						<f:facet name="footer">
-		                	<rich:dataScroller ajaxSingle="false" align="left" 
+		                	<rich:dataScroller align="left" 
 		                	  for="Id#{headCity.city.name}" maxPages="20" />
-							<h:commandButton action="#{costsBean.add}" >	
-							  <h:graphicImage name="/resources/images/add.JPG"/>
-							</h:commandButton>  
+							<h:commandButton action="#{costsBean.add}" value="Add" style="width:50px;height:24px;"/> 
 							<h:commandButton action="#{costsBean.save(headCity.idTravelRoute)}"
-							  image="/resources/images/save.png" />		                		
+							  value="Save" style="width:50px;height:24px;"  />		                		
 		                </f:facet>		        		
 			       	</rich:dataTable>	
 

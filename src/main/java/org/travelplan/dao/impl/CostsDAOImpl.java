@@ -24,8 +24,8 @@ public class CostsDAOImpl implements CostsDAO {
         return sessionFactory.getCurrentSession().createQuery(CostsSelect).list();		
 	}
     
-    public void add(Costs Costs) {
-    	sessionFactory.getCurrentSession().save(Costs);
+    public void add(Costs costs) {
+    	sessionFactory.getCurrentSession().save(costs);
     }
     
     public void update(Costs Costs) {
@@ -44,5 +44,10 @@ public class CostsDAOImpl implements CostsDAO {
     public List<Costs> findByTravelRoute(Integer idTravelRoute) {
         return sessionFactory.getCurrentSession().createQuery(
         	CostsSelect.concat(String.format(CostsIdCondition, idTravelRoute))).list();      	
+    }
+    
+    public Costs findById(Integer id) {
+        return (Costs)sessionFactory.getCurrentSession().createQuery(
+            	CostsSelect.concat(String.format(CostsIdCondition, id))).uniqueResult();  
     }
 }

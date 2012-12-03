@@ -20,8 +20,8 @@ public class CostsServiceImpl implements CostsService {
         return CostsDAO.getList();
     }  
     
-    public void add(Costs Costs) {
-    	CostsDAO.add(Costs);
+    public void add(Costs costs) {
+    	CostsDAO.add(costs);
     }
     
     public void remove(Integer id) {
@@ -34,7 +34,11 @@ public class CostsServiceImpl implements CostsService {
     
     public List<Costs> findByTravelRoute(Integer idTravelRoute) {
     	List<Costs> listCosts = CostsDAO.findByTravelRoute(idTravelRoute);
-    	listCosts.add(new Costs());
+    	listCosts.add(new Costs()); //reserve place for add data
     	return listCosts;
+    }
+    
+    public Costs findById(Integer id) {
+    	return CostsDAO.findById(id);
     }
 }

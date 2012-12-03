@@ -3,10 +3,10 @@ package org.travelplan.bean;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
-import org.travelplan.dao.CostsDAO;
+import org.springframework.dao.DataAccessException;
 import org.travelplan.entity.Costs;
+import org.travelplan.service.CostsService;
 import org.travelplan.service.TravelRouteService;
-
 
 @Named
 @Scope("session")
@@ -15,22 +15,32 @@ public class CostsBean {
 	private String name;
 	private float price;
 	private String note;
-	private boolean isAdd;
+	private boolean prAdd;
+	private Integer idUpdatedCosts;
 	
 	@Inject
-	private CostsDAO costsDAO;
+	private CostsService costsService;
 	
 	@Inject
 	private TravelRouteService travelRoute;
 	
-	public boolean isAdd() {
-		return isAdd;
+	public boolean isPrAdd() {
+		return prAdd;
 	}
 
-	public void setAdd(boolean isAdd) {
-		this.isAdd = isAdd;
+	public void setPrAdd(boolean prAdd) {
+		this.prAdd = prAdd;
 	}	
+
 	
+	public Integer getIdUpdatedCosts() {
+		return idUpdatedCosts;
+	}
+
+	public void setIdUpdatedCosts(Integer idUpdatedCosts) {
+		this.idUpdatedCosts = idUpdatedCosts;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -55,18 +65,42 @@ public class CostsBean {
 		this.note = note;
 	}
 	
-	public void add() { //
-		/*newCosts = new Costs();
-		costsDAO.add(newCosts);*/
-		isAdd = true;
+	public void add() {
+		prAdd = true;
 	}
 	
-	public void save(Integer idTravelRoute) {	
-		Costs costs = new Costs();
-		costs.setTravelRoute(travelRoute.findById(idTravelRoute));
-		costs.setNote(note);
-		costs.setPrice(price);
-		costsDAO.add(costs);
-		isAdd = false;
+	public void update(Integer idCosts) {
+		Costs costs = costsService.findById(idCosts);
+		price = costs.getPrice();
+		note = costs.getNote();
+		idUpdatedCosts = idCosts;
 	}
+	
+	private void setData(Costs costs) {
+		costs.setNote(note);
+		costs.setPrice(price);		
+	}
+	
+	public void save(Integer idTravelRoute) {
+    	try {
+    		if (prAdd) {
+    			Costs costs = new Costs();
+    			costs.setTravelRoute(travelRoute.findById(idTravelRoute));
+    			setData(costs);
+    			costsService.add(costs);
+    			prAdd = false;    			
+    		} else
+    			if (idUpdatedCosts != null) {
+    				Costs costs = costsService.findById(idUpdatedCosts);
+    				setData(costs);
+    				costsService.update(costs);
+    				idUpdatedCosts = null;
+    			}    		
+    	}
+    	catch (DataAccessException e) {
+    		e.printStackTrace();    	
+    	}		
+	}
+	
+	
 }
