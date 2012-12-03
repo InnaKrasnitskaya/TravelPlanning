@@ -14,7 +14,8 @@ import org.travelplan.entity.Costs;
 public class CostsDAOImpl implements CostsDAO {
 
 	private static final String CostsSelect = "SELECT c FROM Costs c";
-	private static final String CostsIdCondition = " JOIN c.travelRoute tr WHERE tr.idTravelRoute=%d";
+	private static final String IdTravelRouteCond = " JOIN c.travelRoute tr WHERE tr.idTravelRoute=%d";
+	private static final String IdCostsCond = " WHERE idCosts=%d";
 	
     @Autowired
     private SessionFactory sessionFactory;	
@@ -43,11 +44,11 @@ public class CostsDAOImpl implements CostsDAO {
     @SuppressWarnings("unchecked")
     public List<Costs> findByTravelRoute(Integer idTravelRoute) {
         return sessionFactory.getCurrentSession().createQuery(
-        	CostsSelect.concat(String.format(CostsIdCondition, idTravelRoute))).list();      	
+        	CostsSelect.concat(String.format(IdTravelRouteCond, idTravelRoute))).list();      	
     }
     
     public Costs findById(Integer id) {
         return (Costs)sessionFactory.getCurrentSession().createQuery(
-            	CostsSelect.concat(String.format(CostsIdCondition, id))).uniqueResult();  
+            	CostsSelect.concat(String.format(IdCostsCond, id))).uniqueResult();  
     }
 }

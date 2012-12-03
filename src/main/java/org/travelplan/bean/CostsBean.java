@@ -5,6 +5,8 @@ import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.travelplan.entity.Costs;
+import org.travelplan.entity.CostsList;
+import org.travelplan.service.CostsListService;
 import org.travelplan.service.CostsService;
 import org.travelplan.service.TravelRouteService;
 
@@ -24,6 +26,9 @@ public class CostsBean {
 	@Inject
 	private TravelRouteService travelRoute;
 	
+	@Inject
+	private CostsListService costsListService;
+	
 	public boolean isPrAdd() {
 		return prAdd;
 	}
@@ -32,7 +37,6 @@ public class CostsBean {
 		this.prAdd = prAdd;
 	}	
 
-	
 	public Integer getIdUpdatedCosts() {
 		return idUpdatedCosts;
 	}
@@ -69,6 +73,11 @@ public class CostsBean {
 		prAdd = true;
 	}
 	
+	public void clear(){
+		prAdd = false;
+		idUpdatedCosts = null;
+	}
+	
 	public void update(Integer idCosts) {
 		Costs costs = costsService.findById(idCosts);
 		price = costs.getPrice();
@@ -79,6 +88,12 @@ public class CostsBean {
 	private void setData(Costs costs) {
 		costs.setNote(note);
 		costs.setPrice(price);		
+		if (prAdd) {
+		  CostsList costsList = new CostsList();
+		  costsList.setName(name);
+		  costsListService.add(costsList);	
+		  costs.setCostsList(costsList);
+		}			
 	}
 	
 	public void save(Integer idTravelRoute) {
