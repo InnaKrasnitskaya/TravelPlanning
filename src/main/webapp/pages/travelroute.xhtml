@@ -3,13 +3,63 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" >
     <h:head>
+        <h:outputStylesheet name="css/table-style.css"  />
+    	<h:outputStylesheet name="css/loginhead-style.css"  />    
     </h:head>
- 
+
     <h:body>
     <h:form> 
-
+    
+    	<h:panelGrid columns="3" columnClasses="top_column_left, top_column_right"  style="width: 100%"> 
+    		<h:outputText value="#{messagesSource.getLocaleValue(&quot;travelroute.route&quot;, null)}" />   
+    		  	
+      		<h:commandLink action="travel?faces-redirect=true" value="#{messagesSource.getLocaleValue
+      			(&quot;navigation.back&quot;, null)}" />
+      			
+      		<a href="#{request.contextPath}/j_spring_security_logout">
+	      		#{messagesSource.getLocaleValue("navigation.logout", null)} </a>
+		</h:panelGrid>
+		
+		<h1 align="center"> #{messagesSource.getLocaleValue("travelroute.caption", null)} </h1>   
+		
+		<rich:panel header="#{messagesSource.getLocaleValue(&quot;travelroute.panel.header&quot;, null)}">
+			<h:panelGrid columns="2" >
+			
+				<h:selectOneMenu value="#{travelRouteBean.idAddedCity}">               
+				    <f:selectItems value="#{travelRouteBean.findByIdProfile()}" var="cities" 
+				      itemValue="#{cities.city.idCity}" itemLabel="#{cities.city.name}" />
+				</h:selectOneMenu>		
+			
+				<h:commandButton value="#{messagesSource.getLocaleValue(&quot;common.add&quot;, null)}" 
+					action="#{travelRouteBean.add}" style="width:100px" /> 
+	   		</h:panelGrid>
+   		</rich:panel>
+   		<br />
+		<rich:dataTable id="routeTable"
+		  value="#{travelRouteBean.findByIdProfile()}"
+		  var="travelRoute" rows="30" rowKeyVar="rowkey"
+		  columnClasses="column-right,none">
+		  
+			 <rich:column>
+			    <f:facet name="header">
+			      #{messagesSource.getLocaleValue("travelroute.order", null)}
+			    </f:facet>
+			    <h:outputText value = "#{rowkey + 1}" />		
+			 </rich:column>	  
+			 
+			 <rich:column>
+			    <f:facet name="header">
+			      #{messagesSource.getLocaleValue("travelroute.city", null)}
+			    </f:facet>
+			    <h:outputText value = "#{travelRoute.city.name}" />		
+			 </rich:column>	 		 
+			 
+	     </rich:dataTable>  	
     </h:form>
     </h:body>
 </html>  
