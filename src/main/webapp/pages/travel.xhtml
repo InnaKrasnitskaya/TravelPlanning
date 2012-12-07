@@ -63,7 +63,7 @@
 	        	<rich:tab header="#{headCity.place.name}">	  
 	        	          	
 	    	    	<rich:dataTable 
-	    	    		id="Id#{headCity.place.name}" 
+	    	    		id="Id#{headCity.place.idPlace}" 
 	    	    		rendered="#{not empty costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}"
 	    	    		value="#{costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}" 
 	    	    		var="costsTable" 
@@ -133,7 +133,7 @@
 		        		
 						<f:facet name="footer">
 		                	<rich:dataScroller align="left" 
-		                	  for="Id#{headCity.place.name}" maxPages="20" />
+		                	  for="Id#{headCity.place.idPlace}" maxPages="20" />
 								<h:commandButton action="#{costsBean.add}" value="Add" style="width:50px;height:24px;"/> 
 								<h:commandButton action="#{costsBean.save(headCity.idTravelRoute)}"
 							  		value="Save" style="width:50px;height:24px;"  />		

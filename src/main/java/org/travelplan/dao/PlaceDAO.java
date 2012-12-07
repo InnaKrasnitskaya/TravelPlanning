@@ -9,4 +9,5 @@ public interface PlaceDAO {
     public void remove(Integer id);
     public void update(Place Place);
     public Place findById(Integer id);
+    public Place findByCoordinates(Float latitude, Float longitude);
 }

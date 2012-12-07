@@ -35,4 +35,7 @@ public class PlaceServiceImpl implements PlaceService {
     	return PlaceDAO.findById(id);
     }
   
+    public Place findByCoordinates(Float latitude, Float longitude) {
+    	return PlaceDAO.findByCoordinates(latitude, longitude);
+    }
 }

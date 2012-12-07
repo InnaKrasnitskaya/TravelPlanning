@@ -10,26 +10,9 @@
     <h:head>
         <h:outputStylesheet name="css/table-style.css"  />
     	<h:outputStylesheet name="css/loginhead-style.css"  /> 
+    	<h:outputStylesheet name="css/map-style.css"  /> 
     	
- 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script>
-
-    <style>
-      body {
-        font-family: sans-serif;
-        font-size: 14px;
-      }
-      #map_canvas {
-        height: 400px;
-        width: 600px;
-        margin-top: 0.6em;
-      }
-      input {
-        border: 1px solid  rgba(0, 0, 0, 0.5);
-      }
-      input.notfound {
-        border: 2px solid  rgba(255, 0, 0, 0.4);
-      }
-    </style>
+ 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script>
 
     <script type="text/javascript">
     function getLatLng( address ) 
@@ -137,9 +120,10 @@
     	<div id="map_canvas"></div>    
  		
    		<br />
-		<rich:dataTable id="routeTable"
+		<rich:dataTable 
+		  id="routeTable"
 		  value="#{travelRouteBean.findByIdProfile()}"
-		  var="travelRoute" rows="30" rowKeyVar="rowkey"
+		  var="travelRoute" rows="10" rowKeyVar="rowkey"
 		  columnClasses="column-right,none,column-center">
 		  
 			 <rich:column style="width:80px">
@@ -161,9 +145,13 @@
 			      #{messagesSource.getLocaleValue("common.parameters", null)}
 			    </f:facet>
 			    <h:commandButton value="&lt;" action="#{travelRouteBean.moveUp(travelRoute.idTravelRoute)}" />	
-			    <h:commandButton value="&gt;" action="#{travelRouteBean.moveDown(travelRoute.idTravelRoute)}" />	  
-			 </rich:column>				 		 
-			 <!-- http://www.geonames.org/export/ws-overview.html -->
+			    <h:commandButton value="&gt;" action="#{travelRouteBean.moveDown(travelRoute.idTravelRoute)}" />
+				<h:commandButton value="X" action="#{travelRouteService.remove(travelRoute.idTravelRoute)}" />			    	  
+			 </rich:column>		
+			 
+			 <f:facet name="footer">
+		        <rich:dataScroller align="left" for="routeTable" />	
+		    </f:facet>				 		 		 		
 	     </rich:dataTable>  	
     </h:form>
     </h:body>

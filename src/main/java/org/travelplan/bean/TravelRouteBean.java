@@ -63,11 +63,14 @@ public class TravelRouteBean {
 	}
 	
 	private Place getPlace() {
-		Place place = new Place();
-		place.setLatitude(latitude);
-		place.setLongitude(longitude);
-		place.setName(placeName);
-		placeService.add(place);
+		Place place = placeService.findByCoordinates(latitude, longitude);
+		if (place == null) {			
+			place = new Place();
+			place.setLatitude(latitude);
+			place.setLongitude(longitude);
+			place.setName(placeName);
+			placeService.add(place);
+		}
 		return place;
 	}
 

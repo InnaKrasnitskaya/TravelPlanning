@@ -16,7 +16,7 @@ public class PlaceDAOImpl implements PlaceDAO {
 	private static final String PlaceSelect = "SELECT p FROM Place p ";
 	private static final String PlaceOrder = "ORDER BY name DESC";
 	private static final String PlaceIdCondition = " WHERE idPlace=%d";
-	
+	private static final String CoordinatesCondition = " WHERE latitude=%d AND longitude=%d";
     @Autowired
     private SessionFactory sessionFactory;	
 	
@@ -45,5 +45,10 @@ public class PlaceDAOImpl implements PlaceDAO {
     public Place findById(Integer id) {
         return (Place) sessionFactory.getCurrentSession().createQuery(
         		PlaceSelect.concat(String.format(PlaceIdCondition, id))).uniqueResult();    	
+    }
+    
+    public Place findByCoordinates(Float latitude, Float longitude) {
+    	return (Place) sessionFactory.getCurrentSession().createQuery(
+        		PlaceSelect.concat(String.format(CoordinatesCondition, latitude, longitude))).uniqueResult(); 
     }
 }
