@@ -39,4 +39,16 @@ public class TravelRouteServiceImpl implements TravelRouteService {
     public TravelRoute findById(Integer id) {
     	return travelRouteDAO.findById(id);
     }
+    
+    public Integer getNextOrderNumber(Integer idProfile) {
+    	return travelRouteDAO.getNextOrderNumber(idProfile);
+    }
+    
+    public void moveUp(Integer idTravelRoute) {
+    	travelRouteDAO.moveUp(idTravelRoute);
+    }
+    
+    public void moveDown(Integer idTravelRoute) {
+    	travelRouteDAO.moveDown(idTravelRoute);
+    }
 }

@@ -23,8 +23,8 @@ public class TravelRoute {
     private Profile profile; 
     
     @ManyToOne
-	@JoinColumn(name="\"IdCity\"")
-    private City city;
+	@JoinColumn(name="\"IdPlace\"")
+    private Place place;
     
     @Column(name = "\"RouteOrder\"")
     private Integer routeOrder;
@@ -45,12 +45,12 @@ public class TravelRoute {
 		this.profile = profile;
 	}
 
-	public City getCity() {
-		return city;
+	public Place getPlace() {
+		return place;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 
 	public Integer getRouteOrder() {

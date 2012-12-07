@@ -15,6 +15,9 @@ public class TravelRouteDAOImpl implements TravelRouteDAO {
 	private static final String IdProfileOrder = " ORDER BY idProfile";
 	private static final String IdTravelRouteCondition = " WHERE idTravelRoute=%d";
 	private static final String IdProfileCondition = " JOIN tr.profile p WHERE p.idProfile=%d ORDER BY tr.routeOrder";
+	private static final String IdOrderCondition = " JOIN tr.profile p WHERE p.idProfile=%d AND tr.routeOrder=%d";
+	private static final String MaxOrderSelect = "SELECT MAX(tr.routeOrder) FROM TravelRoute tr JOIN tr.profile p" +
+		" WHERE p.idProfile=%d";	
 	
     @Autowired
     private SessionFactory sessionFactory;	
@@ -52,4 +55,37 @@ public class TravelRouteDAOImpl implements TravelRouteDAO {
         		TravelRouteSelect.concat(String.format(IdTravelRouteCondition, id))).uniqueResult();       	
     }
     
+    public Integer getNextOrderNumber(Integer idProfile) {
+        return (Integer)sessionFactory.getCurrentSession().createQuery(
+        		String.format(MaxOrderSelect, idProfile)).uniqueResult() + 1; 
+    }
+    
+    private TravelRoute findByOrder(Integer idProfile, Integer routeOrder) {
+        return (TravelRoute)sessionFactory.getCurrentSession().createQuery(
+        		TravelRouteSelect.concat(String.format(IdOrderCondition, idProfile, routeOrder))).uniqueResult();      	
+    }
+    
+    public void moveUp(Integer idTravelRoute) {
+    	TravelRoute travelRouteUp = findById(idTravelRoute);
+    	if (travelRouteUp.getRouteOrder() != 1) {
+        	TravelRoute travelRouteDown = findByOrder(travelRouteUp.getProfile().getIdProfile(),
+        		travelRouteUp.getRouteOrder() - 1);   	    	
+            travelRouteUp.setRouteOrder(travelRouteUp.getRouteOrder() - 1);
+            travelRouteDown.setRouteOrder(travelRouteDown.getRouteOrder() + 1);   	
+            update(travelRouteUp);
+            update(travelRouteDown);    		
+    	}
+    }
+    
+    public void moveDown(Integer idTravelRoute) {
+    	TravelRoute travelRouteDown = findById(idTravelRoute);
+    	if (travelRouteDown.getRouteOrder() != getNextOrderNumber(travelRouteDown.getProfile().getIdProfile()) - 1) {
+        	TravelRoute travelRouteUp = findByOrder(travelRouteDown.getProfile().getIdProfile(),
+        		travelRouteDown.getRouteOrder() + 1);   	    	
+            travelRouteDown.setRouteOrder(travelRouteDown.getRouteOrder() + 1);
+            travelRouteUp.setRouteOrder(travelRouteUp.getRouteOrder() - 1);   	
+            update(travelRouteUp);
+            update(travelRouteDown);    		
+    	}
+    }    
 }
