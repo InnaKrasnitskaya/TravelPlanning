@@ -80,9 +80,11 @@ public class CostsBean {
 	
 	public void update(Integer idCosts) {
 		Costs costs = costsService.findById(idCosts);
-		price = costs.getPrice();
-		note = costs.getNote();
-		idUpdatedCosts = idCosts;
+		if (costs != null) {
+			price = costs.getPrice();
+			note = costs.getNote();
+			idUpdatedCosts = idCosts;
+		}
 	}
 	
 	private void setData(Costs costs) {
