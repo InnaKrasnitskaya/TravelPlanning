@@ -56,8 +56,11 @@ public class TravelRouteDAOImpl implements TravelRouteDAO {
     }
     
     public Integer getNextOrderNumber(Integer idProfile) {
-        return (Integer)sessionFactory.getCurrentSession().createQuery(
-        		String.format(MaxOrderSelect, idProfile)).uniqueResult() + 1; 
+    	Integer nextOrder = (Integer)sessionFactory.getCurrentSession().createQuery(
+    		String.format(MaxOrderSelect, idProfile)).uniqueResult();
+    	if (nextOrder == null)
+    		nextOrder = new Integer(0);
+        return nextOrder + 1; 
     }
     
     private TravelRoute findByOrder(Integer idProfile, Integer routeOrder) {

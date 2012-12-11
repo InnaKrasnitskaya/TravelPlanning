@@ -69,6 +69,7 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     
+   
     <!-- Locale settings -->
     <bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

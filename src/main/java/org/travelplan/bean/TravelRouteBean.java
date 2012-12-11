@@ -30,6 +30,11 @@ public class TravelRouteBean {
 	private float longitude;
 	private String placeName;
 	
+	public TravelRouteBean() {
+		latitude = 53.9f;
+		longitude = 27.566667f;
+	}
+	
 	private Integer getIdProfile() {
 		return profileBean.getIdProfile();
 	}	

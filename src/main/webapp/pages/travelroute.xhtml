@@ -32,7 +32,7 @@
     
       function initialize() {
         var mapOptions = {
-          center: new google.maps.LatLng(53.9, 27.566667),
+          center: new google.maps.LatLng(#{travelRouteBean.latitude}, #{travelRouteBean.longitude}),
           zoom: 13,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
@@ -146,7 +146,7 @@
 			    </f:facet>
 			    <h:commandButton value="&lt;" action="#{travelRouteBean.moveUp(travelRoute.idTravelRoute)}" />	
 			    <h:commandButton value="&gt;" action="#{travelRouteBean.moveDown(travelRoute.idTravelRoute)}" />
-				<h:commandButton value="X" action="#{travelRouteService.remove(travelRoute.idTravelRoute)}" />			    	  
+				<h:commandButton value="X" action="#{travelRouteServiceImpl.remove(travelRoute.idTravelRoute)}" />			    	  
 			 </rich:column>		
 			 
 			 <f:facet name="footer">
