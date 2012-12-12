@@ -127,7 +127,8 @@
 		                	  	  rendered="#{costsTable.idCosts != null}" 
 		                	  	  value="#{messagesSource.getLocaleValue(&quot;travel.edit.costs&quot;, null)}" />
 		                		<h:commandLink rendered="#{costsTable.idCosts != null}" 
-		                		  value="#{messagesSource.getLocaleValue(&quot;travel.delete.costs&quot;, null)}" />  
+		                		  value="#{messagesSource.getLocaleValue(&quot;travel.delete.costs&quot;, null)}" 
+		                		  action="#{costsServiceImpl.remove(costsTable.idCosts)}" />  
 		                	</h:panelGrid> 
 		                </rich:column>		        			        		        		
 		        		

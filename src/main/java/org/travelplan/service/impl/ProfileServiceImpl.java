@@ -29,7 +29,7 @@ public class ProfileServiceImpl implements ProfileService{
     private ProfileDAO profileDAO;
     
     public List<Profile> getList() {
-        return profileDAO.getList();
+        return profileDAO.getList(false, "creationDate");
     }  
     
     public void add(Profile profile) {

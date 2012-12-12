@@ -1,68 +1,24 @@
 package org.travelplan.dao.impl;
 
-
-
-import java.util.List;
-
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.travelplan.dao.PlaceDAO;
 import org.travelplan.entity.Place;
 
+
 @Repository("PlaceDAO")
 @Transactional
-public class PlaceDAOImpl /*extends HibernateDaoSupport*/ implements PlaceDAO {
-	
-	private static final String PlaceSelect = "SELECT p FROM Place p ";
-	private static final String PlaceOrder = "ORDER BY name DESC";
-	private static final String PlaceIdCondition = " WHERE idPlace=%d";
-	private static final String CoordinatesCondition = " WHERE latitude=%s AND longitude=%s";
-
-    @Autowired
-    private SessionFactory sessionFactory;	
-    
-    
-  /*  @Inject
-    public void init(SessionFactory factory) {
-        setSessionFactory(factory);
-    }    */
-	
-	@SuppressWarnings("unchecked")
-	public List<Place> getList() {
-        return sessionFactory.getCurrentSession().
-        		createQuery(PlaceSelect.concat(PlaceOrder)).list(); 
-    //	return getHibernateTemplate().loadAll(Place.class);
+public class PlaceDAOImpl extends CommonDAOImpl<Place>  implements PlaceDAO {
+	       
+	public PlaceDAOImpl() {
+		super(Place.class);
 	}
-    
-    public void add(Place Place) {
-    	sessionFactory.getCurrentSession().save(Place);
-    }
-    
-    public void update(Place Place) {
-    	sessionFactory.getCurrentSession().update(Place);
-    }    
-    
-    public void remove(Integer id) {
-        Place Place = (Place) sessionFactory.
-        		getCurrentSession().load(Place.class, id);
-        if (null !=Place) {
-          sessionFactory.getCurrentSession().delete(Place);
-        } 
-    }
-    
-    public Place findById(Integer id) {
-        return (Place) sessionFactory.getCurrentSession().createQuery(
-        		PlaceSelect.concat(String.format(PlaceIdCondition, id))).uniqueResult();  
-    }
-    
+
 	public Place findByCoordinates(Float latitude, Float longitude) {
-    //	return (Place)sessionFactory.getCurrentSession().
-    //			createCriteria(Place.class).add(Restrictions.like("latitude", latitude)).list().get(0);  	
-    	return (Place) sessionFactory.getCurrentSession().createQuery(
-        		PlaceSelect.concat(String.format(CoordinatesCondition, latitude.toString(), 
-        		longitude.toString()))).uniqueResult();
-        		 
+    	return (Place) getSession().createCriteria(Place.class).
+    			add(Restrictions.eq("latitude", latitude)).
+    			add(Restrictions.eq("longitude", longitude)).
+    			uniqueResult();       		 
     }
 }

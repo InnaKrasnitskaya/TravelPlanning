@@ -4,11 +4,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.travelplan.dao.CommonDAO;
-import org.travelplan.entity.Costs;
 
 @Transactional
 public class CommonDAOImpl<T> implements CommonDAO<T>  {
@@ -17,6 +16,10 @@ public class CommonDAOImpl<T> implements CommonDAO<T>  {
     private SessionFactory sessionFactory;
     
     private Class<T> ClassType;
+    
+    public CommonDAOImpl(Class<T> classType) {
+    	ClassType = classType;
+    }
     
     public Session getSession() {
     	return sessionFactory.getCurrentSession();
@@ -32,6 +35,17 @@ public class CommonDAOImpl<T> implements CommonDAO<T>  {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<T> getList(boolean ascOrder, String fieldOrder) {
+		Order order;
+		if (ascOrder)
+			order = Order.asc(fieldOrder);
+		else
+			order = Order.desc(fieldOrder);
+        return (List<T>) getSession().createCriteria(ClassType).
+        		addOrder(order).list();
+	}	
+	
+	@SuppressWarnings("unchecked")
 	public void remove(Integer id) {		
 		T obj = (T) getSession().get(ClassType, id);
         if (obj != null)
@@ -41,12 +55,9 @@ public class CommonDAOImpl<T> implements CommonDAO<T>  {
 	public void update(T obj) {
 		getSession().update(obj);		
 	}
-
-	public T findById(Integer id) {
-       return ClassType.cast(getSession().get(ClassType, id));
-	}
 	
-	public T findById(Class<T> cls, Integer id) {
-	       return ClassType.cast(getSession().get(cls, id));
-		}	
+	@SuppressWarnings("unchecked")
+	public T findById(Integer id) {
+	   return (T) getSession().get(ClassType, id);
+	}	
 }

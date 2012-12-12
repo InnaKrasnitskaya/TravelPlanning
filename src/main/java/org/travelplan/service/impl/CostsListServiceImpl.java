@@ -18,7 +18,7 @@ public class CostsListServiceImpl implements CostsListService{
 		costsListDAO.add(costsList);
 	}
 	
-	public Integer findByName(String name) {
-		return costsListDAO.findByName(name);
+	public Integer getId(String name) {
+		return costsListDAO.getId(name);
 	}
 }
