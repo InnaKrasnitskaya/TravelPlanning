@@ -14,6 +14,9 @@ import org.travelplan.service.ProfileService;
 @Scope("session")
 public class ProfileServiceImpl implements ProfileService{
 	
+	@Inject
+    private ProfileDAO profileDAO;
+
 	//dataTable for getting row number in JSF
 	private HtmlDataTable dataTable;
 
@@ -25,9 +28,6 @@ public class ProfileServiceImpl implements ProfileService{
 		this.dataTable = dataTable;
 	}
 
-	@Inject
-    private ProfileDAO profileDAO;
-    
     public List<Profile> getList() {
         return profileDAO.getList(false, "creationDate");
     }  

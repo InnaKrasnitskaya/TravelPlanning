@@ -56,13 +56,16 @@ public class TravelRouteDAOImpl extends CommonDAOImpl<TravelRoute> implements Tr
     	}
     }
     
-    public void moveDown(Integer idTravelRoute) {
+    public void moveDown(Integer idTravelRoute) {    	
     	TravelRoute travelRouteDown = findById(idTravelRoute);
-    	if (travelRouteDown.getRouteOrder() != getNextOrderNumber(travelRouteDown.getProfile().getIdProfile()) - 1) {
+    	int downOrder = travelRouteDown.getRouteOrder();
+    	
+    	if (downOrder != getNextOrderNumber(travelRouteDown.getProfile().getIdProfile()) - 1) {
         	TravelRoute travelRouteUp = findByOrder(travelRouteDown.getProfile().getIdProfile(),
-        		travelRouteDown.getRouteOrder() + 1);   	    	
-            travelRouteDown.setRouteOrder(travelRouteDown.getRouteOrder() + 1);
-            travelRouteUp.setRouteOrder(travelRouteUp.getRouteOrder() - 1);   	
+        		downOrder + 1); 
+        	
+            travelRouteDown.setRouteOrder(travelRouteUp.getRouteOrder());
+            travelRouteUp.setRouteOrder(downOrder);   	
             update(travelRouteUp);
             update(travelRouteDown);    		
     	}

@@ -26,4 +26,16 @@ public class UserRoleServiceImpl implements UserRoleService {
 	public void add(UserRole userRole) {
 		userRoleDAO.add(userRole);
 	}
+
+	public void remove(Integer id) {
+		userRoleDAO.remove(id);		
+	}
+
+	public void update(UserRole obj) {
+		userRoleDAO.update(obj);		
+	}
+
+	public UserRole findById(Integer id) {
+		return userRoleDAO.findById(id);
+	}
 }

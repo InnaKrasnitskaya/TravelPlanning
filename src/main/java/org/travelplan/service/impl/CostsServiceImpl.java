@@ -11,34 +11,35 @@ import org.travelplan.service.CostsService;
 
 @Named
 @Scope("session")
-public class CostsServiceImpl implements CostsService {
-
+public class CostsServiceImpl implements CostsService {	
+	
 	@Inject
-    private CostsDAO CostsDAO;
+    private CostsDAO costsDAO;
     
-    public List<Costs> getList() {
-        return CostsDAO.getList();
+	 public List<Costs> getList() {
+        return costsDAO.getList();
     }  
     
     public void add(Costs costs) {
-    	CostsDAO.add(costs);
+    	costsDAO.add(costs);
     }
     
     public void remove(Integer id) {
-    	CostsDAO.remove(id);
+    	costsDAO.remove(id);
     }
     
     public void update(Costs Costs) {
-    	CostsDAO.update(Costs);
+    	costsDAO.update(Costs);
     }
     
-    public List<Costs> findByTravelRoute(Integer idTravelRoute) {
-    	List<Costs> listCosts = CostsDAO.findByTravelRoute(idTravelRoute);
+   
+    public Costs findById(Integer id) {
+    	return costsDAO.findById(id);
+    }
+
+	public List<Costs> findByTravelRoute(Integer idTravelRoute) {
+    	List<Costs> listCosts = costsDAO.findByTravelRoute(idTravelRoute);
     	listCosts.add(new Costs()); //reserve place for add data
     	return listCosts;
-    }
-    
-    public Costs findById(Integer id) {
-    	return CostsDAO.findById(id);
-    }
+    }	
 }

@@ -22,4 +22,20 @@ public class RoleServiceImpl implements RoleService {
 	public Role getRole(Constant.UserRoles userRoles) {
 		return roleDAO.getRole(userRoles);
 	}
+
+	public void add(Role obj) {
+		roleDAO.add(obj);		
+	}
+
+	public void remove(Integer id) {
+		roleDAO.remove(id);
+	}
+
+	public void update(Role obj) {
+		roleDAO.update(obj);		
+	}
+
+	public Role findById(Integer id) {
+		return roleDAO.findById(id);
+	}
 }
