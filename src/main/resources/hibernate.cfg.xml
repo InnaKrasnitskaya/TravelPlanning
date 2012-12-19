@@ -14,5 +14,6 @@
         <mapping class="org.travelplan.entity.TravelRoute" />
         <mapping class="org.travelplan.entity.CostsList" />
         <mapping class="org.travelplan.entity.Costs" />
+        <mapping class="org.travelplan.entity.Currency" />
     </session-factory>	    
 </hibernate-configuration>

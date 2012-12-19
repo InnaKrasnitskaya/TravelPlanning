@@ -39,6 +39,13 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	        <updatePolicy>never</updatePolicy>
 	      </snapshots>
 	    </repository>
+	    
+       
+     <!-- This entry is not required with ICEfaces 3.1.x 
+     <repository>
+        <id>snapshots</id>
+        <url>http://anonsvn.icefaces.org/repo/maven2/releases/</url>
+     </repository>-->
             
 	</repositories>
 	
@@ -261,7 +268,26 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<artifactId>richfaces-components-ui</artifactId>
 			<version>4.2.2.Final</version>
 		</dependency>
-	                                    
+		<!-- Icefaces config 
+		<dependency>
+			<groupId>org.icefaces</groupId>
+			<artifactId>icefaces</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.icefaces</groupId>
+			<artifactId>icefaces-compat</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+	            	
+	            		
+		<dependency>
+	        <groupId>org.icefaces</groupId>
+	        <artifactId>icefaces-ace</artifactId>
+	        <version>3.1.0</version>
+	    </dependency>
+	    -->                                
     </dependencies>
     
   	<build>

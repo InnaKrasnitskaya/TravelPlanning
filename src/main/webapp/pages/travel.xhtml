@@ -6,6 +6,9 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich"
       xmlns:c="http://java.sun.com/jsp/jstl/core" 
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+ 	  xmlns:icecore="http://www.icefaces.org/icefaces/core" 
       xmlns:a4j="http://richfaces.org/a4j">
     <h:head>
     	<h:outputStylesheet name="css/table-style.css"  />
@@ -31,7 +34,8 @@
 		
 		<h:commandButton value="#{messagesSource.getLocaleValue(&quot;travel.route&quot;, null)}" 
 			action="travelroute?faces-redirect=true" style="width:150px" />
-		<br /><br />		
+						
+		<br /><br />
 		
 		<!--  Edit profile -->
      	<rich:panel header="#{messagesSource.getLocaleValue(&quot;travel.panel.header&quot;, null)}">
@@ -55,10 +59,20 @@
 			
 		</h:panelGrid>  
 		</rich:panel>	
+		<br />	
 		
+		<h:panelGrid columns="2"> 
+					
+			<h:outputLabel for="IdCurrency" value="#{messagesSource.getLocaleValue(&quot;travel.currency&quot;, null)}" />
+			
+			<h:selectOneMenu id="IdCurrency">
+				<f:selectItems value="#{currencyServiceImpl.getList()}" var="cur" itemLabel="#{cur.name}" itemValue="#{cur.value}" />
+			</h:selectOneMenu>
+			
+		</h:panelGrid>	
+				
 		<rich:tabPanel id="tabTravel" switchType="ajax" rendered="#{not empty travelRouteBean.findByIdProfile()}">
-			<a4j:ajax event="itemchange" listener="#{costsBean.clear}" 
-			  render="tabTravel" />
+
 			<c:forEach items="#{travelRouteBean.findByIdProfile()}" var="headCity">
 	        	<rich:tab header="#{headCity.place.name}">	  
 	        	          	
@@ -143,7 +157,7 @@
 
 	       		</rich:tab>
 	        </c:forEach>
-	    </rich:tabPanel>		  
+	    </rich:tabPanel>	
 
     </h:form>
     </h:body>

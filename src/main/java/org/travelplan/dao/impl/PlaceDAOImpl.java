@@ -7,7 +7,7 @@ import org.travelplan.dao.PlaceDAO;
 import org.travelplan.entity.Place;
 
 
-@Repository("PlaceDAO")
+@Repository("placeDAO")
 @Transactional
 public class PlaceDAOImpl extends CommonDAOImpl<Place>  implements PlaceDAO {
 	       
