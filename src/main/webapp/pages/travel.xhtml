@@ -61,20 +61,32 @@
 		</rich:panel>	
 		<br />	
 		
-		<h:panelGrid columns="2"> 
-					
-			<h:outputLabel for="IdCurrency" value="#{messagesSource.getLocaleValue(&quot;travel.currency&quot;, null)}" />
+		<h:panelGrid columns="3"> 					
+			<h:outputText value="#{messagesSource.getLocaleValue(&quot;travel.cost.common&quot;, null)}" 
+			  style="font-weight:bold;color:#0000CC"/>
+			<h:outputText value="#{costsBean.getSum(profileBean.idProfile)}" 
+			  style="font-weight:bold"/>
+			<h:selectOneMenu value="#{costsBean.currencySum}" onchange="submit()">
+			<f:selectItems value="#{currencyServiceImpl.getList()}" var="curSum" 
+			  itemLabel="#{curSum.name}" itemValue="#{curSum.value}" />
+			</h:selectOneMenu>						
+		</h:panelGrid>			
 			
-			<h:selectOneMenu id="IdCurrency">
-				<f:selectItems value="#{currencyServiceImpl.getList()}" var="cur" itemLabel="#{cur.name}" itemValue="#{cur.value}" />
-			</h:selectOneMenu>
-			
-		</h:panelGrid>	
-				
 		<rich:tabPanel id="tabTravel" switchType="ajax" rendered="#{not empty travelRouteBean.findByIdProfile()}">
 
 			<c:forEach items="#{travelRouteBean.findByIdProfile()}" var="headCity">
-	        	<rich:tab header="#{headCity.place.name}">	  
+	        	<rich:tab header="#{headCity.place.name}">	
+	        	
+					<h:panelGrid columns="3"> 					
+						<h:outputText value="#{messagesSource.getLocaleValue(&quot;travel.cost&quot;, null)}" 
+						  style="font-weight:bold;color:#0000CC"/>
+						<h:outputText value="#{costsBean.getSumTravelRoute(headCity.idTravelRoute)}" 
+						  style="font-weight:bold"/>
+						<h:selectOneMenu value="#{costsBean.currencySumPlace}" onchange="submit()">
+							<f:selectItems value="#{currencyServiceImpl.getList()}" var="curSumPlace" 
+							  itemLabel="#{curSumPlace.name}" itemValue="#{curSumPlace.value}" />
+						</h:selectOneMenu>						
+					</h:panelGrid>		        	  
 	        	          	
 	    	    	<rich:dataTable 
 	    	    		id="Id#{headCity.place.idPlace}" 
@@ -98,6 +110,7 @@
 		                	</f:facet>
 		                        <h:outputText value="#{costsTable.costsList.name}" 
 		                          rendered="#{costsTable.idCosts != null}"/>
+		                          
 		                        <h:inputText value="#{costsBean.name}" 
 		                          rendered="#{costsTable.idCosts == null and costsBean.prAdd == true}" />
 		        		</rich:column>
@@ -109,14 +122,29 @@
 		                        <h:outputText value="#{costsTable.price}" 
 		                          rendered="#{costsTable.idCosts != null and
 		                            costsTable.idCosts != costsBean.idUpdatedCosts}" />
-		                        <h:inputText value="#{costsBean.price}" 
-		                          rendered="#{costsTable.idCosts == null and costsBean.prAdd == true}" 
-		                          style="text-align:right"/>
+
 		                        <h:inputText value="#{costsBean.price}"
-		                          rendered="#{costsTable.idCosts != null and
-		                            costsTable.idCosts == costsBean.idUpdatedCosts}" 
+		                          rendered="#{(costsTable.idCosts != null and costsTable.idCosts == costsBean.idUpdatedCosts) 
+		                            or (costsTable.idCosts == null and costsBean.prAdd == true)}" 
 		                          style="text-align:right" />  
-		        		</rich:column>				        			        	
+		        		</rich:column>		
+		        		
+		       			<rich:column style="text-align:center">
+		                	<f:facet name="header">
+		                		#{messagesSource.getLocaleValue("travel.currency", null)}
+		                	</f:facet>
+		                        <h:outputText value="#{costsTable.currency.value}" 
+		                          rendered="#{costsTable.idCosts != null and
+		                          costsTable.idCosts != costsBean.idUpdatedCosts}"  />
+		                          
+								<h:selectOneMenu value="#{costsBean.currencyValue}"
+								  rendered="#{(costsTable.idCosts == null and costsBean.prAdd == true)
+								    or (costsTable.idCosts != null and costsTable.idCosts == costsBean.idUpdatedCosts)}">
+									
+									<f:selectItems value="#{currencyServiceImpl.getList()}" var="cur" 
+									  itemLabel="#{cur.name}" itemValue="#{cur.value}" />
+								</h:selectOneMenu>		   		                          
+		        		</rich:column>		        				        			        	
 		        		
 		       			<rich:column>
 		                	<f:facet name="header">
@@ -125,11 +153,10 @@
 		                        <h:outputText value="#{costsTable.note}" 
 		                          rendered="#{costsTable.idCosts != null and
 		                            costsTable.idCosts != costsBean.idUpdatedCosts}" />
+		                            
 		                        <h:inputText value="#{costsBean.note}" 
-		                          rendered="#{costsTable.idCosts == null and costsBean.prAdd == true}" />
-		                        <h:inputText value="#{costsBean.note}"
-		                          rendered="#{costsTable.idCosts != null and 
-		                            costsTable.idCosts == costsBean.idUpdatedCosts}" />  		                          
+		                          rendered="#{(costsTable.idCosts == null and costsBean.prAdd == true)
+		                            or (costsTable.idCosts != null and costsTable.idCosts == costsBean.idUpdatedCosts)}" />		                          
 		        		</rich:column>	
 		        		
 		       			<rich:column>
@@ -140,6 +167,7 @@
 		                		<h:commandLink action="#{costsBean.update(costsTable.idCosts)}" 
 		                	  	  rendered="#{costsTable.idCosts != null}" 
 		                	  	  value="#{messagesSource.getLocaleValue(&quot;travel.edit.costs&quot;, null)}" />
+		                	  	  
 		                		<h:commandLink rendered="#{costsTable.idCosts != null}" 
 		                		  value="#{messagesSource.getLocaleValue(&quot;travel.delete.costs&quot;, null)}" 
 		                		  action="#{costsServiceImpl.remove(costsTable.idCosts)}" />  

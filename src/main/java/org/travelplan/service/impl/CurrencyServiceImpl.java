@@ -35,4 +35,8 @@ public class CurrencyServiceImpl implements CurrencyService {
 	public Currency findById(Integer id) {
 		return currencyDAO.findById(id);
 	}
+	
+	public Currency findByValue(String value) {
+		return currencyDAO.findByValue(value);
+	}	
 }

@@ -8,6 +8,7 @@ import org.travelplan.entity.Costs;
 import org.travelplan.entity.CostsList;
 import org.travelplan.service.CostsListService;
 import org.travelplan.service.CostsService;
+import org.travelplan.service.CurrencyService;
 import org.travelplan.service.TravelRouteService;
 
 @Named
@@ -19,6 +20,9 @@ public class CostsBean {
 	private String note;
 	private boolean prAdd;
 	private Integer idUpdatedCosts;
+	private String currencyValue;
+	private String currencySumPlace;
+	private String currencySum;
 	
 	@Inject
 	private CostsService costsService;
@@ -28,6 +32,14 @@ public class CostsBean {
 	
 	@Inject
 	private CostsListService costsListService;
+	
+	@Inject
+	private CurrencyService currencyService;
+	
+	public CostsBean() {
+		currencySumPlace = "USD"; //default value
+		currencySum = "USD";
+	}
 	
 	public boolean isPrAdd() {
 		return prAdd;
@@ -67,8 +79,24 @@ public class CostsBean {
 	
 	public void setNote(String note) {
 		this.note = note;
-	}
+	}	
 	
+	public String getCurrencySumPlace() {
+		return currencySumPlace;
+	}
+
+	public void setCurrencySumPlace(String currencySumPlace) {
+		this.currencySumPlace = currencySumPlace;
+	}	
+
+	public String getCurrencySum() {
+		return currencySum;
+	}
+
+	public void setCurrencySum(String currencySum) {
+		this.currencySum = currencySum;
+	}
+
 	public void add() {
 		prAdd = true;
 	}
@@ -83,13 +111,15 @@ public class CostsBean {
 		if (costs != null) {
 			price = costs.getPrice();
 			note = costs.getNote();
+			currencyValue = costs.getCurrency().getValue();
 			idUpdatedCosts = idCosts;
 		}
 	}
 	
 	private void setData(Costs costs) {
 		costs.setNote(note);
-		costs.setPrice(price);		
+		costs.setPrice(price);	
+		costs.setCurrency(currencyService.findByValue(currencyValue));
 		if (prAdd) {
 		  CostsList costsList = new CostsList();
 		  costsList.setName(name);
@@ -119,5 +149,20 @@ public class CostsBean {
     	}		
 	}
 	
+	public String getCurrencyValue() {
+		return currencyValue;
+	}
+
+	public void setCurrencyValue(String currency) {
+		this.currencyValue = currency;
+	}	
 	
+	public Float getSumTravelRoute(Integer idTravelRoute) {
+		return costsService.getSumTravelRoute(currencySumPlace, idTravelRoute);
+	}
+	
+	public Float getSum(Integer idProfile) {
+		return costsService.getSum(currencySum, idProfile);
+	}
+
 }

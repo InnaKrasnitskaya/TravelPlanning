@@ -24,7 +24,11 @@ public class Costs {
     
     @ManyToOne
 	@JoinColumn(name="\"IdCostsList\"")
-    private CostsList costsList;    
+    private CostsList costsList;   
+    
+    @ManyToOne
+	@JoinColumn(name="\"IdCurrency\"")
+    private Currency currency;   
     
     @Column(name = "\"Price\"")
     private float price;
@@ -62,6 +66,14 @@ public class Costs {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
 	}
 
 	public String getNote() {

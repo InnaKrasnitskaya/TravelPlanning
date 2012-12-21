@@ -42,4 +42,13 @@ public class CostsServiceImpl implements CostsService {
     	listCosts.add(new Costs()); //reserve place for add data
     	return listCosts;
     }	
+	
+	public Float getSumTravelRoute(String currency, Integer idTravelRoute) {
+		return costsDAO.getSumTravelRoute(currency, idTravelRoute);
+	}
+	
+	public Float getSum(String currency, Integer idProfile) {
+		return costsDAO.getSum(currency, idProfile);
+	}
+
 }
