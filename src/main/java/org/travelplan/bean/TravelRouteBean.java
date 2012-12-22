@@ -13,7 +13,7 @@ import org.travelplan.service.TravelRouteService;
 @Named
 @Scope("session")
 public class TravelRouteBean {
-
+////view-source:http://gmaps-samples.googlecode.com/svn/trunk/streetview/streetview_directions.html
 	@Inject
 	private TravelRouteService travelRouteService;
 	
@@ -29,6 +29,7 @@ public class TravelRouteBean {
 	private float latitude;
 	private float longitude;
 	private String placeName;
+	private boolean routeView; //route view mode
 	
 	public TravelRouteBean() {
 		latitude = 53.9f;
@@ -67,6 +68,14 @@ public class TravelRouteBean {
 		this.placeName = placeName;
 	}
 	
+	public boolean isRouteView() {
+		return routeView;
+	}
+
+	public void setRouteView(boolean routeView) {
+		this.routeView = routeView;
+	}
+
 	private Place getPlace() {
 		Place place = placeService.findByCoordinates(latitude, longitude);
 		if (place == null) {			
@@ -94,4 +103,5 @@ public class TravelRouteBean {
 	public void moveDown(Integer idTravelRoute) {
 		travelRouteService.moveDown(idTravelRoute);
 	}	
+
 }
