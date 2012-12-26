@@ -32,14 +32,19 @@
       var map;
       var directionsDisplay;
     
-      function initialize() {    
-          var mapOptions = {
-                  center: new google.maps.LatLng(#{travelRouteBean.latitude}, #{travelRouteBean.longitude}),
-                  zoom: 13,
-                  mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-
-          map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);      
+      function initialize() {   
+          if (#{travelRouteBean.routeView}) {
+        	  displayRoute();  
+          } 
+          else {
+	          var mapOptions = {
+	                  center: new google.maps.LatLng(#{travelRouteBean.latitude}, #{travelRouteBean.longitude}),
+	                  zoom: 13,
+	                  mapTypeId: google.maps.MapTypeId.ROADMAP
+	                };
+	
+	          map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);      
+          }
           var input = document.getElementById('searchTextField');
           var autocomplete = new google.maps.places.Autocomplete(input);
 
@@ -49,11 +54,9 @@
           var marker = new google.maps.Marker({ map: map });
 
           google.maps.event.addListener(autocomplete, 'place_changed', function() {
-        	  
-        	//if route is exist, disable it  
-        	directionsDisplay.setMap(null);  
-        	//travelRouteBean.setRouteView(false)
-        	//document.getElementById("test").value = myJsValue;
+        	//if route is exist, disable it 
+        	document.getElementById("idRouteView").value = false;   
+        	directionsDisplay.setMap(null);
             infowindow.close();
             marker.setVisible(false);
             input.className = '';
@@ -68,7 +71,7 @@
               map.fitBounds(mapplace.geometry.viewport);
             } else {
               map.setCenter(mapplace.geometry.location);
-              map.setZoom(17);
+              map.setZoom(13);
             }
             
             var image = new google.maps.MarkerImage(
@@ -92,12 +95,7 @@
             infowindow.setContent('<div><strong>' + mapplace.name + '</strong></div>' + address);
             infowindow.open(map, marker);
           });
-
-          autocomplete.setTypes(['geocode']);
-          
-          if (#{travelRouteBean.routeView}) {
-        	  displayRoute();  
-          }            
+          autocomplete.setTypes(['geocode']);                  
       }
       
       google.maps.event.addDomListener(window, 'load', initialize);
@@ -109,18 +107,30 @@
                 };
           
  	     var directionsService = new google.maps.DirectionsService();
+
 	     directionsDisplay = new google.maps.DirectionsRenderer();
 
 	     map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 	     
 	     directionsDisplay.setMap(map);
 	     //directionsDisplay.setPanel(document.getElementById('panel'));
+ 	     var waypts = [];
+ 	     var lat;
+ 	     var lng;
+
+ 	     for (var i = 1; i &lt; 3; i++){
+ 	    	lat = #{travelRouteBean.findByIdProfile().get(i).place.latitude};
+ 	     	lng = #{travelRouteBean.findByIdProfile().get(i).place.longitude};
+ 	     	waypts.push({location:new google.maps.LatLng(lat, lng)});
+ 	     	alert(#{travelRouteBean.getWaypoint()});
+ 	     }	     
 	     var request = {
-	       origin: 'Chicago', 
-	       destination: 'New York',
+	       origin: '#{travelRouteBean.findByIdProfile().get(0).place.name}', 
+	       destination: '#{travelRouteBean.findByIdProfile().get(travelRouteBean.findByIdProfile().size() - 1).place.name}',
+		   waypoints: waypts,
+	       optimizeWaypoints: true,
 	       travelMode: google.maps.DirectionsTravelMode.DRIVING
 	     };
-
 	     directionsService.route(request, function(response, status) {
 	       if (status == google.maps.DirectionsStatus.OK) {
 	         directionsDisplay.setDirections(response);
@@ -132,7 +142,7 @@
 
     <h:body>
     <h:form prependId="false"> 
-      
+        <h:inputHidden id="idRouteView" value="#{travelRouteBean.routeView}"/>
     	<h:panelGrid columns="2" columnClasses="top_column_left, top_column_right"  style="width: 100%">     		  	
       		<h:commandLink action="travel?faces-redirect=true" value="#{messagesSource.getLocaleValue
       			(&quot;navigation.back&quot;, null)}" />
@@ -158,7 +168,7 @@
    		<br />
    			<h:commandButton value="#{messagesSource.getLocaleValue(&quot;travelroute.get.directions&quot;, null)}" 
 				action="#{travelRouteBean.setRouteView(true)}" style="width:200px" /> 
-   		<br />
+   		<br /><br />
 		<rich:dataTable 
 		  id="routeTable"
 		  value="#{travelRouteBean.findByIdProfile()}"

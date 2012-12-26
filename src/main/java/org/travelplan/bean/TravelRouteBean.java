@@ -13,7 +13,7 @@ import org.travelplan.service.TravelRouteService;
 @Named
 @Scope("session")
 public class TravelRouteBean {
-////view-source:http://gmaps-samples.googlecode.com/svn/trunk/streetview/streetview_directions.html
+	//view-source:http://gmaps-samples.googlecode.com/svn/trunk/streetview/streetview_directions.html
 	@Inject
 	private TravelRouteService travelRouteService;
 	
@@ -103,5 +103,11 @@ public class TravelRouteBean {
 	public void moveDown(Integer idTravelRoute) {
 		travelRouteService.moveDown(idTravelRoute);
 	}	
-
+	
+	/*public DirectionsWaypoint getWaypoint() {
+		DirectionsWaypoint waypoint = DirectionsWaypoint.create();
+		waypoint.setLocation("Vitebsk");
+		return waypoint;
+	}*/
+	
 }

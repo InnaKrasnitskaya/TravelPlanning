@@ -294,6 +294,20 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<artifactId>gson</artifactId>
 			<version>2.2.2</version>
 		</dependency> 
+		
+		
+		<!-- <dependency>
+			<groupId>com.google.gwt.google-apis</groupId>
+			<artifactId>gwt-maps-3.8.0</artifactId>
+			<version>3.8.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>2.0.4</version>
+		</dependency> -->
+                     
     </dependencies>
     
   	<build>
