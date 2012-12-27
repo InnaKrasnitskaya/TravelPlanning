@@ -29,6 +29,7 @@ public class TravelRouteBean {
 	private float latitude;
 	private float longitude;
 	private String placeName;
+	private String cityName;
 	private boolean routeView; //route view mode
 	
 	public TravelRouteBean() {
@@ -73,7 +74,18 @@ public class TravelRouteBean {
 	}
 
 	public void setRouteView(boolean routeView) {
-		this.routeView = routeView;
+		  if (findByIdProfile().size() == 0)
+			  this.routeView = false;
+		  else
+			  this.routeView = routeView;
+	}	
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 
 	private Place getPlace() {
@@ -83,6 +95,7 @@ public class TravelRouteBean {
 			place.setLatitude(latitude);
 			place.setLongitude(longitude);
 			place.setName(placeName);
+			place.setCityName(cityName);
 			placeService.add(place);
 		}
 		return place;
@@ -103,6 +116,20 @@ public class TravelRouteBean {
 	public void moveDown(Integer idTravelRoute) {
 		travelRouteService.moveDown(idTravelRoute);
 	}	
+	
+	public String getOrigin() {
+		if (findByIdProfile().size() > 0)
+		  return findByIdProfile().get(0).getPlace().getName();
+		else
+		  return "";
+	}
+	
+	public String getDestination() {
+		if (findByIdProfile().size() > 0)
+		  return findByIdProfile().get(findByIdProfile().size() - 1).getPlace().getName();
+			else
+		  return "";		
+	}
 	
 	/*public DirectionsWaypoint getWaypoint() {
 		DirectionsWaypoint waypoint = DirectionsWaypoint.create();

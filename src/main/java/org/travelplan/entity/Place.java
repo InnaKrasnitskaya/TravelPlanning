@@ -19,6 +19,9 @@ public class Place {
 	@Column(name = "\"Name\"")
     private String name;
 	
+	@Column(name = "\"CityName\"")
+    private String cityName;
+	
 	@Column(name = "\"Latitude\"")
 	private Float latitude;
 	
@@ -41,6 +44,14 @@ public class Place {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 
 	public Float getLatitude() {

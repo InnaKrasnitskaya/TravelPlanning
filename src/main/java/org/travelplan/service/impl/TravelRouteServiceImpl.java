@@ -25,7 +25,12 @@ public class TravelRouteServiceImpl implements TravelRouteService {
     }
     
     public void remove(Integer id) {
-    	travelRouteDAO.remove(id);
+    	try {
+    	  travelRouteDAO.remove(id);
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();  
+    	}
     }
     
     public void update(TravelRoute travelRoute) {

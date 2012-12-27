@@ -75,7 +75,7 @@
 		<rich:tabPanel id="tabTravel" switchType="ajax" rendered="#{not empty travelRouteBean.findByIdProfile()}">
 
 			<c:forEach items="#{travelRouteBean.findByIdProfile()}" var="headCity">
-	        	<rich:tab header="#{headCity.place.name}">	
+	        	<rich:tab header="#{headCity.place.cityName}">	
 	        	
 					<h:panelGrid columns="3"> 					
 						<h:outputText value="#{messagesSource.getLocaleValue(&quot;travel.cost&quot;, null)}" 
