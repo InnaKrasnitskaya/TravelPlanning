@@ -17,6 +17,7 @@
     <res-auth>Container</res-auth>
   </resource-ref>
  
+ <!-- 
   <servlet>
   	<servlet-name>mvc-dispatcher</servlet-name>
         <servlet-class>
@@ -29,10 +30,10 @@
  		<servlet-name>mvc-dispatcher</servlet-name>
         	<url-pattern>/</url-pattern>
 	</servlet-mapping>
-  
+  -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/mvc-dispatcher-servlet.xml,
+		<param-value>/WEB-INF/applicationContext.xml,
 					 /WEB-INF/spring-security.xml
 		</param-value>
 	</context-param>	

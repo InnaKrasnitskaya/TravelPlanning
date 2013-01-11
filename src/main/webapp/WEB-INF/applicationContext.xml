@@ -62,7 +62,7 @@
         </property>
     </bean>
     
-	 <context:component-scan base-package="org.travelplan" /> <!-- .controller -->    
+	 <context:component-scan base-package="org.travelplan" />   
     
     <bean id="transactionManager"
       class="org.springframework.orm.hibernate3.HibernateTransactionManager">
