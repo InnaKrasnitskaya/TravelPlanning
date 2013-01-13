@@ -31,11 +31,11 @@
 	<intercept-url 
 		pattern="/rfRes/*" 
 		filters="none" />		
-			 	
+	<!-- 		 	
   	<intercept-url 
 		pattern="/**" 
 		access="hasRole ( 'ROLE_USER' )" />		
-	 		        
+	  -->		        
 	<form-login 
 		login-processing-url="/j_spring_security_check" 
 		login-page="/pages/login.xhtml"		
