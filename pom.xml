@@ -338,7 +338,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                 	<path>/TravelPlan</path>
         		</configuration>
 			</plugin>
-
+      -->
 		<plugin>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
@@ -367,7 +367,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 		</configuration>
 	 </plugin>
--->		 
+		 
 	 <plugin>
 		<groupId>org.apache.maven.plugins</groupId>
 		<artifactId>maven-compiler-plugin</artifactId>

@@ -69,7 +69,21 @@
 				</f:facet>
     				#{profile.name}
     		</h:column>
- 
+
+    		<h:column>
+    			<f:facet name="header">
+    				#{messagesSource.getLocaleValue("profile.price", null)}
+				</f:facet>
+    				#{profile.price}
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">
+    				#{messagesSource.getLocaleValue("profile.people.count", null)}
+				</f:facet>
+    				#{profile.peopleCount}
+    		</h:column>    		
+    		 
     		<h:column>
     			<f:facet name="header">
     				#{messagesSource.getLocaleValue("profile.date.creation", null)}

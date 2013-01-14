@@ -34,8 +34,18 @@ public class Profile {
 	
     @ManyToOne
 	@JoinColumn(name="\"IdUser\"")
-    private User user;  	
+    private User user; 
+    
+	@Column(name = "\"Price\"")
+    private Float price;
 	
+	@Column(name = "\"PeopleCount\"")
+    private Integer peopleCount;
+
+    @ManyToOne
+	@JoinColumn(name="\"IdCurrency\"")
+    private Currency currency; 
+    
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -84,5 +94,21 @@ public class Profile {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
-	}       
+	}
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	public Integer getPeopleCount() {
+		return peopleCount;
+	}
+
+	public void setPeopleCount(Integer peopleCount) {
+		this.peopleCount = peopleCount;
+	}
 }
