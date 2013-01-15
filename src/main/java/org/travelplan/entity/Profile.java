@@ -111,4 +111,12 @@ public class Profile {
 	public void setPeopleCount(Integer peopleCount) {
 		this.peopleCount = peopleCount;
 	}
+
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
 }
