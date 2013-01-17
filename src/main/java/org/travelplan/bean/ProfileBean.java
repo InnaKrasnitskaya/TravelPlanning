@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.travelplan.constant.Constant;
 import org.travelplan.entity.Profile;
+import org.travelplan.service.CurrencyService;
 import org.travelplan.service.ProfileService;
 import org.travelplan.service.UserService;
 
@@ -21,12 +22,22 @@ public class ProfileBean {
 	private Date endDate;
 	private Integer idProfile;
 	private Profile updatedProfile;
+	private Integer peopleCount;
+	private float price;
+	private String currencyValue;
 
+	@Inject
+	private CurrencyService currencyService;
+	
 	@Inject
 	private ProfileService profileService;
 	
 	@Inject
 	private UserService userService;
+	
+	public ProfileBean() {
+		currencyValue = "USD";
+	}
 	
 	public Integer getIdProfile() {
 		return idProfile;
@@ -55,6 +66,9 @@ public class ProfileBean {
 	private void setData(Profile profile, Boolean isAdd) {
 		profile.setName(name);
 		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
+		profile.setPeopleCount(peopleCount);
+		profile.setPrice(price);
+		profile.setCurrency(currencyService.findByValue(currencyValue));
 		if (isAdd)
 			profile.setCreationDate(new Date());
 		profile.setStartDate(startDate);
@@ -109,5 +123,29 @@ public class ProfileBean {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+
+	public Integer getPeopleCount() {
+		return peopleCount;
+	}
+
+	public void setPeopleCount(Integer peopleCount) {
+		this.peopleCount = peopleCount;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public String getCurrencyValue() {
+		return currencyValue;
+	}
+
+	public void setCurrencyValue(String currencyValue) {
+		this.currencyValue = currencyValue;
+	}	
 		   
 }

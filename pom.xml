@@ -326,19 +326,19 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                 </configuration>
             </plugin>
             
-    <!-- Tomcat maven plugin, create it's own instance of tomcat, not so good as cargo   
+    <!-- Tomcat maven plugin, create it's own instance of tomcat, not so good as cargo-->   
            <plugin>
         		<groupId>org.apache.tomcat.maven</groupId>
         		<artifactId>tomcat7-maven-plugin</artifactId>
         		<version>2.0</version>
-        		<configuration>
+         		<configuration>
                 	<warFile>${project.build.directory}/${project.build.finalName}.war</warFile>
                 	<url>http://localhost:8080/manager/html</url>
                 	<server>TomcatServer</server>
                 	<path>/TravelPlan</path>
-        		</configuration>
+        		</configuration> 
 			</plugin>
-      -->
+      
 		<plugin>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>

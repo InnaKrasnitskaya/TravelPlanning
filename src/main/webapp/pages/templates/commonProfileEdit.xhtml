@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      >
+    <body>
+	    <ui:composition>
+     		<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.add.label&quot;, null)}"/>
+     		<h:inputText id="addProfileLabel" size="20" value="#{profileBean.name}"/>
+			
+			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.people.count&quot;, null)}"/>
+     		<h:inputText id="addPeopleCountLabel" size="20" value="#{profileBean.peopleCount}"/>
+			
+			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.price&quot;, null)}"/>
+     		<h:inputText id="addPriceLabel" size="20" value="#{profileBean.price}"/>
+			
+			<h:selectOneMenu value="#{profileBean.currencyValue}" onchange="submit()">
+				<f:selectItems value="#{currencyServiceImpl.getList()}" var="curSumPlace" 
+			  	  itemLabel="#{curSumPlace.name}" itemValue="#{curSumPlace.value}" />
+			</h:selectOneMenu>	
+						
+			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.period.start&quot;, null)}" />		  		
+		  	<rich:calendar cellWidth="24px" cellHeight="22px" value="#{profileBean.startDate}"
+				datePattern="dd.MM.yyyy" style="width:200px;" popup="true">
+			</rich:calendar>
+			
+			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.period.end&quot;, null)}" />	
+		  	<rich:calendar cellWidth="24px" cellHeight="22px" value="#{profileBean.endDate}"
+				datePattern="dd.MM.yyyy" style="width:200px;" popup="true">
+			</rich:calendar>	
+	    </ui:composition>
+    </body>
+</html>
