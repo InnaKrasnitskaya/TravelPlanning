@@ -9,7 +9,8 @@
       xmlns:ice="http://www.icesoft.com/icefaces/component"
       xmlns:ace="http://www.icefaces.org/icefaces/components"
  	  xmlns:icecore="http://www.icefaces.org/icefaces/core" 
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
     	<h:outputStylesheet name="css/table-style.css"  />
     	<h:outputStylesheet name="css/loginhead-style.css"  />
@@ -39,20 +40,11 @@
 		
 		<!--  Edit profile -->
      	<rich:panel header="#{messagesSource.getLocaleValue(&quot;travel.panel.header&quot;, null)}">
-     	<h:panelGrid columns="7">	
-
-     		<h:outputText  value="#{messagesSource.getLocaleValue(&quot;travel.edit.label&quot;, null)}"/>
-     		<h:inputText id="editProfileLabel" size="20" value="#{profileBean.name}"/>
-			
-			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.period.start&quot;, null)}" />		  		
-		  	<rich:calendar cellWidth="24px" cellHeight="22px" value="#{profileBean.startDate}"
-				datePattern="dd.MM.yyyy" style="width:200px;" popup="true">
-			</rich:calendar>
-			
-			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.period.end&quot;, null)}" />	
-		  	<rich:calendar cellWidth="24px" cellHeight="22px" value="#{profileBean.endDate}"
-				datePattern="dd.MM.yyyy" style="width:200px;" popup="true">
-			</rich:calendar>	
+     	<h:panelGrid columns="7">
+     		
+			<ui:insert name="editProfile" >
+	 	  		<ui:include src="templates/commonProfileEdit.xhtml" />
+	   		</ui:insert>     		
 			
      		<h:commandButton id="editProfile" action="#{profileBean.update}" 
 		  		value="#{messagesSource.getLocaleValue(&quot;travel.save&quot;, null)}" />					

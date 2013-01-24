@@ -96,6 +96,9 @@ public class ProfileBean {
 		this.idProfile = idProfile; 
 		updatedProfile = profileService.findById(idProfile);		
 		name = updatedProfile.getName();
+		peopleCount = updatedProfile.getPeopleCount();
+		price = updatedProfile.getPrice();
+	    currencyValue = updatedProfile.getCurrency().getValue();
 		startDate = updatedProfile.getStartDate();
 		endDate = updatedProfile.getEndDate();
 		return "travel?faces-redirect=true"; //&id=#{profile.idProfile}

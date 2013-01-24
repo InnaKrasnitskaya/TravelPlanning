@@ -27,8 +27,7 @@
      	<!--  Add profile -->
      	<rich:panel header="#{messagesSource.getLocaleValue(&quot;profile.panel.header&quot;, null)}">
      	<h:panelGrid columns="7">	
-			   		
-    		
+			   		    		
     		<ui:insert name="addProfile" >
 	 	  		<ui:include src="templates/commonProfileEdit.xhtml" />
 	   		</ui:insert>
@@ -67,7 +66,7 @@
     			<f:facet name="header">
     				#{messagesSource.getLocaleValue("profile.price", null)}
 				</f:facet>
-    				#{profile.price}
+    				#{profile.price.toString().concat(" ").concat(profile.currency.value)}
     		</h:column>
     		
     		<h:column>
