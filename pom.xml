@@ -17,14 +17,13 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
 
    <repositories>	
-	   <!--   
+	      
 		<repository>  
 	  		<id>prime-repo</id>  
 	  		<name>PrimeFaces Maven Repository</name>  
 	  		<url>http://repository.primefaces.org</url>  
 	  		<layout>default</layout>  
 		</repository>  		
-        -->
         
    		<repository>
       		<id>jboss-public-repository-group</id>
@@ -253,6 +252,18 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <version>3.4.2</version>
         </dependency>
         -->
+        <!-- PrimeFaces -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+        <dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>1.0.8</version>
+		</dependency> 
+		
         <!-- JSR-330 -->
 		<dependency>
 			<groupId>javax.inject</groupId>
