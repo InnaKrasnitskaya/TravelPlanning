@@ -1,7 +1,11 @@
 package org.travelplan.bean;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.event.RowEditEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.travelplan.entity.Costs;
@@ -19,7 +23,6 @@ public class CostsBean {
 	private float price;
 	private String note;
 	private boolean prAdd;
-	private Integer idUpdatedCosts;
 	private String currencyValue;
 	private String currencySumPlace;
 	private String currencySum;
@@ -48,14 +51,6 @@ public class CostsBean {
 	public void setPrAdd(boolean prAdd) {
 		this.prAdd = prAdd;
 	}	
-
-	public Integer getIdUpdatedCosts() {
-		return idUpdatedCosts;
-	}
-
-	public void setIdUpdatedCosts(Integer idUpdatedCosts) {
-		this.idUpdatedCosts = idUpdatedCosts;
-	}
 
 	public String getName() {
 		return name;
@@ -103,17 +98,20 @@ public class CostsBean {
 	
 	public void clear(){
 		prAdd = false;
-		idUpdatedCosts = null;
 	}
 	
-	public void update(Integer idCosts) {
+	public void update(Costs costs) {
+		setData(costs);
+		costsService.update(costs);
+	}
+	
+	public void onBeforeEdit(Integer idCosts) {
 		Costs costs = costsService.findById(idCosts);
 		if (costs != null) {
 			price = costs.getPrice();
 			note = costs.getNote();
 			currencyValue = costs.getCurrency().getValue();
-			idUpdatedCosts = idCosts;
-		}
+		}		
 	}
 	
 	private void setData(Costs costs) {
@@ -136,13 +134,7 @@ public class CostsBean {
     			setData(costs);
     			costsService.add(costs);
     			prAdd = false;    			
-    		} else
-    			if (idUpdatedCosts != null) {
-    				Costs costs = costsService.findById(idUpdatedCosts);
-    				setData(costs);
-    				costsService.update(costs);
-    				idUpdatedCosts = null;
-    			}    		
+    		} 		
     	}
     	catch (DataAccessException e) {
     		e.printStackTrace();    	
@@ -164,5 +156,11 @@ public class CostsBean {
 	public Float getSum(Integer idProfile) {
 		return costsService.getSum(currencySum, idProfile);
 	}
+	
+	public void onEdit(RowEditEvent event) {  
+		update((Costs) event.getObject());
+        FacesMessage msg = new FacesMessage("Costs edited", ((Costs) event.getObject()).getCostsList().getName());   
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    }  
 
 }

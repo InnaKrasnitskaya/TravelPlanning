@@ -18,7 +18,7 @@
     </h:head>
  
     <h:body>
-    <h:form> 
+    <h:form id="travelForm"> 
       <!--   id=<h:outputText value="#{request.getParameter('id')}" /> -->
       <!--  Pass parameter to bean
       <f:viewParam name="id" value="#{travelRou.idProfile}"/> -->
@@ -56,14 +56,19 @@
 		
 		<h:panelGrid columns="3"> 					
 			<h:outputText value="#{messagesSource.getLocaleValue(&quot;travel.cost.common&quot;, null)}" 
-			  style="font-weight:bold;color:#0000CC"/>
+			  			  style="font-weight:bold;color:#0000CC"/>
 			<h:outputText value="#{costsBean.getSum(profileBean.idProfile)}" 
-			  style="font-weight:bold"/>
-			<h:selectOneMenu value="#{costsBean.currencySum}" onchange="submit()">
-			<f:selectItems value="#{currencyServiceImpl.getList()}" var="curSum" 
-			  itemLabel="#{curSum.name}" itemValue="#{curSum.value}" />
+			  			  style="font-weight:bold"/>
+			<h:selectOneMenu value="#{costsBean.currencySum}" 
+							 onchange="submit()">
+			<f:selectItems value="#{currencyServiceImpl.getList()}" 
+						   var="curSum" 
+			  			   itemLabel="#{curSum.name}" 
+			  			   itemValue="#{curSum.value}" />
 			</h:selectOneMenu>						
-		</h:panelGrid>			
+		</h:panelGrid>		
+		
+		<p:growl id="messages" showDetail="true"/>	
 			
 		<p:tabView id="tabTravel" rendered="#{not empty travelRouteBean.findByIdProfile()}"
 								  orientation="top"
@@ -74,82 +79,99 @@
 	        	
 					<h:panelGrid columns="3"> 					
 						<h:outputText value="#{messagesSource.getLocaleValue(&quot;travel.cost&quot;, null)}" 
-						  style="font-weight:bold;color:#0000CC"/>
+						  			  style="font-weight:bold;color:#0000CC"/>
 						<h:outputText value="#{costsBean.getSumTravelRoute(headCity.idTravelRoute)}" 
-						  style="font-weight:bold"/>
-						<h:selectOneMenu value="#{costsBean.currencySumPlace}" onchange="submit()">
-							<f:selectItems value="#{currencyServiceImpl.getList()}" var="curSumPlace" 
-							  itemLabel="#{curSumPlace.name}" itemValue="#{curSumPlace.value}" />
+						  			  style="font-weight:bold"/>
+						<h:selectOneMenu value="#{costsBean.currencySumPlace}" 
+										 onchange="submit()">
+							<f:selectItems value="#{currencyServiceImpl.getList()}" 
+										   var="curSumPlace" 
+							  			   itemLabel="#{curSumPlace.name}" 
+							  			   itemValue="#{curSumPlace.value}" />
 						</h:selectOneMenu>						
 					</h:panelGrid>
-  	  
+  	  				
 					<p:dataTable 
 	    	    		id="Id#{headCity.place.idPlace}" 
 	    	    		rendered="#{not empty costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}"
 	    	    		value="#{costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}" 
 	    	    		var="costsTable" 
-	    	    		style="table-layout: fixed;width: 60%;"
-	    	    		rowIndexVar="rowIndex">	    		
-	
-		        		<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.number&quot;, null)}">
+	    	    		rowIndexVar="rowIndex"
+	    	    		scrollable="true"
+	    	    		resizableColumns="true"
+	    	    		scrollRows="20"
+	    	    		editable="true">	    		
+						
+						<p:ajax event="rowEdit" listener="#{costsBean.onEdit}" update=":travelForm:messages" />
+						
+		        		<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.number&quot;, null)}"
+		        				  width="30"
+		        				  style="text-align: right">
 		                	<h:outputText value = "#{rowIndex+1}" rendered="#{costsTable.idCosts != null 
 		                		or costsBean.prAdd == true}" />		
 		        		</p:column>
 		
-		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.costs&quot;, null)}">
-	                        <h:outputText value="#{costsTable.costsList.name}" 
-		                    	rendered="#{costsTable.idCosts != null}"/>
-		                          
-		                    <h:inputText value="#{costsBean.name}" 
-		                        rendered="#{costsTable.idCosts == null and costsBean.prAdd == true}" />
+		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.costs&quot;, null)}"
+		       					  width="100"
+		       					  sortBy="#{costsTable.costsList.name}">  		       					  
+	                    	<h:outputText value="#{costsTable.costsList.name}" />  		         		 
 		        		</p:column>
 		        		
-		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.price&quot;, null)}">
-	                        <h:outputText value="#{costsTable.price}" 
-		                    	rendered="#{costsTable.idCosts != null and
-		                        costsTable.idCosts != costsBean.idUpdatedCosts}" />
-
-		                    <h:inputText value="#{costsBean.price}"
-		                    	rendered="#{(costsTable.idCosts != null and costsTable.idCosts == costsBean.idUpdatedCosts) 
-		                        or (costsTable.idCosts == null and costsBean.prAdd == true)}" 
-		                        style="text-align:right" />  
+		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.price&quot;, null)}"
+		       					  width="80"
+		       					  sortBy="#{costsTable.price}"
+		       					  style="text-align: right">
+		       				<p:cellEditor>	
+		       					<f:facet name="output">  
+	                        		<h:outputText value="#{costsTable.price}" />
+								</f:facet>
+								
+								<f:facet name="input">
+		                    		<p:inputText value="#{costsBean.price}"
+		                        		 	 style="text-align:right; width:100%;" />
+		                        </f:facet>		 	 
+		                    </p:cellEditor>    		 	   
 		        		</p:column>		
 		        		
-		       			<p:column style="text-align:center" headerText="#{messagesSource.getLocaleValue(&quot;travel.currency&quot;, null)}">
-		                        <h:outputText value="#{costsTable.currency.value}" 
-		                          rendered="#{costsTable.idCosts != null and
-		                          costsTable.idCosts != costsBean.idUpdatedCosts}"  />
-		                          
-								<h:selectOneMenu value="#{costsBean.currencyValue}"
-								  rendered="#{(costsTable.idCosts == null and costsBean.prAdd == true)
-								    or (costsTable.idCosts != null and costsTable.idCosts == costsBean.idUpdatedCosts)}">
+		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.currency&quot;, null)}"
+		       					  style="text-align:center" 
+		       					  width="80" >
+		       				<p:cellEditor>
+		       					<f:facet name="output"> 	  
+		                			<h:outputText value="#{costsTable.currency.value}"  />
+		                        </f:facet>
+		                        
+		                        <f:facet name="input">  
+									<h:selectOneMenu value="#{costsBean.currencyValue}" style="width:100%;">
 									
-									<f:selectItems value="#{currencyServiceImpl.getList()}" var="cur" 
-									  itemLabel="#{cur.name}" itemValue="#{cur.value}" />
-								</h:selectOneMenu>		   		                          
+									<f:selectItems value="#{currencyServiceImpl.getList()}" 
+										   	   	   var="cur" 
+									  	           itemLabel="#{cur.name}" 
+									  	           itemValue="#{cur.value}" />
+									</h:selectOneMenu>	
+								</f:facet>		 
+							</p:cellEditor> 	  		                          
 		        		</p:column>		        				        			        	
 		        		
-		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.note&quot;, null)}">
-		                        <h:outputText value="#{costsTable.note}" 
-		                          rendered="#{costsTable.idCosts != null and
-		                            costsTable.idCosts != costsBean.idUpdatedCosts}" />
-		                            
-		                        <h:inputText value="#{costsBean.note}" 
-		                          rendered="#{(costsTable.idCosts == null and costsBean.prAdd == true)
-		                            or (costsTable.idCosts != null and costsTable.idCosts == costsBean.idUpdatedCosts)}" />		                          
+		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.note&quot;, null)}"
+		       					  width="100">
+		       				<p:cellEditor>	
+		       				    <f:facet name="output">   
+		                			<h:outputText value="#{costsTable.note}" />
+		                        </f:facet>
+		                        
+		                        <f:facet name="input">    
+		                    		<p:inputText value="#{costsBean.note}" style="width:100%" />
+		                    	</f:facet>	
+		                    </p:cellEditor>			                          
 		        		</p:column>	
-		        		
-		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.parameters&quot;, null)}">
-		                
-		                		<h:commandLink action="#{costsBean.update(costsTable.idCosts)}" 
-		                	  	  rendered="#{costsTable.idCosts != null}" 
-		                	  	  value="#{messagesSource.getLocaleValue(&quot;travel.edit.costs&quot;, null)}" />
-		                	  	  
-		                		<h:commandLink rendered="#{costsTable.idCosts != null}" 
-		                		  value="#{messagesSource.getLocaleValue(&quot;travel.delete.costs&quot;, null)}" 
-		                		  action="#{costsServiceImpl.remove(costsTable.idCosts)}" />  
-		                
-		                </p:column>		        			        		        		
+		        				                
+		                <p:column width="35"
+		                		  style="text-align:center">  
+            				<p:rowEditor>  
+            					<p:ajaxStatus oncomplete="#{costsBean.onBeforeEdit(costsTable.idCosts)}" />
+            				</p:rowEditor>
+        				</p:column>	        			        		        		
 		        		        	
 			       	</p:dataTable>
 			       		        	          	
