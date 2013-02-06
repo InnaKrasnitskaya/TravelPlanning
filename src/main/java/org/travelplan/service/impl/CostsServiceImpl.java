@@ -38,9 +38,7 @@ public class CostsServiceImpl implements CostsService {
     }
 
 	public List<Costs> findByTravelRoute(Integer idTravelRoute) {
-    	List<Costs> listCosts = costsDAO.findByTravelRoute(idTravelRoute);
-    	listCosts.add(new Costs()); //reserve place for add data
-    	return listCosts;
+		return costsDAO.findByTravelRoute(idTravelRoute); 	
     }	
 	
 	public Float getSumTravelRoute(String currency, Integer idTravelRoute) {

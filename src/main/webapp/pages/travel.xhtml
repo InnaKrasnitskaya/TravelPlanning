@@ -103,12 +103,12 @@
 	    	    		editable="true">	    		
 						
 						<p:ajax event="rowEdit" listener="#{costsBean.onEdit}" update=":travelForm:messages" />
+						<p:ajax event="rowEditCancel" listener="#{costsBean.onEditCancel}" update=":travelForm:messages" />
 						
 		        		<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.number&quot;, null)}"
 		        				  width="30"
 		        				  style="text-align: right">
-		                	<h:outputText value = "#{rowIndex+1}" rendered="#{costsTable.idCosts != null 
-		                		or costsBean.prAdd == true}" />		
+		                	<h:outputText value = "#{rowIndex+1}" />		
 		        		</p:column>
 		
 		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.costs&quot;, null)}"
@@ -127,7 +127,7 @@
 								</f:facet>
 								
 								<f:facet name="input">
-		                    		<p:inputText value="#{costsBean.price}"
+		                    		<p:inputText value="#{costsBean.costs.price}"
 		                        		 	 style="text-align:right; width:100%;" />
 		                        </f:facet>		 	 
 		                    </p:cellEditor>    		 	   
@@ -135,7 +135,7 @@
 		        		
 		       			<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.currency&quot;, null)}"
 		       					  style="text-align:center" 
-		       					  width="80" >
+		       					  width="120" >
 		       				<p:cellEditor>
 		       					<f:facet name="output"> 	  
 		                			<h:outputText value="#{costsTable.currency.value}"  />
@@ -144,7 +144,7 @@
 		                        <f:facet name="input">  
 									<h:selectOneMenu value="#{costsBean.currencyValue}" style="width:100%;">
 									
-									<f:selectItems value="#{currencyServiceImpl.getList()}" 
+										<f:selectItems value="#{currencyServiceImpl.getList()}" 
 										   	   	   var="cur" 
 									  	           itemLabel="#{cur.name}" 
 									  	           itemValue="#{cur.value}" />
@@ -161,7 +161,7 @@
 		                        </f:facet>
 		                        
 		                        <f:facet name="input">    
-		                    		<p:inputText value="#{costsBean.note}" style="width:100%" />
+		                    		<p:inputText value="#{costsBean.costs.note}" style="width:100%" />
 		                    	</f:facet>	
 		                    </p:cellEditor>			                          
 		        		</p:column>	
@@ -171,14 +171,53 @@
             				<p:rowEditor>  
             					<p:ajaxStatus oncomplete="#{costsBean.onBeforeEdit(costsTable.idCosts)}" />
             				</p:rowEditor>
-        				</p:column>	        			        		        		
+        				</p:column>	 
+        				
+        				<f:facet name="footer">  
+							<p:commandButton 
+							    id="IdNew#{headCity.place.idPlace}" 
+								icon="ui-icon-circle-plus" 
+								value="#{messagesSource.getLocaleValue(&quot;common.add&quot;, null)}" 
+								actionListener="#{costsBean.newData()}" 
+								update=":travelForm:messages" 
+								oncomplete="addDialog.show()"/>  
+						</f:facet>		     			        		        		
 		        		        	
 			       	</p:dataTable>
 			       		        	          	
 	       		</p:tab>
 	        </c:forEach>
-	    </p:tabView>	
+	    </p:tabView>							
 
+	    <p:dialog header="Введите данные" modal="true" widgetVar="addDialog" resizable="false">
+				<h:panelGrid id="detailGrid" columns="2" style="margin-bottom:10px">
+					<h:outputLabel for="costs" value="#{messagesSource.getLocaleValue(&quot;travel.costs&quot;, null)}" />
+					<p:inputText id="costs" value="#{costsBean.costsList.name}"/>
+									
+					<h:outputLabel for="priceLabel" value="#{messagesSource.getLocaleValue(&quot;travel.price&quot;, null)}" />
+					<p:inputText id="priceLabel" value="#{costsBean.costs.price}"/>			
+					
+					<h:outputLabel for="currency" value="#{messagesSource.getLocaleValue(&quot;travel.currency&quot;, null)}" />
+					<h:selectOneMenu id="currency" value="#{costsBean.currencyValue}">
+						<f:selectItems value="#{currencyServiceImpl.getList()}" 
+									   var="cur" 
+									   itemLabel="#{cur.name}" 
+									   itemValue="#{cur.value}" />
+					</h:selectOneMenu>	
+					
+					<h:outputLabel for="note" value="#{messagesSource.getLocaleValue(&quot;travel.note&quot;, null)}" />
+					<p:inputText id="note" value="#{costsBean.costs.note}"/>																										
+				</h:panelGrid>
+				
+				<p:commandButton 
+					id="submitButton"
+					icon="ui-icon-disk" 
+					value="#{messagesSource.getLocaleValue(&quot;common.save&quot;, null)}" 
+					actionListener="#{costsBean.add}" 
+					update=":travelForm:messages, tabTravel" 
+					oncomplete="addDialog.hide()"/>
+		</p:dialog>	
+		    
     </h:form>
     </h:body>
 </html>         
