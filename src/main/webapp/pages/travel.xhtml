@@ -100,11 +100,13 @@
 	    	    		scrollable="true"
 	    	    		resizableColumns="true"
 	    	    		scrollRows="20"
-	    	    		editable="true">	    		
+	    	    		editable="true"
+	    	    		rowKey="#{costsTable.idCosts}"
+	    	    		selection="#{costsBean.costs}" selectionMode="single">	    		
 						
-						<p:ajax event="rowEdit" listener="#{costsBean.onEdit}" update=":travelForm:messages" />
+						<p:ajax event="rowEdit" listener="#{costsBean.onEdit}" update=":travelForm:messages"  />
 						<p:ajax event="rowEditCancel" listener="#{costsBean.onEditCancel}" update=":travelForm:messages" />
-						
+               			
 		        		<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.number&quot;, null)}"
 		        				  width="30"
 		        				  style="text-align: right">
@@ -166,11 +168,8 @@
 		                    </p:cellEditor>			                          
 		        		</p:column>	
 		        				                
-		                <p:column width="35"
-		                		  style="text-align:center">  
-            				<p:rowEditor>  
-            					<p:ajaxStatus oncomplete="#{costsBean.onBeforeEdit(costsTable.idCosts)}" />
-            				</p:rowEditor>
+		                <p:column width="35" >  								
+							<p:rowEditor />
         				</p:column>	 
         				
         				<f:facet name="footer">  

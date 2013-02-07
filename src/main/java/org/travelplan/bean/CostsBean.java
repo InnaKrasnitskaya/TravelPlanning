@@ -24,7 +24,7 @@ public class CostsBean {
 	private String currencySum;
 	private Costs costs;
 	private CostsList costsList;
-		
+
 	@Inject
 	private CostsService costsService;
 	
@@ -64,6 +64,10 @@ public class CostsBean {
 		return costs;	
 	}
 	
+	public void setCosts(Costs costs) {
+		this.costs = costs; 
+	}
+	
 	public CostsList getCostsList() {
 		if (costsList == null)
 			costsList = new CostsList();
@@ -73,13 +77,6 @@ public class CostsBean {
 	public void update(Costs costs) {
 		costs.setCurrency(currencyService.findByValue(currencyValue));
 		costsService.update(costs);
-	}
-	
-	public void onBeforeEdit(Integer idCosts) {
-		costs = costsService.findById(idCosts);
-		if (costs != null) {
-			currencyValue = costs.getCurrency().getValue();
-		}		
 	}
 	
 	public void newData(ActionEvent actionEvent){
@@ -92,7 +89,8 @@ public class CostsBean {
 		costs.setCostsList(costsList);
 		costs.setCurrency(currencyService.findByValue(currencyValue));
 		costsService.add(costs);		
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("", "Запись сохранена"));
+		FacesContext.getCurrentInstance().addMessage(null, 
+				new FacesMessage("", "Запись сохранена"));
 	}
 	
 	public String getCurrencyValue() {
@@ -113,12 +111,21 @@ public class CostsBean {
 	
 	public void onEdit(RowEditEvent event) {  
 		update((Costs) event.getObject());
-        FacesMessage msg = new FacesMessage("Costs edited", ((Costs) event.getObject()).getCostsList().getName());   
+        FacesMessage msg = new FacesMessage("Costs edited", 
+        		((Costs) event.getObject()).getCostsList().getName());   
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     }  
 	
 	public void onEditCancel(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Costs cancelled", ((Costs) event.getObject()).getCostsList().getName());    
+        FacesMessage msg = new FacesMessage("Costs cancelled", 
+        		((Costs) event.getObject()).getCostsList().getName());    
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     } 
+	
+	public void onBeforeEdit(Integer idCosts) {
+		//costs = costsService.findById(idCosts);
+		if (costs != null) {
+			currencyValue = costs.getCurrency().getValue();
+		}		
+	}
 }
