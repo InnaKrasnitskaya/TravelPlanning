@@ -41,6 +41,11 @@ public class CostsBean {
 		currencySumPlace = "USD"; //default value
 		currencySum = "USD";
 	}
+	
+	private void update(Costs costs) {
+		costs.setCurrency(currencyService.findByValue(currencyValue));
+		costsService.update(costs);
+	}
 
 	public String getCurrencySumPlace() {
 		return currencySumPlace;
@@ -66,6 +71,7 @@ public class CostsBean {
 	
 	public void setCosts(Costs costs) {
 		this.costs = costs; 
+		currencyValue = costs.getCurrency().getValue();
 	}
 	
 	public CostsList getCostsList() {
@@ -73,11 +79,6 @@ public class CostsBean {
 			costsList = new CostsList();
 		return costsList;	
 	}	
-	
-	public void update(Costs costs) {
-		costs.setCurrency(currencyService.findByValue(currencyValue));
-		costsService.update(costs);
-	}
 	
 	public void newData(ActionEvent actionEvent){
 		costs = new Costs();
@@ -110,7 +111,7 @@ public class CostsBean {
 	}
 	
 	public void onEdit(RowEditEvent event) {  
-		update((Costs) event.getObject());
+		update(costs);
         FacesMessage msg = new FacesMessage("Costs edited", 
         		((Costs) event.getObject()).getCostsList().getName());   
         FacesContext.getCurrentInstance().addMessage(null, msg);  
@@ -121,11 +122,4 @@ public class CostsBean {
         		((Costs) event.getObject()).getCostsList().getName());    
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     } 
-	
-	public void onBeforeEdit(Integer idCosts) {
-		//costs = costsService.findById(idCosts);
-		if (costs != null) {
-			currencyValue = costs.getCurrency().getValue();
-		}		
-	}
 }
