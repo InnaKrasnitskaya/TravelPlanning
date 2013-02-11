@@ -15,8 +15,7 @@ public class CostsListDAOImpl extends CommonDAOImpl<CostsList> implements CostsL
 	}
 
 	public Integer getId(String name) {
-		return (Integer)getSession().createCriteria(CostsList.class).
-				add(Restrictions.eq("name", name)).list().get(0);
+		return ((CostsList)getSession().createCriteria(CostsList.class).
+				add(Restrictions.eq("name", name)).list().get(0)).getIdCostsList();
 	}
-
 }

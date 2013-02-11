@@ -1,12 +1,13 @@
 package org.travelplan.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.primefaces.event.RowEditEvent;
 import org.springframework.context.annotation.Scope;
 import org.travelplan.entity.Costs;
 import org.travelplan.entity.CostsList;
@@ -22,8 +23,10 @@ public class CostsBean {
 	private String currencyValue;
 	private String currencySumPlace;
 	private String currencySum;
-	private Costs costs;
-	private CostsList costsList;
+	private Costs selectedCosts;
+	private CostsList selectedCostsList;
+	private boolean addingData; 
+	private int idTravelRoute;
 
 	@Inject
 	private CostsService costsService;
@@ -40,11 +43,6 @@ public class CostsBean {
 	public CostsBean() {
 		currencySumPlace = "USD"; //default value
 		currencySum = "USD";
-	}
-	
-	private void update(Costs costs) {
-		costs.setCurrency(currencyService.findByValue(currencyValue));
-		costsService.update(costs);
 	}
 
 	public String getCurrencySumPlace() {
@@ -63,37 +61,59 @@ public class CostsBean {
 		this.currencySum = currencySum;
 	}
 	
-	public Costs getCosts() {
-		if (costs == null)
-			costs = new Costs();
-		return costs;	
+	public Costs getSelectedCosts() {
+		if (selectedCosts == null)
+			selectedCosts = new Costs();
+		return selectedCosts;	
 	}
 	
-	public void setCosts(Costs costs) {
-		this.costs = costs; 
-		currencyValue = costs.getCurrency().getValue();
+	public void setSelectedCosts(Costs selectedCosts) {
+		this.selectedCosts = selectedCosts; 
+		//currencyValue = "USD"; //selectedCostsList.getCurrency().getValue();
 	}
 	
-	public CostsList getCostsList() {
-		if (costsList == null)
-			costsList = new CostsList();
-		return costsList;	
+	public CostsList getSelectedCostsList() {
+		if (selectedCostsList == null)
+			selectedCostsList = new CostsList();
+		return selectedCostsList;	
 	}	
 	
-	public void newData(ActionEvent actionEvent){
-		costs = new Costs();
+	public void newData(int idTravelRoute){
+		addingData = true;
+		selectedCosts = new Costs();
+		this.idTravelRoute = idTravelRoute; 
 	}	
 	
-	public void add(ActionEvent actionEvent) {
-		costs.setTravelRoute(travelRoute.findById(69));
-		costsListService.add(costsList);
-		costs.setCostsList(costsList);
-		costs.setCurrency(currencyService.findByValue(currencyValue));
-		costsService.add(costs);		
+	public List<String> getCostsNameList() {
+		List<String> costsNameList = new ArrayList<String>();
+		for (int i = 0; i < costsListService.getList().size(); i++)
+			costsNameList.add(costsListService.getList().get(i).getName());
+		return costsNameList;
+	}
+	
+	public void saveCosts(ActionEvent actionEvent) {
+		if (addingData)
+			selectedCosts.setTravelRoute(travelRoute.findById(idTravelRoute));			
+
+		Integer idCostsList = costsListService.getId(selectedCostsList.getName());
+		if (idCostsList == null) {
+			costsListService.add(selectedCostsList);
+			selectedCosts.setCostsList(selectedCostsList);
+		} else
+			selectedCosts.setCostsList(costsListService.findById(idCostsList));
+		
+		selectedCosts.setCurrency(currencyService.findByValue(currencyValue));
+		
+		if (addingData)
+			costsService.add(selectedCosts);	
+		else 
+			costsService.update(selectedCosts);
+
+		addingData = false;
 		FacesContext.getCurrentInstance().addMessage(null, 
 				new FacesMessage("", "Запись сохранена"));
 	}
-	
+		
 	public String getCurrencyValue() {
 		return currencyValue;
 	}
@@ -109,17 +129,4 @@ public class CostsBean {
 	public Float getSum(Integer idProfile) {
 		return costsService.getSum(currencySum, idProfile);
 	}
-	
-	public void onEdit(RowEditEvent event) {  
-		update(costs);
-        FacesMessage msg = new FacesMessage("Costs edited", 
-        		((Costs) event.getObject()).getCostsList().getName());   
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }  
-	
-	public void onEditCancel(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Costs cancelled", 
-        		((Costs) event.getObject()).getCostsList().getName());    
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    } 
 }
