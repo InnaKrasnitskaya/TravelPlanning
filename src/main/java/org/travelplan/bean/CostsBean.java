@@ -79,6 +79,13 @@ public class CostsBean {
 		this.idTravelRoute = idTravelRoute; 
 	}	
 	
+	public void deleteData(ActionEvent actionEvent) {
+		costsService.remove(selectedCosts.getIdCosts());
+		
+		FacesContext.getCurrentInstance().addMessage(null, 
+				new FacesMessage("", "Запись удалена"));
+	}
+	
 	public List<String> getCostsNameList() {
 		List<String> costsNameList = new ArrayList<String>();
 		for (int i = 0; i < costsListService.getList().size(); i++)

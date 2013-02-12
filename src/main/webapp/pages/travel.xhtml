@@ -152,6 +152,14 @@
 								update=":travelForm:detailGrid" 
 								oncomplete="addDialog.show()">
 							</p:commandButton> 	
+							
+							<p:commandButton 
+							    id="IdDel#{headCity.idTravelRoute}" 
+								icon="ui-icon-circle-minus" 
+								value="#{messagesSource.getLocaleValue(&quot;common.delete&quot;, null)}" 
+								actionListener="#{costsBean.deleteData}" 
+								update=":travelForm:messages, tabTravel">
+							</p:commandButton> 	
 								 
 						</f:facet>		     			        		        		
 		        		        	
