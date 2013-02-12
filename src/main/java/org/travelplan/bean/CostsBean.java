@@ -11,6 +11,7 @@ import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 import org.travelplan.entity.Costs;
 import org.travelplan.entity.CostsList;
+import org.travelplan.entity.Currency;
 import org.travelplan.service.CostsListService;
 import org.travelplan.service.CostsService;
 import org.travelplan.service.CurrencyService;
@@ -20,11 +21,9 @@ import org.travelplan.service.TravelRouteService;
 @Scope("session")
 public class CostsBean {
 		
-	private String currencyValue;
 	private String currencySumPlace;
 	private String currencySum;
 	private Costs selectedCosts;
-	private CostsList selectedCostsList;
 	private boolean addingData; 
 	private int idTravelRoute;
 
@@ -62,25 +61,21 @@ public class CostsBean {
 	}
 	
 	public Costs getSelectedCosts() {
-		if (selectedCosts == null)
+		if (selectedCosts == null) {
 			selectedCosts = new Costs();
+			selectedCosts.setCostsList(new CostsList());
+			selectedCosts.setCurrency(new Currency());
+		}
 		return selectedCosts;	
 	}
 	
 	public void setSelectedCosts(Costs selectedCosts) {
 		this.selectedCosts = selectedCosts; 
-		//currencyValue = "USD"; //selectedCostsList.getCurrency().getValue();
 	}
-	
-	public CostsList getSelectedCostsList() {
-		if (selectedCostsList == null)
-			selectedCostsList = new CostsList();
-		return selectedCostsList;	
-	}	
 	
 	public void newData(int idTravelRoute){
 		addingData = true;
-		selectedCosts = new Costs();
+		selectedCosts = null;
 		this.idTravelRoute = idTravelRoute; 
 	}	
 	
@@ -92,35 +87,26 @@ public class CostsBean {
 	}
 	
 	public void saveCosts(ActionEvent actionEvent) {
-		if (addingData)
-			selectedCosts.setTravelRoute(travelRoute.findById(idTravelRoute));			
-
-		Integer idCostsList = costsListService.getId(selectedCostsList.getName());
+		Integer idCostsList = costsListService.getId(selectedCosts.getCostsList().getName());
 		if (idCostsList == null) {
-			costsListService.add(selectedCostsList);
-			selectedCosts.setCostsList(selectedCostsList);
+			costsListService.add(selectedCosts.getCostsList());
+			selectedCosts.setCostsList(selectedCosts.getCostsList());
 		} else
 			selectedCosts.setCostsList(costsListService.findById(idCostsList));
 		
-		selectedCosts.setCurrency(currencyService.findByValue(currencyValue));
+		selectedCosts.setCurrency(currencyService.findByValue(selectedCosts.getCurrency().getValue()));
 		
-		if (addingData)
-			costsService.add(selectedCosts);	
+		if (addingData) {
+			selectedCosts.setTravelRoute(travelRoute.findById(idTravelRoute));		
+			costsService.add(selectedCosts);
+		}
 		else 
 			costsService.update(selectedCosts);
 
 		addingData = false;
 		FacesContext.getCurrentInstance().addMessage(null, 
 				new FacesMessage("", "Запись сохранена"));
-	}
-		
-	public String getCurrencyValue() {
-		return currencyValue;
-	}
-
-	public void setCurrencyValue(String currency) {
-		this.currencyValue = currency;
-	}	
+	}		
 	
 	public Float getSumTravelRoute(Integer idTravelRoute) {
 		return costsService.getSumTravelRoute(currencySumPlace, idTravelRoute);

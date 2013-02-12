@@ -92,13 +92,14 @@
 					</h:panelGrid>
   	  				
 					<p:dataTable 
-	    	    		id="Id#{headCity.place.idPlace}" 
+	    	    		id="Id#{headCity.idTravelRoute}" 
 	    	    		value="#{costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}" 
 	    	    		var="costsTable" 
 	    	    		rowIndexVar="rowIndex"
 	    	    		scrollable="true"
 	    	    		resizableColumns="true"
-	    	    		scrollRows="20"
+	    	    		scrollRows="10"
+	    	    		scrollHeight="250"
 	    	    		editable="true"
 	    	    		rowKey="#{costsTable.idCosts}"
 	    	    		selection="#{costsBean.selectedCosts}" selectionMode="single">	    		
@@ -136,22 +137,20 @@
         				
         				<f:facet name="footer">  
 							<p:commandButton 
-							    id="IdNew#{headCity.place.idPlace}" 
+							    id="IdNew#{headCity.idTravelRoute}" 
 								icon="ui-icon-circle-plus" 
 								value="#{messagesSource.getLocaleValue(&quot;common.add&quot;, null)}" 
-								actionListener="#{costsBean.newData(headCity.place.idPlace)}" 
+								actionListener="#{costsBean.newData(headCity.idTravelRoute)}" 
 								update=":travelForm:detailGrid" 
 								oncomplete="addDialog.show()">
 							</p:commandButton>	 
 								
 							<p:commandButton 
-							    id="IdEdit#{headCity.place.idPlace}" 
+							    id="IdEdit#{headCity.idTravelRoute}" 
 								icon="ui-icon-pencil" 
 								value="#{messagesSource.getLocaleValue(&quot;common.edit&quot;, null)}" 
 								update=":travelForm:detailGrid" 
 								oncomplete="addDialog.show()">
-								
-
 							</p:commandButton> 	
 								 
 						</f:facet>		     			        		        		
@@ -166,7 +165,7 @@
 				<h:panelGrid id="detailGrid" columns="2" style="margin-bottom:10px">
 					<h:outputLabel for="costsLabel" value="#{messagesSource.getLocaleValue(&quot;travel.costs&quot;, null)}" />
 					
-					<p:selectOneMenu id="costsLabel" value="#{costsBean.selectedCostsList.name}" 
+					<p:selectOneMenu id="costsLabel" value="#{costsBean.selectedCosts.costsList.name}" 
 									 effect="fold" editable="true">  
             			<f:selectItems value="#{costsBean.costsNameList}" />  
         			</p:selectOneMenu> 
@@ -175,7 +174,7 @@
 					<p:inputText id="priceLabel" value="#{costsBean.selectedCosts.price}"/>			
 					
 					<h:outputLabel for="currencyLabel" value="#{messagesSource.getLocaleValue(&quot;travel.currency&quot;, null)}" />
-					<p:selectOneMenu id="currencyLabel" value="#{costsBean.currencyValue}" effect="fade">
+					<p:selectOneMenu id="currencyLabel" value="#{costsBean.selectedCosts.currency.value}" effect="fade">
 						<f:selectItems value="#{currencyServiceImpl.getList()}" 
 									   var="cur" 
 									   itemLabel="#{cur.name}" 
