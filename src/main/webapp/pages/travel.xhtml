@@ -69,7 +69,7 @@
 		</h:panelGrid>		
 		
 		<p:growl id="messages" showDetail="true"/>	
-			
+								
 		<p:tabView id="tabTravel" rendered="#{not empty travelRouteBean.findByIdProfile()}"
 								  orientation="top"
 								  style="font-size:80%; font-family:Times New Roman, Times, serif;">
@@ -104,7 +104,7 @@
 	    	    		rowKey="#{costsTable.idCosts}"
 	    	    		selection="#{costsBean.selectedCosts}" selectionMode="single">	    		
 
-               			<p:ajax event="rowSelect" update=":travelForm:detailGrid"/>
+               			<p:ajax event="rowSelect" update=":travelForm:detailGrid, IdDel#{headCity.idTravelRoute}"/>
                			       
 		        		<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.number&quot;, null)}"
 		        				  width="30"
@@ -157,8 +157,8 @@
 							    id="IdDel#{headCity.idTravelRoute}" 
 								icon="ui-icon-circle-minus" 
 								value="#{messagesSource.getLocaleValue(&quot;common.delete&quot;, null)}" 
-								actionListener="#{costsBean.deleteData}" 
-								update=":travelForm:messages, Id#{headCity.idTravelRoute}">
+								update=":travelForm:messages, Id#{headCity.idTravelRoute}"
+								oncomplete="#{costsBean.deleteData()}">
 							</p:commandButton> 	
 								 
 						</f:facet>		     			        		        		
