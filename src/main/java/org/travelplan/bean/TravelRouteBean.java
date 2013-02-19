@@ -131,6 +131,10 @@ public class TravelRouteBean {
 		  return "";		
 	}
 	
+	public void remove(Integer id) {
+		travelRouteService.remove(id);
+	}
+	
 	/*public DirectionsWaypoint getWaypoint() {
 		DirectionsWaypoint waypoint = DirectionsWaypoint.create();
 		waypoint.setLocation("Vitebsk");

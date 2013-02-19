@@ -195,7 +195,7 @@
 			    </f:facet>
 			    <h:commandButton value="&lt;" action="#{travelRouteBean.moveUp(travelRoute.idTravelRoute)}" />	
 			    <h:commandButton value="&gt;" action="#{travelRouteBean.moveDown(travelRoute.idTravelRoute)}" />
-				<h:commandButton value="X" action="#{travelRouteServiceImpl.remove(travelRoute.idTravelRoute)}" />			    	  
+				<h:commandButton value="X" action="#{travelRouteBean.remove(travelRoute.idTravelRoute)}" />			    	  
 			 </rich:column>	
 			 
 			 <rich:column id="latitude" style="display:none">

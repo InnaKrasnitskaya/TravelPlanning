@@ -3,14 +3,12 @@ package org.travelplan.service.impl;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
-import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import org.travelplan.dao.CostsDAO;
 import org.travelplan.entity.Costs;
 import org.travelplan.service.CostsService;
 
-@Named
-@Scope("session")
+@Service
 public class CostsServiceImpl implements CostsService {	
 	
 	@Inject

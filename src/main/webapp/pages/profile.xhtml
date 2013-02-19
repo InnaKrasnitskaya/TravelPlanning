@@ -40,19 +40,19 @@
 		
      	<h1> </h1>
  		<h:dataTable 
- 				value="#{profileServiceImpl.getList()}" 
+ 				value="#{profileBean.getList()}" 
  				var="profile"
     			styleClass="order-table"
     			headerClass="order-table-header"
     			rowClasses="order-table-odd-row,order-table-even-row"
     			columnClasses="none,column-left,none,none"
-    			binding="#{profileServiceImpl.dataTable}">
+    			binding="#{profileBean.dataTable}">
  
     		<h:column>
     			<f:facet name="header">
     				#{messagesSource.getLocaleValue("profile.number", null)}
     			</f:facet>
-    				<h:outputText value="#{profileServiceImpl.dataTable.rowIndex + 1}"/>
+    				<h:outputText value="#{profileBean.dataTable.rowIndex + 1}"/>
     		</h:column>
  
     		<h:column>

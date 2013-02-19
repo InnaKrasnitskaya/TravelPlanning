@@ -61,7 +61,7 @@
 			  			  style="font-weight:bold"/>
 			<h:selectOneMenu value="#{costsBean.currencySum}" 
 							 onchange="submit()">
-			<f:selectItems value="#{currencyServiceImpl.getList()}" 
+			<f:selectItems value="#{currencyBean.getList()}" 
 						   var="curSum" 
 			  			   itemLabel="#{curSum.name}" 
 			  			   itemValue="#{curSum.value}" />
@@ -84,7 +84,7 @@
 						  			  style="font-weight:bold"/>
 						<h:selectOneMenu value="#{costsBean.currencySumPlace}" 
 										 onchange="submit()">
-							<f:selectItems value="#{currencyServiceImpl.getList()}" 
+							<f:selectItems value="#{currencyBean.getList()}" 
 										   var="curSumPlace" 
 							  			   itemLabel="#{curSumPlace.name}" 
 							  			   itemValue="#{curSumPlace.value}" />
@@ -93,7 +93,7 @@
   	  				
 					<p:dataTable 
 	    	    		id="Id#{headCity.idTravelRoute}" 
-	    	    		value="#{costsServiceImpl.findByTravelRoute(headCity.idTravelRoute)}" 
+	    	    		value="#{costsBean.findByTravelRoute(headCity.idTravelRoute)}" 
 	    	    		var="costsTable" 
 	    	    		rowIndexVar="rowIndex"
 	    	    		scrollable="true"
@@ -104,7 +104,7 @@
 	    	    		rowKey="#{costsTable.idCosts}"
 	    	    		selection="#{costsBean.selectedCosts}" selectionMode="single">	    		
 
-               			<p:ajax event="rowSelect" update=":travelForm:detailGrid, IdDel#{headCity.idTravelRoute}"/>
+               			<p:ajax event="rowSelect" update=":travelForm:detailGrid"/>
                			       
 		        		<p:column headerText="#{messagesSource.getLocaleValue(&quot;travel.number&quot;, null)}"
 		        				  width="30"
@@ -158,7 +158,7 @@
 								icon="ui-icon-circle-minus" 
 								value="#{messagesSource.getLocaleValue(&quot;common.delete&quot;, null)}" 
 								update=":travelForm:messages, Id#{headCity.idTravelRoute}"
-								oncomplete="#{costsBean.deleteData()}">
+								action="#{costsBean.deleteData}">
 							</p:commandButton> 	
 								 
 						</f:facet>		     			        		        		
@@ -183,7 +183,7 @@
 					
 					<h:outputLabel for="currencyLabel" value="#{messagesSource.getLocaleValue(&quot;travel.currency&quot;, null)}" />
 					<p:selectOneMenu id="currencyLabel" value="#{costsBean.selectedCosts.currency.value}" effect="fade">
-						<f:selectItems value="#{currencyServiceImpl.getList()}" 
+						<f:selectItems value="#{currencyBean.getList()}" 
 									   var="cur" 
 									   itemLabel="#{cur.name}" 
 									   itemValue="#{cur.value}" />
@@ -197,7 +197,7 @@
 					id="submitButton"
 					icon="ui-icon-disk" 
 					value="#{messagesSource.getLocaleValue(&quot;common.save&quot;, null)}" 
-					actionListener="#{costsBean.saveCosts}" 
+					action="#{costsBean.saveCosts}" 
 					update=":travelForm:messages, tabTravel, detailGrid" 
 					oncomplete="addDialog.hide()"/>
 		</p:dialog>	

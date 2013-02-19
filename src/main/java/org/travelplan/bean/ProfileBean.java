@@ -1,6 +1,8 @@
 package org.travelplan.bean;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,6 +19,7 @@ import org.travelplan.service.UserService;
 public class ProfileBean {
 	
 	private String name;
+	//dataTable for getting row number in JSF
 	private HtmlDataTable dataTable;
 	private Date startDate;
 	private Date endDate;
@@ -150,5 +153,8 @@ public class ProfileBean {
 	public void setCurrencyValue(String currencyValue) {
 		this.currencyValue = currencyValue;
 	}	
-		   
+		
+	public List<Profile> getList() {
+		return profileService.getList();
+	}
 }

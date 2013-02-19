@@ -3,14 +3,12 @@ package org.travelplan.service.impl;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
-import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import org.travelplan.dao.TravelRouteDAO;
 import org.travelplan.entity.TravelRoute;
 import org.travelplan.service.TravelRouteService;
 
-@Named
-@Scope("session")
+@Service
 public class TravelRouteServiceImpl implements TravelRouteService {
 	
 	@Inject

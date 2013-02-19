@@ -1,32 +1,17 @@
 package org.travelplan.service.impl;
 
 import java.util.List;
-
-import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Inject;
-import javax.inject.Named;
-import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import org.travelplan.dao.ProfileDAO;
 import org.travelplan.entity.Profile;
 import org.travelplan.service.ProfileService;
 
-@Named
-@Scope("session")
+@Service
 public class ProfileServiceImpl implements ProfileService{
 	
 	@Inject
     private ProfileDAO profileDAO;
-
-	//dataTable for getting row number in JSF
-	private HtmlDataTable dataTable;
-
-    public HtmlDataTable getDataTable() {
-		return dataTable;
-	}
-
-	public void setDataTable(HtmlDataTable dataTable) {
-		this.dataTable = dataTable;
-	}
 
     public List<Profile> getList() {
         return profileDAO.getList(false, "creationDate");

@@ -79,15 +79,15 @@ public class CostsBean {
 		this.idTravelRoute = idTravelRoute; 
 	}	
 	
-	public void deleteData() {
+	public void deleteData() { //ActionEvent actionEvent
 		Integer selectedId = selectedCosts.getIdCosts(); 
-		if (selectedId != null) 
-		  costsService.remove(selectedId);
-		
-		FacesContext.getCurrentInstance().addMessage(null, 
-				new FacesMessage("", "Запись удалена"));		
+		if (selectedId != null) {
+		  costsService.remove(selectedId);		
+		  FacesContext.getCurrentInstance().addMessage(null, 
+		    new FacesMessage("", "Запись удалена"));
+		}
 	}
-	
+		
 	public List<String> getCostsNameList() {
 		List<String> costsNameList = new ArrayList<String>();
 		for (int i = 0; i < costsListService.getList().size(); i++)
@@ -95,7 +95,7 @@ public class CostsBean {
 		return costsNameList;
 	}
 	
-	public void saveCosts(ActionEvent actionEvent) {
+	public void saveCosts() {//ActionEvent actionEvent
 		Integer idCostsList = costsListService.getId(selectedCosts.getCostsList().getName());
 		if (idCostsList == null) {
 			costsListService.add(selectedCosts.getCostsList());
@@ -124,4 +124,8 @@ public class CostsBean {
 	public Float getSum(Integer idProfile) {
 		return costsService.getSum(currencySum, idProfile);
 	}
+	
+	public List<Costs> findByTravelRoute(Integer idTravelRoute) {
+		return costsService.findByTravelRoute(idTravelRoute); 	
+    }	
 }

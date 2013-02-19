@@ -19,7 +19,7 @@
      		<h:inputText id="addPriceLabel" size="20" value="#{profileBean.price}"/>
 			
 			<h:selectOneMenu value="#{profileBean.currencyValue}" onchange="submit()">
-				<f:selectItems value="#{currencyServiceImpl.getList()}" var="curSumPlace" 
+				<f:selectItems value="#{currencyBean.getList()}" var="curSumPlace" 
 			  	  itemLabel="#{curSumPlace.name}" itemValue="#{curSumPlace.value}" />
 			</h:selectOneMenu>	
 						

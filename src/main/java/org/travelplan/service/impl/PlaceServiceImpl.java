@@ -2,14 +2,12 @@ package org.travelplan.service.impl;
 
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Named;
-import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import org.travelplan.dao.PlaceDAO;
 import org.travelplan.entity.Place;
 import org.travelplan.service.PlaceService;
 
-@Named
-@Scope("session")
+@Service
 public class PlaceServiceImpl implements PlaceService {
 
 	@Inject
