@@ -2,7 +2,6 @@ package org.travelplan.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -20,7 +19,9 @@ import org.travelplan.service.TravelRouteService;
 @Named
 @Scope("session")
 public class CostsBean {
-		
+
+	//private static final long serialVersionUID = 1L;
+	
 	private String currencySumPlace;
 	private String currencySum;
 	private Costs selectedCosts;
@@ -79,6 +80,10 @@ public class CostsBean {
 		this.idTravelRoute = idTravelRoute; 
 	}	
 	
+	public void editData(){
+		addingData = false;
+	}	
+	
 	public void deleteData() { //ActionEvent actionEvent
 		Integer selectedId = selectedCosts.getIdCosts(); 
 		if (selectedId != null) {
@@ -95,7 +100,7 @@ public class CostsBean {
 		return costsNameList;
 	}
 	
-	public void saveCosts() {//ActionEvent actionEvent
+	public void saveCosts(ActionEvent actionEvent) {//ActionEvent actionEvent
 		Integer idCostsList = costsListService.getId(selectedCosts.getCostsList().getName());
 		if (idCostsList == null) {
 			costsListService.add(selectedCosts.getCostsList());
@@ -113,8 +118,12 @@ public class CostsBean {
 			costsService.update(selectedCosts);
 
 		addingData = false;
+		//if (selectedCosts.getIdCosts() != null)
 		FacesContext.getCurrentInstance().addMessage(null, 
 				new FacesMessage("", "Запись сохранена"));
+		/*else
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("", "Запись сохранена!!!"));	*/
 	}		
 	
 	public Float getSumTravelRoute(Integer idTravelRoute) {
