@@ -13,7 +13,9 @@ import org.travelplan.service.TravelRouteService;
 @Named
 @Scope("session")
 public class TravelRouteBean {
-	//view-source:http://gmaps-samples.googlecode.com/svn/trunk/streetview/streetview_directions.html
+	//view-source:http://gmaps-samples.googlecode.com/svn/trunk/streetview/streetview_directions.html	
+	private TravelRoute travelRoute;
+	
 	@Inject
 	private TravelRouteService travelRouteService;
 	
@@ -26,17 +28,25 @@ public class TravelRouteBean {
 	@Inject
 	private PlaceService placeService;
 	
-	private float latitude;
-	private float longitude;
-	private String placeName;
-	private String cityName;
 	private boolean routeView; //route view mode
 	
 	public TravelRouteBean() {
-		latitude = 53.9f;
-		longitude = 27.566667f;
+		getTravelRoute().getPlace().setLatitude(53.9f);
+		getTravelRoute().getPlace().setLongitude(27.566667f);
 	}
 	
+	public TravelRoute getTravelRoute() {
+		if (travelRoute == null) {
+		  travelRoute = new TravelRoute();	
+		  travelRoute.setPlace(new Place());		
+		}
+		return travelRoute;
+	}
+
+	public void setTravelRoute(TravelRoute travelRoute) {
+		this.travelRoute = travelRoute;
+	}
+
 	private Integer getIdProfile() {
 		return profileBean.getIdProfile();
 	}	
@@ -44,30 +54,6 @@ public class TravelRouteBean {
 	public List<TravelRoute> findByIdProfile() {
 		return travelRouteService.findByIdProfile(getIdProfile());
 	}	
-	
-	public float getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
-	}
-
-	public float getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
-
-	public String getPlaceName() {
-		return placeName;
-	}
-
-	public void setPlaceName(String placeName) {
-		this.placeName = placeName;
-	}
 	
 	public boolean isRouteView() {
 		return routeView;
@@ -80,31 +66,12 @@ public class TravelRouteBean {
 			  this.routeView = routeView;
 	}	
 
-	public String getCityName() {
-		return cityName;
-	}
-
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
-
-	private Place getPlace() {
-		Place place = placeService.findByCoordinates(latitude, longitude);
-		if (place == null) {			
-			place = new Place();
-			place.setLatitude(latitude);
-			place.setLongitude(longitude);
-			place.setName(placeName);
-			place.setCityName(cityName);
-			placeService.add(place);
-		}
-		return place;
-	}
-
 	public void add() {
-		TravelRoute travelRoute = new TravelRoute();
 		travelRoute.setProfile(profileService.findById(getIdProfile()));
-		travelRoute.setPlace(getPlace());
+		if (placeService.findByCoordinates(travelRoute.getPlace().getLatitude(), 
+				travelRoute.getPlace().getLongitude()) == null) {			
+			placeService.add(travelRoute.getPlace());
+		}
 		travelRoute.setRouteOrder(travelRouteService.getNextOrderNumber(getIdProfile()));
 		travelRouteService.add(travelRoute);
 	}

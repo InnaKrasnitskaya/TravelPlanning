@@ -38,7 +38,7 @@
           } 
           else {
 	          var mapOptions = {
-	                  center: new google.maps.LatLng(#{travelRouteBean.latitude}, #{travelRouteBean.longitude}),
+	                  center: new google.maps.LatLng(#{travelRouteBean.travelRoute.place.latitude}, #{travelRouteBean.travelRoute.place.longitude}),
 	                  zoom: 13,
 	                  mapTypeId: google.maps.MapTypeId.ROADMAP
 	                };
@@ -151,12 +151,12 @@
 		
 		<rich:panel header="#{messagesSource.getLocaleValue(&quot;travelroute.panel.header&quot;, null)}">
 			<h:panelGrid columns="5" >						
-				<h:inputText id="searchTextField" style="width:300px" value="#{travelRouteBean.placeName}" />			
+				<h:inputText id="searchTextField" style="width:300px" value="#{travelRouteBean.travelRoute.place.name}" />			
 				<h:commandButton value="#{messagesSource.getLocaleValue(&quot;common.add&quot;, null)}" 
 					action="#{travelRouteBean.add}" style="width:100px" /> 
-				<h:inputHidden id="edlatitude" style="width:100px" value="#{travelRouteBean.latitude}"/>	
-				<h:inputHidden id="edLongitude" style="width:100px" value="#{travelRouteBean.longitude}"/>
-				<h:inputHidden id="edMapPlaceName" style="width:100px" value="#{travelRouteBean.cityName}"/>
+				<h:inputHidden id="edlatitude" style="width:100px" value="#{travelRouteBean.travelRoute.place.latitude}"/>	
+				<h:inputHidden id="edLongitude" style="width:100px" value="#{travelRouteBean.travelRoute.place.longitude}"/>
+				<h:inputHidden id="edMapPlaceName" style="width:100px" value="#{travelRouteBean.travelRoute.place.cityName}"/>
 	   		</h:panelGrid>
    		</rich:panel>
    		
