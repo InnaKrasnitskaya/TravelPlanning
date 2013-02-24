@@ -1,14 +1,16 @@
 package org.travelplan.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.travelplan.constant.Constant;
+import org.travelplan.entity.Currency;
 import org.travelplan.entity.Profile;
 import org.travelplan.service.CurrencyService;
 import org.travelplan.service.ProfileService;
@@ -16,19 +18,14 @@ import org.travelplan.service.UserService;
 
 @Named
 @Scope("session")
-public class ProfileBean {
+public class ProfileBean  implements Serializable {
 	
-	private String name;
+	private static final long serialVersionUID = 1L;
 	//dataTable for getting row number in JSF
 	private HtmlDataTable dataTable;
-	private Date startDate;
-	private Date endDate;
-	private Integer idProfile;
-	private Profile updatedProfile;
-	private Integer peopleCount;
-	private float price;
-	private String currencyValue;
-
+	private Profile profile;
+	//public static final Logger log = Logger.getLogger(ProfileBean.class);
+	
 	@Inject
 	private CurrencyService currencyService;
 	
@@ -38,50 +35,24 @@ public class ProfileBean {
 	@Inject
 	private UserService userService;
 	
-	public ProfileBean() {
-		currencyValue = "USD";
-	}
-	
-	public Integer getIdProfile() {
-		return idProfile;
-	}
-
-	public void setIdProfile(Integer idProfile) {
-		this.idProfile = idProfile;
-	}	
-
-	public String getName() {
-		return name;
+	public Profile getProfile() {
+		if (profile == null){
+			profile = new Profile();
+			profile.setCurrency(new Currency());
+			profile.setCurrency(currencyService.findByValue("USD"));
+		}	
+		return profile;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}	
-	
-	private void setData(Profile profile, Boolean isAdd) {
-		profile.setName(name);
-		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
-		profile.setPeopleCount(peopleCount);
-		profile.setPrice(price);
-		profile.setCurrency(currencyService.findByValue(currencyValue));
-		if (isAdd)
-			profile.setCreationDate(new Date());
-		profile.setStartDate(startDate);
-		profile.setEndDate(endDate);		
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 	
 	public String add() {
     	try {
-    		Profile profile = new Profile();
-    		setData(profile, true);
+    		profile.setUser(userService.findById(Constant.getIdCurrentUser()));
+    		profile.setCurrency(currencyService.findByValue(profile.getCurrency().getValue()));
+    		profile.setCreationDate(new Date());
     		profileService.add(profile);
     	}
     	catch (DataAccessException e) {
@@ -91,26 +62,16 @@ public class ProfileBean {
 	}
 	
 	public void update() {
-		setData(updatedProfile, false);
-		profileService.update(updatedProfile);		
+		profile.setCurrency(currencyService.findByValue(profile.getCurrency().getValue()));
+		profileService.update(profile);		
 	}
 	
 	public String getTravelPage(Integer idProfile) {
-		this.idProfile = idProfile; 
-		updatedProfile = profileService.findById(idProfile);		
-		name = updatedProfile.getName();
-		peopleCount = updatedProfile.getPeopleCount();
-		price = updatedProfile.getPrice();
-	    currencyValue = updatedProfile.getCurrency().getValue();
-		startDate = updatedProfile.getStartDate();
-		endDate = updatedProfile.getEndDate();
+		profile = profileService.findById(idProfile);		
 		return "travel?faces-redirect=true"; //&id=#{profile.idProfile}
 	}
 	
 	public String clearData() {
-		/*name = "";
-		startDate = null;
-		endDate = null;	*/	
 		return "profile?faces-redirect=true";
 	}
 	
@@ -121,40 +82,9 @@ public class ProfileBean {
 	public void setDataTable(HtmlDataTable dataTable){  
 		this.dataTable = dataTable;  
 	} 
-	
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Integer getPeopleCount() {
-		return peopleCount;
-	}
-
-	public void setPeopleCount(Integer peopleCount) {
-		this.peopleCount = peopleCount;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
-	public String getCurrencyValue() {
-		return currencyValue;
-	}
-
-	public void setCurrencyValue(String currencyValue) {
-		this.currencyValue = currencyValue;
-	}	
 		
 	public List<Profile> getList() {
+		//log.debug("GETTING PROFILE LIST");
 		return profileService.getList();
 	}
 }

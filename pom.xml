@@ -13,8 +13,8 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<java-version>1.6</java-version>
+		<project.build.sourceEncoding>Cp1251</project.build.sourceEncoding>
 	</properties>
-	
 
    <repositories>	
 	      
@@ -168,6 +168,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	    	<artifactId>hibernate-annotations</artifactId>
 	    	<version>3.4.0.GA</version>
 	    </dependency>
+	    <!--  for bean validation (size, min, max, not null ..) -->
+	    <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.1.Final</version>
+		</dependency>
          
        <!-- Transaction support --> 
        <dependency>
@@ -189,36 +195,18 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<version>9.1-901.jdbc4</version>
 		</dependency>
 		
-		<!-- SLF4j logging implementation (failed without it) -->
+		<!-- SLF4j logging implementation (failed without it) 
+			Will force all SLF4J calls to be delegated to log4j-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.6</version>
+			<version>1.5.8</version>
 		</dependency>	
 		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.mail</groupId>
-					<artifactId>mail</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-			</exclusions>
-			<scope>runtime</scope>
+			<version>1.2.17</version>
 		</dependency>			
 		
 		<!-- Allow to define a new class at runtime and 
@@ -415,6 +403,8 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	</plugin>
     	
 	</plugins>	
+
 </build>
 <packaging>war</packaging>
+  
 </project>

@@ -1,5 +1,6 @@
 package org.travelplan.bean;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -13,8 +14,10 @@ import org.travelplan.messagesource.MessagesSource;
 
 @Named
 @Scope("session")
-public class LanguageBean {
-	
+public class LanguageBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private String localeCode = MessagesSource.getLocale().toString();
 	
 	private static Map<String,Object> countries;

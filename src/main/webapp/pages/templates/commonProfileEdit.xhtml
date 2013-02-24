@@ -10,26 +10,26 @@
     <body>
 	    <ui:composition>
      		<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.add.label&quot;, null)}"/>
-     		<h:inputText id="addProfileLabel" size="20" value="#{profileBean.name}"/>
+     		<h:inputText id="addProfileLabel" size="20" value="#{profileBean.profile.name}"/>
 			
 			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.people.count&quot;, null)}"/>
-     		<h:inputText id="addPeopleCountLabel" size="20" value="#{profileBean.peopleCount}"/>
+     		<h:inputText id="addPeopleCountLabel" size="20" value="#{profileBean.profile.peopleCount}"/>
 			
 			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.price&quot;, null)}"/>
-     		<h:inputText id="addPriceLabel" size="20" value="#{profileBean.price}"/>
+     		<h:inputText id="addPriceLabel" size="20" value="#{profileBean.profile.price}"/>
 			
-			<h:selectOneMenu value="#{profileBean.currencyValue}" onchange="submit()">
+			<h:selectOneMenu value="#{profileBean.profile.currency.value}" onchange="submit()">
 				<f:selectItems value="#{currencyBean.getList()}" var="curSumPlace" 
 			  	  itemLabel="#{curSumPlace.name}" itemValue="#{curSumPlace.value}" />
 			</h:selectOneMenu>	
 						
 			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.period.start&quot;, null)}" />		  		
-		  	<rich:calendar cellWidth="24px" cellHeight="22px" value="#{profileBean.startDate}"
+		  	<rich:calendar cellWidth="24px" cellHeight="22px" value="#{profileBean.profile.startDate}"
 				datePattern="dd.MM.yyyy" style="width:200px;" popup="true">
 			</rich:calendar>
 			
 			<h:outputText  value="#{messagesSource.getLocaleValue(&quot;profile.period.end&quot;, null)}" />	
-		  	<rich:calendar cellWidth="24px" cellHeight="22px" value="#{profileBean.endDate}"
+		  	<rich:calendar cellWidth="24px" cellHeight="22px" value="#{profileBean.profile.endDate}"
 				datePattern="dd.MM.yyyy" style="width:200px;" popup="true">
 			</rich:calendar>	
 	    </ui:composition>

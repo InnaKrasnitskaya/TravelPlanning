@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="cp1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    <!--  xmlns:p="http://primefaces.org/ui" --> 
     <h:head> </h:head>
  	<!--  http://viralpatel.net/blogs/javaserver-faces-jsf-validation-tutorial-error-handling-jsf-validator/  -->
     <h:body>
@@ -15,7 +14,7 @@
       	<h:panelGrid columns="3"> 	
       	  <h:outputText value="#{messagesSource.getLocaleValue(&quot;registration.login&quot;, null)}" />
       	  <h:inputText 
-      	  	id="login" value="#{userBean.name}" size="20" required="true"
+      	  	id="login" value="#{userBean.user.name}" size="20" required="true"
       	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.login&quot;, null)}"
       	  	validator="#{userBean.checkLogin}" > 
       	  </h:inputText>
@@ -24,7 +23,7 @@
           
       	  <h:outputText value="#{messagesSource.getLocaleValue(&quot;registration.password&quot;, null)}" />
       	  <h:inputSecret 
-      	  	id="password" value="#{userBean.password}" size="20" required="true" 
+      	  	id="password" value="#{userBean.user.password}" size="20" required="true" 
       	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.password&quot;, null)}" 
       	  	validator="#{userBean.setPassword}" 
       	  	validatorMessage="#{messagesSource.getLocaleValue(&quot;registration.lenght.password&quot;, null)}" > 
@@ -44,15 +43,15 @@
           
           <h:outputText value="Email" />
       	  <h:inputText 
-      	  	id="email" value="#{userBean.email}" size="20" required="true" 
+      	  	id="email" value="#{userBean.user.email}" size="20" required="true" 
       	  	requiredMessage="#{messagesSource.getLocaleValue(&quot;registration.enter.email&quot;, null)}" >
-      	  	<f:validator validatorId="org.travelplan.validator.EmailValidator" />
+      	  	<f:validator validatorId="emailValidator" />
       	  </h:inputText>
       	  
           <h:message for="email" style="color:red" />              
          </h:panelGrid>
          
-		  <h:commandButton id="addUser" value="Ок" action="#{userBean.addUser}"  
+		  <h:commandButton id="addUser" value="РћРє" action="#{userBean.addUser}"  
 		    style="width:100px" />
 		    
           <h:commandButton id="cancelAddUser" immediate="true" value="Cancel" 

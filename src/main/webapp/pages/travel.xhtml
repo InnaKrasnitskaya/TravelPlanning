@@ -57,7 +57,7 @@
 		<h:panelGrid columns="3"> 					
 			<h:outputText value="#{messagesSource.getLocaleValue(&quot;travel.cost.common&quot;, null)}" 
 			  			  style="font-weight:bold;color:#0000CC"/>
-			<h:outputText value="#{costsBean.getSum(profileBean.idProfile)}" 
+			<h:outputText value="#{costsBean.getSum(profileBean.profile.idProfile)}" 
 			  			  style="font-weight:bold"/>
 			<h:selectOneMenu value="#{costsBean.currencySum}" 
 							 onchange="submit()">

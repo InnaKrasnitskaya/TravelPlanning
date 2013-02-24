@@ -1,5 +1,6 @@
 package org.travelplan.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -18,10 +19,9 @@ import org.travelplan.service.TravelRouteService;
 
 @Named
 @Scope("session")
-public class CostsBean {
+public class CostsBean implements Serializable {
 
-	//private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	private String currencySumPlace;
 	private String currencySum;
 	private Costs selectedCosts;

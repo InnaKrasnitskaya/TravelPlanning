@@ -1,5 +1,6 @@
 package org.travelplan.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,7 +13,9 @@ import org.travelplan.service.TravelRouteService;
 
 @Named
 @Scope("session")
-public class TravelRouteBean {
+public class TravelRouteBean  implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	//view-source:http://gmaps-samples.googlecode.com/svn/trunk/streetview/streetview_directions.html	
 	private TravelRoute travelRoute;
 	
@@ -48,7 +51,7 @@ public class TravelRouteBean {
 	}
 
 	private Integer getIdProfile() {
-		return profileBean.getIdProfile();
+		return profileBean.getProfile().getIdProfile();
 	}	
 	
 	public List<TravelRoute> findByIdProfile() {

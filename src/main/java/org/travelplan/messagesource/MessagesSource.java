@@ -1,5 +1,6 @@
 package org.travelplan.messagesource;
 
+import java.io.Serializable;
 import java.util.Locale;
 import javax.inject.Named;
 import org.springframework.context.MessageSource;
@@ -8,8 +9,9 @@ import org.springframework.context.annotation.Scope;
 
 @Named
 @Scope("session") 
-public class MessagesSource implements MessageSourceAware{
+public class MessagesSource implements MessageSourceAware, Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private MessageSource messageSource;
 	private static Locale locale = Locale.getDefault();;
 	

@@ -1,6 +1,8 @@
 package org.travelplan.bean;
 
 import java.io.IOException;
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -20,7 +22,7 @@ import org.springframework.security.web.WebAttributes;
 
 @Named
 @Scope("request")
-public class LoginBean implements PhaseListener {
+public class LoginBean implements PhaseListener, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	protected final Log logger = LogFactory.getLog(getClass());

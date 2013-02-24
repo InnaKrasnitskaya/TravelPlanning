@@ -1,7 +1,9 @@
 package org.travelplan.bean;
 
 //http://www.javacodegeeks.com/2012/04/jsf-2-primefaces-3-spring-3-hibernate-4.html
+
 import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -20,12 +22,10 @@ import org.travelplan.service.UserService;
 
 @Named
 @Scope("session") //JSR-330 standart
-public class UserBean implements Serializable {
-	
+public class UserBean  implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	private String name;
-	private String password;
-	private String email;
+	private User user;
 	private String secondPassword;
 		
 	@Inject
@@ -40,13 +40,18 @@ public class UserBean implements Serializable {
 	@Inject
 	private MessagesSource messagesSource;
 	
+	public User getUser() {
+		if (user == null)
+			user = new User();
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public String addUser() {
     	try {
-    		User user = new User();
-    		user.setName(name);
-    		user.setPassword(password);		
-    		user.setEmail(email);
     		userService.add(user);
     		addUserRole(user, Constant.UserRoles.USER);
     	}
@@ -90,30 +95,6 @@ public class UserBean implements Serializable {
     	}
     }
     
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}    
-    
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}    
-	
 	public String getSecondPassword() {
 		return secondPassword;
 	}
